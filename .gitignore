@@ -1,3 +1,13 @@
+# User
+*.psd
+*.fig
+*.ai
+*.sketch
+*.md
+*.doc
+*.docx
+*.hwp
+
 # General
 .DS_Store
 .AppleDouble
