@@ -12,7 +12,7 @@ JavaScript 프로그래밍 방법을 학습합니다.
 <br />
 <br />
 
-## 스케쥴(SCHEDULES)
+## 스케줄(SCHEDULES)
 
 주차별 학습 주제 및 일정을 확인하세요.
 
