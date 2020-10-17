@@ -1,4 +1,4 @@
-[← JavaScript 주니어 홈](../README.md)
+[← BACK](../README.md)
 
 # TIL
 

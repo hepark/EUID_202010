@@ -1,6 +1,6 @@
-[← 홈](../README.md)
+[← BACK](../README.md)
 
-# JavaScript 주니어(Junior)
+# UI 인터랙션 주니어(Junior)
 
 ECMAScript(JavaScript), DOM API, CSSOM API 등
 JavaScript 프로그래밍 방법을 학습합니다.

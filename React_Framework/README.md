@@ -1,4 +1,4 @@
-[← 홈](../README.md)
+[← BACK](../README.md)
 
 # React 프레임워크(Framework)
 
@@ -24,4 +24,4 @@ React 프로그래밍 방법을 학습합니다.
 
 자신이 학습한 내용을 꾸준하게 매일 기록하세요.
 
-📝 [학습 기록](./TIL/REAMDME.md)
+📝 [학습 기록](./TIL/README.md)

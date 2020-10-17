@@ -1,6 +1,6 @@
-[← React 프레임워크 TIL 홈](../README.md)
+[← BACK](../README.md)
 
-# 재완
+# 한나
 
 오늘 학습한 것을 정리합니다.
 
