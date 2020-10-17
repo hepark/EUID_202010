@@ -41,7 +41,7 @@
 
 <br />
 
-## UI 인터랙션 주니어(Junior)
+## UI 인터랙션 주니어(Interaction Junior)
 
 - [JavaScript 프로그래밍을 시작하는 이들을 위한 학습 프로그램](./UI_Interaction_Junior/README.md)
 - [Front-End Master(영상 강의 사이트)](https://이듬.run/front-end-master)
