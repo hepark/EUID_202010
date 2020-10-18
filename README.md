@@ -1,11 +1,29 @@
-# 이듬(E.UID) 블렌디드 러닝
+# 이듬(E.UID)
 
-**[이듬](https://euid.dev) 블렌디드 러닝** ★ 학습 기간 : `2020.10` — `2020.11`
+**함께 성장하는 바른 교육 [이듬](https://euid.dev)! 블렌디드 러닝** ★ 학습 기간 : `2020.10` — `2020.11`
 
 <br />
 
----
+## <img src="./assets/cover--js-junior.jpg" alt="UI 인터랙션 주니어(Interaction Junior)" />
 
+- [JavaScript 프로그래밍을 시작하는 이들을 위한 학습 프로그램](./UI_Interaction_Junior/README.md)
+- [Front-End Master(영상 강의 사이트)](https://이듬.run/front-end-master)
+- [학습 일정](./UI_Interaction_Junior/lecture/README.md)
+- [학습자 TIL](./UI_Interaction_Junior/TIL/README.md)
+- [질문 / 답변](./UI_Interaction_Junior/QnA/README.md)
+
+<br />
+<br />
+
+## <img src="./assets/cover--react-framework.jpg" alt="React 프레임워크(Framework)" />
+
+- [React 프로그래밍을 익혀 서비스를 개발하려는 이들을 위한 학습 프로그램](./React_Framework/README.md)
+- [React Master(영상 강의 사이트)](https://이듬.run/react-master)
+- [학습 일정](./React_Framework/lecture/README.md)
+- [학습자 TIL](./React_Framework/TIL/README.md)
+- [질문 / 답변](./React_Framework/QnA/README.md)
+
+<br />
 <br />
 
 ## 오프닝 데이
@@ -50,36 +68,3 @@ TIL 작성 제출 및 질문을 남길 경우, 다음과 같은 포멧으로 커
 
 <img src="./assets/example--commit-message.jpg" alt="커밋 메시지 포멧 예시" />
 <br />
-
-<br />
-
----
-
-<br />
-
-## UI 인터랙션 주니어(Interaction Junior)
-
-- [JavaScript 프로그래밍을 시작하는 이들을 위한 학습 프로그램](./UI_Interaction_Junior/README.md)
-- [Front-End Master(영상 강의 사이트)](https://이듬.run/front-end-master)
-- [질문 / 답변](./UI_Interaction_Junior/QnA/README.md)
-
-<br />
-
-<img src="./assets/cover--js-junior.jpg" alt />
-<br />
-
-<br />
-
----
-
-<br />
-
-## React 프레임워크(Framework)
-
-- [React 프로그래밍을 익혀 서비스를 개발하려는 이들을 위한 학습 프로그램](./React_Framework/README.md)
-- [React Master(영상 강의 사이트)](https://이듬.run/react-master)
-- [질문 / 답변](./React_Framework/QnA/README.md)
-
-<br />
-
-<img src="./assets/cover--react-framework.jpg" alt />
