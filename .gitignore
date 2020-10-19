@@ -1,12 +1,5 @@
 # User
-*.psd
-*.fig
-*.ai
-*.sketch
-*.md
-*.doc
-*.docx
-*.hwp
+.schedules
 
 # General
 .DS_Store
