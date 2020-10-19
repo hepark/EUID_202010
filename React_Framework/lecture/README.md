@@ -24,8 +24,8 @@
 <br />
 
 > **NOTE.**<br/>
-> React 프로그래밍은 기본적으로 [ES6+](https://이듬.run/next-javascript/)를 사용합니다.<br />
-> ES6+ 학습이 부족한 분들은 영상 강의를 시청해 사용법을 꼭 역혀주세요!
+> React 프로그래밍은 기본적으로 ES6+를 사용합니다.<br />
+> ES6+ 학습이 부족한 분들은 [영상 강의](https://이듬.run/next-javascript/)를 시청해 사용법을 꼭 익혀주세요!
 
 <br />
 
