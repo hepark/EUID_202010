@@ -2,6 +2,8 @@
 
 **함께 성장하는 바른 교육 [이듬](https://euid.dev)! 블렌디드 러닝** ★ 학습 기간 : `2020.10` — `2020.11`
 
+[→ Go! SLACK](https://euid-hq.slack.com)
+
 <br />
 
 ## <img src="./assets/cover--js-junior.jpg" alt="UI 인터랙션 주니어(Interaction Junior)" />
