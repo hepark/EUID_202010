@@ -19,9 +19,19 @@ JavaScript 프로그래밍 언어 기초 학습을 시작합니다.
 - ☑︎ 함수
 - ☑︎ 문서 객체 접근
 
-### ␥ 월요일
+### ␥ 2일차
 
 <details open>
+  <summary>JavaScript 선언/할당 방법과 인터랙션에 대해 안내합니다.</summary>
+  <br />
+
+  - ☑︎ 선언 / 할당 (14분 22초)
+  - ☑︎ Start! 인터랙션 (5분 31초)
+</details>
+
+### ␥ 1일차
+
+<details>
   <summary>JavaScript를 소개합니다.</summary>
   <br />
 
