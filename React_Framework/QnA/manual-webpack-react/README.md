@@ -473,7 +473,7 @@ body {
   margin: 0;
   font: $base-font-settings;
   background: $base-background-color;
-  color: #101112;
+  color: $base-forground-color;
 }
 ```
 
