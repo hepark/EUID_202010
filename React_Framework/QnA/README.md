@@ -7,6 +7,7 @@
 ## 목차
 
 1. [모듈 번들러의 배경지식은 어느정도 가지고 있어야될까요?](#q1-질문)
+1. [`npm run test`의 용도와 사용법을 간략하게나마 알고 싶습니다.](#q2-질문)
 
 <br />
 
@@ -19,7 +20,7 @@
 모듈 번들러의 배경지식은 어느정도 가지고 있어야될까요?
 React의 경우 Webpack을 기본 모듈러로 쓰고 있는걸로 알고 있는데... 어느정도의 배경지식이 있어야 학습이 원활한지 알고싶습니다.
 
-<details open>
+<details>
   <summary>A1. 답변</summary>
   <br/>
 
@@ -58,3 +59,90 @@ React의 경우 Webpack을 기본 모듈러로 쓰고 있는걸로 알고 있는
 <code>npm run test</code>의 용도와 사용법을 간략하게나마 알고 싶습니다.
 
 
+<details open>
+  <summary>A2. 답변</summary>
+  <br/>
+
+  ### 테스트 명령
+
+  `npm run test` 명령은 React 앱의 특정 코드 영역을 단위 별로 테스트할 때 사용합니다.
+  단위 별로 테스트 하는 것을 "유닛 테스트(unit test)"라고 부릅니다. 컴퓨터 프로그래밍에서 소스 코드의 특정 모듈이 
+  의도된 대로 정확히 작동하는지 검증하는 절차가 필요할 때 작성합니다. 
+  
+  예를들어 함수와 메소드에 대한 테스트 케이스(Test case)를 작성할 수 있습니다. 이를 통해 언제라도 코드 변경으로 인해 문제가 발생할 경우, 
+  단시간 내에 이를 파악하고 바로 잡을 수 있습니다. 이상적인 테스트 케이스는 각각 분리 되어야 합니다.
+
+  아래 이미지는 React 앱(App) 컴포넌트를 유닛 테스트 하는 화면을 보여줍니다.
+
+  <img src="./test-command-react/public/react-unit-test-1.jpg" alt />
+  <br />
+  <br />
+
+  > 🎯 [App.test.js 테스트 코드](./test-command-react/src/App.test.js)를 확인하세요.
+
+  테스트 결과 실패(Failed)한 오류를 해결하기 위해 기대되는 값을 출력하도록 개발 코드를 작성(수정)하면,
+  테스트 결과가 통과(PASS) 상태로 변경되어 모든 테스트를 통과하게 됩니다.
+
+  <img src="./test-command-react/public/react-unit-test-2.jpg" alt />
+  <br />
+  <br />
+
+  살펴본 유닛 테스트는 React와 같은 프레임워크 개발 환경이 아닌 경우에도 사용할 수 있습니다.
+  [Jasmine](https://jasmine.github.io/), [Jest](https://jestjs.io/)와 같은 
+  테스트 러너 라이브러리를 사용해 함수 또는 메서드 등을 테스트 할 수 있습니다.
+
+  ### 함수 테스트 시나리오 예시
+
+  배열의 원소 중, 특정 인덱스를 전달하여 뒤에서 부터 인덱스와 일치하는 원소를 반환하는 함수를 작성하고자 합니다.
+  함수 이름을 설정하고, 전달 받을 매개변수는 설계했으나 아직 함수의 처리 로직은 작성 전입니다.
+
+  ```js
+  function lastIndexOf(list, index) {
+    // 함수 로직 (작성 전)
+  }
+  ```
+
+  함수 로직을 작성하기 전에 테스트 케이스를 작성해 기대되는 값을 설계합니다.
+  예시 코드는 [Jest API](https://jestjs.io/docs/en/getting-started)를 사용했습니다.
+
+  - [공통 매처(Matchers)](https://jestjs.io/docs/en/using-matchers#common-matchers)
+  - [expect()](https://jestjs.io/docs/en/expect#expectvalue)
+  - [toBe()](https://jestjs.io/docs/en/expect#tobevalue)
+
+  ```js
+  // TEST CASE
+  test('Front-End 프레임워크 배열 원소 중, 마지막에서 3번째 인덱스에 해당하는 값은 "React"이다.', () => {
+    const FE_FRAMEWORKS = ['react', 'vue', 'angular'];
+    const lastIndex = 3;
+
+    // Jest API
+    // expect() : https://jestjs.io/docs/en/expect#expectvalue
+    // toBe()   : https://jestjs.io/docs/en/expect#tobevalue
+    expect(lastIndexOf(FE_FRAMEWORKS, lastIndex)).toBe('react');
+  });
+  ```
+
+  작성한 테스트를 실행하면 기대한 값이 나오지 않으므로 오류가 발생합니다.
+
+  ```sh
+  Test Suites: 1 failed, 1 total
+  Tests:       1 failed
+  ```
+
+  이제 기대되는 값이 출력되도록 함수의 처리 로직을 작성합니다.
+
+  ```js
+  function lastIndexOf(list, index) {
+    // 함수 로직 (작성)
+    index = index - 1;
+    return list[list.length - index];
+  }
+  ```
+
+  작성된 처리 로직이 기대되는 값을 출력하면 테스트는 통과(PASS) 됩니다.
+
+  ```sh
+  Test Suites: 1 passed, 1 total
+  Tests:       1 passed
+  ```
+</details>
