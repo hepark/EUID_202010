@@ -1,5 +1,6 @@
 # User
 .schedules
+.parcel-cache
 
 # General
 .DS_Store

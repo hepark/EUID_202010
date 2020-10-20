@@ -1,0 +1,22 @@
+{
+  "name": "manual-parcel-react",
+  "version": "1.0.0",
+  "description": "Parcel 모듈 번들러로 React 시작하기",
+  "scripts": {
+    "start": "parcel serve ./src/index.html",
+    "build": "parcel build ./src/index.html"
+  },
+  "keywords": [
+    "React",
+    "Parcel"
+  ],
+  "author": "이듬 <yamoo9@euid.dev>",
+  "devDependencies": {
+    "parcel": "^2.0.0-nightly.426",
+    "sass": "^1.27.0"
+  },
+  "dependencies": {
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
+  }
+}

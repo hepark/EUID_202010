@@ -1,0 +1,8 @@
+@import "./config";
+
+body {
+  margin: 0;
+  font: $base-font-settings;
+  background: $base-background-color;
+  color: $base-forground-color;
+}

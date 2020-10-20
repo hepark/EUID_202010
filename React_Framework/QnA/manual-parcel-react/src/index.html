@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>React 시작하기</title>
+  <!-- <link rel="stylesheet" href="./css/common.css" /> -->
+  <link rel="stylesheet" href="./scss/common.scss" />
+</head>
+<body>
+  
+  <div id="react"></div>
+
+  <!--
+  [[ 구형/신형 모드를 구분하여 번들링을 수행: Differential Serving ]]
+  -->
+  
+  <!-- .browserslistrc에 설정 된 브라우저를 대상으로 번들 참조를 가져 옴. (번들 크기 큼, 구형 브라우저 대응) -->
+  <script nomodule src="./js/index.js"></script>
+  <!-- ES Module 번들에 대한 참조를 가져 옴. (번들 크기 감소, 최신 브라우저 대응) -->
+  <script type="module" src="./js/index.js"></script>
+
+</body>
+</html>

@@ -1,14 +1,15 @@
 {
-  "name": "manual-settings-react",
+  "name": "manual-webpack-react",
   "version": "1.0.0",
-  "description": "React 시작하기",
+  "description": "Webpack 모듈러 번들러로 React 시작하기",
   "scripts": {
     "start": "webpack --mode=development",
     "build": "webpack --mode=production",
     "dev": "webpack serve"
   },
   "keywords": [
-    "React"
+    "React",
+    "Webpack"
   ],
   "author": "이듬 <yamoo9@euid.dev>",
   "dependencies": {
