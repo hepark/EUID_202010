@@ -11,9 +11,7 @@
 + ES6
 
 <details>
-<summary>
-
-#### [Day 01](./D01.md)
+<summary>[Day 01](./D01.md)
 </summary>
 
 + React 학습에 앞서 공부해야 할 것들!
@@ -23,9 +21,8 @@
 </details>
 
 ---------------------------------------
-
-#### [Day 02](./D02.md)
-</summary>
+<details>
+<summary> [Day 02](./D02.md) </summary>
 
 + React 소개 
 + React 러닝 다이어그램 
