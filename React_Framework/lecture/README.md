@@ -24,14 +24,29 @@
 <br />
 
 > **NOTE.**<br/>
-> React 프로그래밍은 기본적으로 [ES6+](https://이듬.run/next-javascript/)를 사용합니다.<br />
-> ES6+ 학습이 부족한 분들은 영상 강의를 시청해 사용법을 꼭 역혀주세요!
+> React 프로그래밍은 기본적으로 ES6+를 사용합니다.<br />
+> ES6+ 학습이 부족한 분들은 [영상 강의](https://이듬.run/next-javascript/)를 시청해 사용법을 꼭 익혀주세요!
 
 <br />
 
-### ␥ 월요일
+### ␥ 2일차
 
 <details open>
+  <summary>React 컴포넌트 시스템에 대해 알아보고, 프로젝트를 시작하는 방법을 살펴봅니다.</summary>
+  <br />
+
+  - ☑︎ React 소개 (4분 6초)
+  - ☑︎ React 러닝 다이어그램 (3분 44초)
+  - ☑︎ React 컴포넌트와 요소 (5분 25초)
+  - ☑︎ React 컴포넌트 구조 이해 및 활용 (7분 11초)
+  - ☑︎ React 컴포넌트와 전달 속성(props) (6분 48초)
+  - ☑︎ React 프로젝트 생성 with CRA (8분 6초)
+  - ☑︎ React 프로젝트 디렉토리 구조 (9분 56초)
+</details>
+
+### ␥ 1일차
+
+<details>
   <summary>React 학습에 앞서 알고 있어야 할 내용에 대해 알아봅니다.</summary>
   <br />
 
