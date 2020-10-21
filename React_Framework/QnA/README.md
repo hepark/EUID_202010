@@ -146,3 +146,19 @@ React의 경우 Webpack을 기본 모듈러로 쓰고 있는걸로 알고 있는
   Tests:       1 passed
   ```
 </details>
+
+<br/>
+
+---
+
+<br />
+
+## Q3. 질문
+
+prettier의 css,scss 포맷팅 관련 옵션설정은 따로 없나요?
+```css
+body{margin:0;padding:0}
+.container{display:flex;align-items:center;justify-content:center}
+```
+팀프로젝트의 css 작성 컨벤션이 위와 같이 개행하지 않고 빈공간을 허용하지 않는 것으로 정해져 있는데 
+이 컨벤션에 맞게 prettier 옵션을 설정하는 방법을 [playground](https://prettier.io/playground/)와 구글링을 해봐도 못찾겠네요...
