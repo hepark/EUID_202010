@@ -8,6 +8,7 @@
 
 1. [모듈 번들러의 배경지식은 어느정도 가지고 있어야될까요?](#q1-질문)
 1. [`npm run test`의 용도와 사용법을 간략하게나마 알고 싶습니다.](#q2-질문)
+1. [prettier의 css,scss 포맷팅 관련 옵션설정은 따로 없나요?](#q3-질문)
 
 <br />
 
@@ -59,7 +60,7 @@ React의 경우 Webpack을 기본 모듈러로 쓰고 있는걸로 알고 있는
 <code>npm run test</code>의 용도와 사용법을 간략하게나마 알고 싶습니다.
 
 
-<details open>
+<details>
   <summary>A2. 답변</summary>
   <br/>
 
@@ -156,9 +157,90 @@ React의 경우 Webpack을 기본 모듈러로 쓰고 있는걸로 알고 있는
 ## Q3. 질문
 
 prettier의 css,scss 포맷팅 관련 옵션설정은 따로 없나요?
+
 ```css
 body{margin:0;padding:0}
 .container{display:flex;align-items:center;justify-content:center}
 ```
+
 팀프로젝트의 css 작성 컨벤션이 위와 같이 개행하지 않고 빈공간을 허용하지 않는 것으로 정해져 있는데 
 이 컨벤션에 맞게 prettier 옵션을 설정하는 방법을 [playground](https://prettier.io/playground/)와 구글링을 해봐도 못찾겠네요...
+
+<details open>
+  <summary>A3. 답변</summary>
+  <br/>
+
+  Prettier는 CSS, SCSS 포맷팅을 지원하지만 한 줄(oneline) 코드 라인으로 자동 변경하는 옵션은 제공하지 않습니다. 참고로 제가 사용하는 Prettier VS 확장은 [Prettier Now](https://marketplace.visualstudio.com/items?itemName=remimarsal.prettier-now) 입니다.
+
+  *settings.json*
+
+  ```jsonc
+  {
+    "[css]": {
+      "editor.defaultFormatter": "remimarsal.prettier-now",
+      "editor.formatOnSave": true
+    },
+    "[scss]": {
+      "editor.defaultFormatter": "remimarsal.prettier-now",
+      "editor.formatOnSave": true
+    },
+  }
+  ```
+
+  질문 주신 CSS 코딩 컨벤션이 라인을 개행하지 않고, 빈 공간을 허용하지 않는 것으로 정해져 있다고 말씀주셔서 요구하시는 결과를 낼 수 있는 다른 VSCode 확장을 소개할께요.
+
+  ### CSS Compressor
+
+  [CSS Compressor](https://marketplace.visualstudio.com/items?itemName=bestvow.css-compressor) 확장을 설치하면 요구하는 코딩 컨벤션에 맞게 코드를 자동 포맷팅합니다.
+
+  **포맷팅 전** 👀
+
+  ```css
+  .App {
+    text-align: center;
+  }
+
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  ```
+
+  **포맷팅 후** 💥
+
+  ```css
+  .App{text-align:center}
+  .App-logo{height:40vmin;pointer-events:none}
+  @media (prefers-reduced-motion:no-preference){
+  .App-logo{animation:App-logo-spin infinite 20s linear}
+  }
+  @keyframes App-logo-spin{
+  from{transform:rotate(0)}
+  to{transform:rotate(360deg)}
+  }
+  ```
+
+  #### 바로가기 키(단축키) 설정
+
+  확장을 설치한 후 포맷팅하려면, 포맷팅하려는 CSS 파일에서 `CSS Compact` 명령을 실행합니다. 문서에서 안내한 기본 단축키로 실행되지 않거나, 다른 단축키로 변경하려면 바로가기 키를 통해 새로운 단축키를 등록해 사용하세요. 
+  
+  > 사용자 설정 바로가기 키 : `Ctrl` + `Shift` + `F`
+
+  ![](../../assets/css-compact.png)
+
+</details>
