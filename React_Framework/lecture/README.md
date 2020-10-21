@@ -29,9 +29,28 @@
 
 <br />
 
-### ␥ 2일차
+### ␥ 3일차
 
 <details open>
+  <summary>React 개발을 도와줄 VS Code 확장(Extensions)을 소개하고 설치/사용법을 살펴봅니다.</summary>
+  <br />
+
+  - ☑︎ Prettier - Code formatter (9분 49초)
+  - ☑︎ Formatting Toggle (1분 47초)
+  - ☑︎ React Snippets (3분 37초)
+  - ☑︎ React Pure To Class (2분 37초)
+  - ☑︎ Auto Import (2분 50초)
+  - ☑︎ Import Cost (3분 0초)
+  - ☑︎ Auto Complete Tag (1분 49초)
+  - ☑︎ Bracket Pair Colorizer 2 (3분 14초)
+  - ☑︎ Color Highlight & Manager (3분 7초)
+  - ☑︎ Image preview (46초)
+  - ☑︎ Translator (1분 34초)
+</details>
+
+### ␥ 2일차
+
+<details>
   <summary>React 컴포넌트 시스템에 대해 알아보고, 프로젝트를 시작하는 방법을 살펴봅니다.</summary>
   <br />
 
