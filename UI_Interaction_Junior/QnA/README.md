@@ -9,6 +9,8 @@
 1. [JIT 컴파일러는 정확히 무엇이고, 인터프리터와 정확한 차이는 무엇일까요?](#q1-질문)
 1. [함수형 프로그래밍은 객체지향 보다 어떤 장점이 있을까요?](#q2-질문)
 1. [ES6가 가장 안정된 버전이라 현재 사용되고 있는건가요?](#q3-질문)
+1. [304 오류가 나는 이유는 무엇일까요?](#q4-질문)
+1. [래퍼객체의 목적은 원래 코딩에서는 문자열로는 메서드를 상속할 수 없지만, 자바스크립트에서는 원시데이터로도 상속할 수 있는게 목적인가요?](#q5-질문)
 
 <br />
 
@@ -194,3 +196,41 @@ ECMA는 2017년도 2018년도 버전이 계속 나왔는데 ES6가 가장 안정
 ---
 
 <br />
+
+
+
+## Q4. 질문
+<img src='../TIL/재완/img/304오류.png'>
+ `304`로 출력되는 이유는 무엇이고, 304의 정확한 서버측 정의는 무엇인지 궁금합니다.
+ 구글링해보면 modified라고 나오는데 
+ 직관적으로 안와닿습니다:)
+ <br><br>
+
+[304 Not Modified] - 구글링 검색결과 
+
+2.1 Conditional GET Request
+HTTP Get 의 특별한 타입으로 요청 메시지에 다음 필드가 있다면 HTTP Conditional Get 으로 변경한다.
+
+If-Modified-Since
+If-Unmodified-Since
+If-Match
+If-None-Match
+If-Range header fields
+※ 대부분의 브라우저는 HTTP conditional request를 사용하여 자동 캐시 기능을 지원한다.
+
+2.2 304 응답
+클라이언트가 조건부 GET 요청을 실행하고 접근이 허용되었지만 문서가 수정되지 않았다면, 서버는 304 상태코드로 응답한다. 304 응답은 메시지-바디 를 절대 포함하면 안된다. 그래서 이것은 항상 헤더 필드후에 처음 공백라인으로 종료된다.
+
+If the client has performed a conditional GET request and access is allowed, but the document has not been modified, the server SHOULD respond with this status code. The 304 response MUST NOT contain a message-body, and thus is always terminated by the first empty line after the header fields.
+
+만약 304 응답이 현재 캐시되지 않은 엔티티를 지시하면, 캐쉬는 반드시 이 응답을 무시하고 조건없는 요청을 반복해야 한다.
+
+If a 304 response indicates an entity not currently cached, then the cache MUST disregard the response and repeat the request without the conditional.
+
+---
+
+
+
+## Q5. 질문
+
+래퍼객체 목적이 상속이라는 깊은 의견이 있어서 궁금합니다.
