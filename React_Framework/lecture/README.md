@@ -29,9 +29,34 @@
 
 <br />
 
-### ␥ 3일차
+### ␥ 4일차
 
 <details open>
+  <summary>React 렌더링의 핵심인 Virtual DOM과 JSX에 대해 학습합니다.</summary>
+  <!-- <br /> -->
+
+  #### [Virtual DOM 강의, [Youtube]](https://bit.ly/37OYkSI)
+
+  - ☑︎ 환경 설정 (3분 10초)
+  - ☑︎ Real DOM 컨트롤 (1분 13초)
+  - ☑︎ Virtual DOM 컨트롤 (3분 55초)
+  - ☑︎ Virtual DOM Tree 비교 & 패치 (5분 52초)
+  - ☑︎ Virtual DOM 배열 순환 (1분 57초)
+  - ☑︎ Virtual DOM 제거 (4분 20초)
+  - ☑︎ Virtual DOM 추가 (6분 50초)
+
+  #### JSX ➪ React 요소
+
+  - ☑︎ React 요소를 만드는 2가지 방법 (7분 1초)
+  - ☑︎ 가상 DOM이란? (5분 32초)
+  - ☑︎ JSX 코드가 Babel 컴파일러를 만나면? (6분 8초)
+</details>
+
+<br/>
+
+### ␥ 3일차
+
+<details>
   <summary>React 개발을 도와줄 VS Code 확장(Extensions)을 소개하고 설치/사용법을 살펴봅니다.</summary>
   <br />
 
@@ -48,6 +73,8 @@
   - ☑︎ Translator (1분 34초)
 </details>
 
+<br/>
+
 ### ␥ 2일차
 
 <details>
@@ -62,6 +89,8 @@
   - ☑︎ React 프로젝트 생성 with CRA (8분 6초)
   - ☑︎ React 프로젝트 디렉토리 구조 (9분 56초)
 </details>
+
+<br/>
 
 ### ␥ 1일차
 
