@@ -244,3 +244,15 @@ body{margin:0;padding:0}
   ![](../../assets/css-compact.png)
 
 </details>
+
+<br/>
+
+---
+
+<br />
+
+## Q4. 질문
+
+유튜브 강의에 있는 virtual-dom 라이브러리 깃헙에 가보면 react에서 영감을 얻었다고 적어놓은 문구가 있던데
+Virtual DOM 패러다임을 유행시킨건 리액트인가요?
+
