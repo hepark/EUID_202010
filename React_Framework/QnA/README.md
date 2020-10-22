@@ -10,6 +10,7 @@
 1. [`npm run test`의 용도와 사용법을 간략하게나마 알고 싶습니다.](#q2-질문)
 1. [prettier의 css,scss 포맷팅 관련 옵션설정은 따로 없나요?](#q3-질문)
 1. [Virtual DOM 패러다임을 유행시킨 건 리액트인가요?](#q4-질문)
+1. [create-react-app이 ie를 지원하지 않는다는데 어떻게 해결해야 하나요?](#q5-질문)
 
 <br />
 
@@ -292,3 +293,15 @@ body{margin:0;padding:0}
   
   **— 끝 —**
 </details>
+
+<br />
+
+## Q5. 질문
+
+회사에서 create-react-app을 실습해보았는데, IE에서 아예 빈 화면이 나옵니다. <br>
+급 놀라서 구글링 해 보니 IE는 지원 안 한다고... <br>
+해결방법으로 아래 2개를 설치하면 된다는데 전 안 되는 거 같아요.
+```javascript
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
+```
