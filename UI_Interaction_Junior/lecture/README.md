@@ -19,9 +19,20 @@ JavaScript 프로그래밍 언어 기초 학습을 시작합니다.
 - ☑︎ 함수
 - ☑︎ 문서 객체 접근
 
-### ␥ 4일차
+<br/>
+
+### ␥ 5일차
 
 <details open>
+  <summary>JavaScript 함수에 대해 학습합니다.</summary>
+  <br />
+
+  - JavaScript 함수 (10분 17초, 5분 9초, 6분 34초, 6분 2초)
+</details>
+
+### ␥ 4일차
+
+<details>
   <summary>JavaScript 사용에 주의가 필요한 부분 중 변수 이름과 관련된 문제를 알아보고, 문서 객체에 접근하는 방법을 살펴봅니다.</summary>
   <br />
 
