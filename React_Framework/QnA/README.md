@@ -259,7 +259,7 @@ body{margin:0;padding:0}
 
 <br/>
 
-<details open>
+<details>
   <summary>A4. 답변</summary>
 
   ### 새로운 시대의 서막. 두~둥!
@@ -290,18 +290,98 @@ body{margin:0;padding:0}
   React와 Vue.js는 Virtual DOM 시스템을 도구의 핵심 개념으로 소개하고 있으며,
   실제 DOM 조작과 비교하여 어떤 점이 효과적이고, 애플리케이션 개발에 적합한지 기술하고 있습니다.
   Front-End 개발을 대표하는 프레임워크 들의 Virtual DOM은 그렇게 세상에 알려졌습니다. 🐧
-  
-  **— 끝 —**
 </details>
 
 <br />
 
 ## Q5. 질문
 
-회사에서 create-react-app을 실습해보았는데, IE에서 아예 빈 화면이 나옵니다. <br>
-급 놀라서 구글링 해 보니 IE는 지원 안 한다고... <br>
-해결방법으로 아래 2개를 설치하면 된다는데 전 안 되는 거 같아요.
-```javascript
+회사에서 create-react-app을 실습해보았는데, IE에서 아예 빈 화면이 나옵니다.<br/>
+급 놀라서 구글링 해 보니 IE는 지원 안 한다고...
+해결 방법으로 아래 2개를 설치하면 된다는데 전 안 되는 거 같아요.
+
+```js
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 ```
+
+<br/>
+
+<details open>
+  <summary>A5. 답변</summary>
+
+  ### [브라우저 호환성(Supported Browsers)](https://create-react-app.dev/docs/supported-browsers-features#supported-browsers)
+
+  Create React App 공식 문서안내에 따르면 CRA는 IE 9-11을 지원하려면 폴리필 라이브러리를 사용해야 합니다.
+
+  > By default, the generated project supports all modern browsers. 
+  **Support for Internet Explorer 9, 10, and 11 requires polyfills.** 
+  For a set of polyfills to support older browsers, use react-app-polyfill.
+
+  ### [React 앱 폴리필](https://github.com/facebook/create-react-app/blob/master/packages/react-app-polyfill/README.md)
+
+  이 패키지는 Create React App 프로젝트에서 사용하는 최소 요구 사항과 일반적으로 사용되는 언어 기능이 포함되어 있습니다. 
+  예를 들어 아래 나열된 ECMAScript 기술을 사용한 경우, 이를 지원하지 않는 브라우저에서 React 앱이 정상 작동하지 않으므로
+  폴리필 패키지를 설치한 후 호출하면 IE 9-11에서도 CRA 프로젝트가 문제 없이 실행됩니다.
+
+  - `Promise`(`async/await`)
+  - `window.fetch()`
+  - `Object.assign()`
+  - `Symbol`, `for...of` 구문
+  - `Array.from()`
+
+  #### 폴리필 설치
+
+  ```sh
+  $ npm i react-app-polyfill
+  ```
+
+  #### IE 지원 설정
+
+  IE 브라우저 호환성을 위해서는 폴리필을 설치한 후, 엔트리 파일(`src/index.js`)의 첫번째 라인에서 폴리필 라이브러리를 호출해야 합니다.
+
+  *IE 9-11*
+
+  ```js
+  // 반드시 src/index.js의 1번째 라인에 작성해야 함.
+  import 'react-app-polyfill/ie9';
+  ```
+
+  *IE 11*
+
+  ```js
+  // 반드시 src/index.js의 1번째 라인에 작성해야 함.
+  import 'react-app-polyfill/ie11';
+  ```
+
+  #### 기타 언어 기능 폴리필 (Polyfilling other language features)
+
+  대상(target) 브라우저에서 사용할 수 없는 안정적인(stable) 언어 기능을 폴리필 할 수도 있습니다.
+  Create React App 프로젝트에 이 폴리필을 사용할 경우, 정의된 `browserslist`를 확인하여 안정적인 폴리필을 가져올 때 대상 브라우저에 필요한 기능만 포함되도록 처리합니다.
+  애플리케이션에서 Internet Explorer를 지원해야 하는 경우, 앞서 다룬 [IE 지원 설정](#ie-지원-설정)을 참고하세요.
+
+  *IE 9-11*
+
+  ```js
+  // 반드시 src/index.js의 1번째 라인에 작성해야 함.
+  import 'react-app-polyfill/ie9';
+  import 'react-app-polyfill/stable';
+  ```
+
+  *IE 11*
+
+  ```js
+  // 반드시 src/index.js의 1번째 라인에 작성해야 함.
+  import 'react-app-polyfill/ie11';
+  import 'react-app-polyfill/stable';
+  ```
+
+  ### CRA 개발 서버 실행 결과, 빈 화면이 나온다면
+
+  아마도 빌드 과정에서 오류가 발생했을 것이고, Console 패널을 통해 오류 메시지가 출력될 것입니다.
+  오류 메시지 안내에 따라 문제를 진단한 후 해결하면 테스트 환경에서 정상적으로 CRA 앱이 작동될 것이라 생각합니다.
+  앞에서 기술한 [React 앱 폴리필](#react-앱-폴리필)에서 안내한대로 수행했음에도 문제가 지속된다면
+  밋업(MeetUp)을 통해 화면을 공유해주시면 실시간으로 문제를 확인하여 해결 방법에 대해 이야기 할 수 있겠습니다. 🐧
+
+  > 해당 문제를 검토한 후, 답변 글을 업데이트 할 예정입니다.
+</details>
