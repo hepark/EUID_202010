@@ -8,5 +8,5 @@
 - React 소개 및 맛보기! 👉[DAY 02](./D02.md)
 - VS Code 개발 도구 확장 👉[DAY 03](./D03.md)
 - Virtual DOM / React 요소와 JSX 👉[DAY 04](./D04.md)
-- JSX 활용
+- JSX 활용 👉[DAY 05](./D05.md)
 - ES6
