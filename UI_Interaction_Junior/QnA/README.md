@@ -11,7 +11,7 @@
 1. [ES6가 가장 안정된 버전이라 현재 사용되고 있는건가요?](#q3-질문)
 1. [304 오류가 나는 이유는 무엇일까요?](#q4-질문)
 1. [래퍼객체 목적이 상속이라는 깊은 의견이 있어서 궁금합니다.](#q5-질문)
-1. [get과 set이 정확히 이해가 안되는데 구체적 예시는?](#q6-질문)
+1. [함수의 `get`, `set`이 정확히 이해가 안되는데 구체적인 사용 예시를 알려주세요.](#q6-질문)
 
 
 <br />
@@ -21,13 +21,81 @@
 <br />
 
 ## Q6. 질문
-함수 return 반환에서 get과 set이 이해가 안됩니다. 구체적인 예시가 있을까요?
+
+함수의 `get`, `set`이 정확히 이해가 안되는데 구체적인 사용 예시를 알려주세요.
+
+<details open>
+  <summary>A6. 답변</summary>
+  <br/>
+
+  간단한 DOM 스크립트 속성 가져오기(GET), 설정하기(SET) 예시를 살펴보면서
+  함수의 GET, SET 사용 예를 알아보죠. 🐧
+
+  *HTML*
+
+  ```html
+  <img class="tester" src="./tester.jpg" alt="테스터" />
+  ```
+  
+  *JavaScript*
+  
+  ```js
+  var testerNode = document.querySelector('.tester');
+
+  // [GET], 속성 값 가져오기
+  var altValue = testerNode.getAttribute('alt');
+  console.log(altValue); // '테스터'
+
+  // [SET], 속성 값 설정하기
+  testerNode.setAttribute('alt', '테스터(Tester)');
+
+  // [SET → GET], 속성 값 설정 후 설정된 값 가져오기
+  altValue = testerNode.getAttribute('alt');
+  console.log(altValue); // '테스터(Tester)'
+  ```
+
+  살펴봤듯이 HTML 요소 노드의 속성을 통해 값을 가져올 때는 `get` 값을, 
+  설정할 때는 `set` 접두사가 함수(또는 메서드) 이름에 사용됩니다.
+
+  직접 함수를 작성할 경우에도 이러한 이름 작성 패턴이 반영됩니다.
+
+  ```js
+  // CSS 속성 값을 반환하는(가져오는) 함수
+  function getCSS(domNode, property) {
+    return window.getComputedStyle(domNode).getPropertyValue(property);
+  }
+
+  // CSS 속성 값을 설정하는 함수
+  function setCSS(domNode, property, value) {
+    domNode.style[property] = value;
+  }
+  ```
+
+  작성된 함수를 사용하는 코드를 살펴보죠. 속성 값을 반환하는(가져오는) 함수는 결과 값을 기억할 변수에 담을 수 있고,
+  속성 값을 설정하는 함수를 사용하는 경우는 별도로 반환되는 값이 없으므로 변수에 담을 필요가 없습니다.
+
+  ```js
+  var testerNode = document.querySelector('.tester');
+
+  // DOM 요소 노드의 CSS 속성 값 가져오기
+  var widthValue = getCSS(testerNode, 'width');
+  var heightValue = getCSS(testerNode, 'height');
+  console.log(widthValue); // '260px'
+  console.log(heightValue); // '140px'
+
+  // DOM 요소 노드의 CSS 속성 값 설정오기
+  setCSS(testerNode, 'width', '520px');
+  setCSS(testerNode, 'height', '280px');
+  ```
+</details>
+
+<br/>
 
 ## Q5. 질문
 
 래퍼객체의 목적은 원래 코딩에서는 문자열로는 메서드를 상속할 수 없지만, 자바스크립트에서는 원시데이터로도 상속할 수 있는게 목적인가요?
 
-<details open>
+<details>
   <summary>A5. 답변</summary>
   <br/>
 
@@ -147,7 +215,7 @@
 
 `304`로 출력되는 이유는 무엇이고, 304의 정확한 서버측 정의는 무엇인지 궁금합니다.
 
-<details open>
+<details>
   <summary>A4. 답변</summary>
   <br/>
 
