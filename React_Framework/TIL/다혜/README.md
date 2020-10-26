@@ -10,3 +10,15 @@
 - Virtual DOM / React 요소와 JSX 👉[DAY 04](./D04.md)
 - JSX 활용 👉[DAY 05](./D05.md)
 - ES6
+
+---
+
+### [WEEK 02] React 컴포넌트, 이벤트 처리, 컴포넌트 통신, 접근성
+
+- React 함수형, 클래스형 컴포넌트 👉[DAY 06](./D06.md)
+- React 컴포넌트 전달 속성 / 상태 👉[DAY 06](./D06.md)
+- React 컴포넌트 라이프 사이클 훅
+- React 이벤트 핸들링
+- React 컴포넌트 통신
+- React Context API
+- React 접근성(A11Y)
