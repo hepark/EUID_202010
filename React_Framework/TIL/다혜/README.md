@@ -18,7 +18,7 @@
 - React 함수형, 클래스형 컴포넌트 👉[DAY 06](./D06.md)
 - React 컴포넌트 전달 속성 / 상태 👉[DAY 06](./D06.md)
 - React 컴포넌트 라이프 사이클 훅 👉[DAY 07](./D07.md)
-- React 이벤트 핸들링
-- React 컴포넌트 통신
+- React 이벤트 핸들링 👉[DAY 08](./D08.md)
+- React 컴포넌트 통신 👉[DAY 08](./D08.md)
 - React Context API
 - React 접근성(A11Y)
