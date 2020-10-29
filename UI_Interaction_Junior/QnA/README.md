@@ -12,8 +12,8 @@
 1. [304 오류가 나는 이유는 무엇일까요?](#q4-질문)
 1. [래퍼객체 목적이 상속이라는 깊은 의견이 있어서 궁금합니다.](#q5-질문)
 1. [함수의 `get`, `set`이 정확히 이해가 안되는데 구체적인 사용 예시를 알려주세요.](#q6-질문)
-1. [setAttribute에 대해 정확히 인지를 못했습니다.](#q7-질문)
-
+1. [`setAttribute`에 대해 정확히 인지를 못했습니다.](#q7-질문)
+1. [`node`와 `element`의 차이가 무엇인지 알고 싶습니다.](#q8-질문)
 
 
 <br />
@@ -23,17 +23,125 @@
 <br />
 
 ## Q8. 질문
+
 `node`와 `element`의 차이가 무엇인지 알고 싶습니다. 특히 node는 element의 상위 개념이라고 하는데 와닿지 않아서요:) 
+
+<details open>
+  <summary>A8. 답변</summary>
+  <!-- <br/> -->
+
+  ### 인스턴스와 클래스
+
+  HTML 문서에 작성된 코드는 단순한 텍스트에 불과 합니다.
+  이 텍스트를 브라우저가 해석(Parsing)하여 문서의 요소 객체로 생성합니다.
+
+  생성된 요소 객체는 HTML 요소 유형에 따라 생성자(클래스)가 다릅니다. 아래 예시에서는
+  제목(Headling) 요소를 생성하기 위해 HTMLHeadlingElement 클래스가 사용되었습니다.
+
+  인스턴스 | 클래스(생성자)
+  --- | ---
+  `h2.hd.hd-3.page-title` | `HTMLHeadlingElement`
+
+  ### 클래스와 상위(super) 클래스
+
+  그리고 `HTMLHeadlingElement` 클래스는 부모(상위, 수퍼) 클래스를 가지는데
+  `HTMLElement`, `Element`, `Node`, `EventTarget`, `Object` 순으로 거슬러 올라갑니다.
+  쉽게 말해 HTML의 모든 문서에 사용된 요소는 **JavaScript 객체로부터 능력을 상속 받은 하위 객체**입니다.
+
+  <img src="../../assets/instance-class__element-node.png" alt />
+  <br/>
+  <br/>
+
+  ### 클래스 상속
+
+  JavaScript 객체(Object) → 이벤트 타겟(EventTarget) → 노드(Node) → 요소(Element) → HTML 요소(HTMlElement) 순으로 
+  상위 클래스의 능력을 하위 클래스가 상속받았고, 결과적으로 HTML 제목 요소(HTMLHeadlingElement) 클래스는 부모로부터 물려 받은
+  능력을 사용할 수 있습니다. (마치 인간(Human) 클래스의 상위 클래스가 포유류(Mammalia), 그 상위 클래스가 척추동물(Vertebrate)인 것처럼)
+
+  ### 결론 
+
+  즉, `Element`는 `Node` 클래스로 부터 능력을 상속 받은 클래스입니다. 그러므로 `Element`는 `Node`의 능력을 모두 사용할 수 있습니다.
+  
+  상위 클래스 | 클래스 | 하위 클래스
+  --- | --- | ---
+  포유류 | 영장류 | 인간
+  포유류 | 영장류 | 원숭이
+  포유류 | 고래하목 | 고래
+
+  <br/>
+
+  자연계, **고래하목의 상속 구조**
+
+  <img src="../../assets/instance.png" alt />
+
+  
+
+</details>
+
+<br />
+
+---
+
+<br />
 
 ## Q7. 질문
 
-`setattribute()`는 새롭게 속성 정의를 할 때 사용하는 것인가요? 인자 활용법을 이해못했습니다.
+`setAttribute()`는 새롭게 속성 정의를 할 때 사용하는 것인가요? 인자 활용법을 이해 못했습니다.
+
+<details open>
+  <summary>A7. 답변</summary>
+  <br/>
+
+  [setAttribute()](https://developer.mozilla.org/ko/docs/Web/API/Element/setAttribute) 메서드는 
+  요소 노드(ElementNode) 객체의 메서드입니다. 이 메서드는 요소 노드의 속성을 업데이트 합니다.
+  속성이 이미 존재할 경우 새로운 설정 값으로 업데이트 되지만, 그렇지 않을 경우는 지정된 이름과 값으로 새로운 속성이 설정됩니다.
+
+  사용법은 다음과 같습니다. (인자 유형은 모두 **문자**입니다. `속성`, `값`)
+
+  ```js
+  ElementNode.setAttribute(name, value);
+  ```
+
+  활용 예시 코드를 살펴보세요.
+
+  ```html
+  <a class="link__setAttribute" href="./what-is-set-attribute/"><code>setAttribute()</code> 메서드란?</a>
+  ```
+
+  ```js
+  var demoNode = document.querySelector('.link__setAttribute');
+
+  // 존재하는 속성 값 업데이트
+  demoNode.setAttribute('href', '#what-is-set-attribute');
+
+  // 존재하지 않는 속성은 추가 설정
+  demoNode.setAttribute('title', '현재 페이지의 setAttribute() 메서드 소개 영역으로 이동');
+  ```
+
+  DOM 스크립트에 의해 조작된 결과는 다음과 같이 렌더링 됩니다.
+
+  ```html
+  <a 
+    class="link__setAttribute" 
+    href="#what-is-set-attribute"
+    title="현재 페이지의 setAttribute() 메서드 소개 영역으로 이동"
+  >
+    <code>setAttribute()</code> 메서드란?
+  </a>
+  ```
+</details>
+
+<br />
+
+---
+
+<br />
 
 ## Q6. 질문
 
 함수의 `get`, `set`이 정확히 이해가 안되는데 구체적인 사용 예시를 알려주세요.
 
-<details open>
+<details>
   <summary>A6. 답변</summary>
   <br/>
 
@@ -98,7 +206,11 @@
   ```
 </details>
 
-<br/>
+<br />
+
+---
+
+<br />
 
 ## Q5. 질문
 
