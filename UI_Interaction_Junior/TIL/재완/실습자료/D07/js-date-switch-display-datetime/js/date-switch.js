@@ -118,9 +118,10 @@ getMillisecond = function (format){
 // window.setInterval(function, ms)
 
 var today = el('.today');
+var time = el('time', today);
 var year = el('.year',today);
 var month = el('.month',today);
-var date = el('date',today);
+var date = el('.date',today);
 var day = el('.day',today);
 var hours = el('.hours',today);
 var minutes = el('.minutes',today);
@@ -128,6 +129,7 @@ var seconds = el('.seconds',today);
 var milliseconds = el('.milliseconds',today);
 
 console.log('today', today);
+console.log('time', time);
 console.log('year', year);
 console.log('month', month);
 console.log('date', date);
@@ -137,14 +139,21 @@ console.log('minutes', minutes);
 console.log('seconds', seconds);
 console.log('milliseconds',milliseconds);
 
-year.textContent = getYear();
-month.textContent = getMonth();
-date.textContent = getDate();
-day.textContent = getDay();
-hours.textContent = getHour();
-minutes.textContent = getMinute();
-seconds.textContent = getSecond();
-milliseconds.textContent = getMillisecond();
+function updateDateTimes(){
+  time.setAttribute('datetime', getISOTime());
+  year.textContent = getYear();
+  month.textContent = getMonth();
+  date.textContent = getDate();
+  day.textContent = getDay();
+  hours.textContent = getHour();
+  minutes.textContent = getMinute();
+  seconds.textContent = getSecond();
+  milliseconds.textContent = getMillisecond();
+}
+
+updateDateTimes();
+window.setInterval(updateDateTimes,1000)
+
 
 function els(selector, context) {
   // selector 유형이 문자가 아니거나, selector 공백을 제거한 길이가 0일 경우 결과 값 null 반환
