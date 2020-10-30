@@ -1,6 +1,8 @@
 # User
 .schedules
 .parcel-cache
+temp/
+*--begin.zip
 
 # General
 .DS_Store
