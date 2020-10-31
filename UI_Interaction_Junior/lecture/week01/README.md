@@ -33,9 +33,9 @@ $ npm i -g htmlhint
 
 <br/>
 
-## package.json
+## settings.json
 
-**설정** → **`package.json`** 파일을 열어 아래 코드를 추가한 후 저장합니다.
+**설정** → **`settings.json`** 파일을 열어 아래 코드를 추가한 후 저장합니다.
 
 ```jsonc
 {
@@ -50,7 +50,7 @@ $ npm i -g htmlhint
     "attr_quotes": "double",
     "html": "xhtml",
     "self_closing_tag": "xhtml",
-    "inline_break": 3,
+    "inline_break": 3
   },
 
   // 에디터 설정
@@ -70,7 +70,7 @@ $ npm i -g htmlhint
   // 파일 자동 저장 설정
   "files.autoSave": "off",
 
-    // JS 기본 포맷팅 설정
+  // JS 기본 포맷팅 설정
   "javascript.format.enable": false,
 
   // 파일별 설정
@@ -88,21 +88,14 @@ $ npm i -g htmlhint
   },
 
   // 포맷팅 토글
-  "formattingToggle.affects": [
-    "formatOnPaste",
-    "formatOnSave",
-    "formatOnType"
-  ],
+  "formattingToggle.affects": ["formatOnPaste", "formatOnSave", "formatOnType"],
 
   // HTML 유효성 검사 설정
   "html.validate.scripts": true,
   "html.validate.styles": true,
 
   // HTMLHint 설정
-  "htmlhint.documentSelector": [
-    "html",
-    "htm"
-  ],
+  "htmlhint.documentSelector": ["html", "htm"],
   "htmlhint.options": {
     "alt-require": true,
     "attr-lowercase": false,
@@ -127,7 +120,7 @@ $ npm i -g htmlhint
     "tag-pair": true,
     "tagname-lowercase": true,
     "title-require": true
-  },
+  }
 }
 ```
 
@@ -167,7 +160,7 @@ HTMLHint 구성 파일을 프로젝트 루트에 생성한 후, 다음과 같이
   "tagname-lowercase": true,
   "tag-self-close": true,
   "tag-pair": true,
-  
+
   "attr-lowercase": true,
   "attr-value-double-quotes": true,
   "attr-value-not-empty": false,
@@ -184,7 +177,7 @@ HTMLHint 구성 파일을 프로젝트 루트에 생성한 후, 다음과 같이
   "alt-require": true,
 
   "spec-char-escape": true,
-  "space-tab-mixed-disabled": "space2",
+  "space-tab-mixed-disabled": "space2"
 }
 ```
 
