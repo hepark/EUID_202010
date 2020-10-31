@@ -14,6 +14,19 @@ var goToTopNode = document.querySelector('.button-goToTop');
 // 3초 뒤에....
 // window.setTimeout(showGoToTopButton, 3000);
 
+/**
+ * * 내가 작성할 코드 로직을 한글로 스크립팅 하기
+ * * 미션: 사용자가 윈도우 창을 Y축으로 스크롤하면,
+ * *      goToTop 버튼이 표시되거나 감춰줘야 한다.
+ * * 미션을 위해 필요한 것: [scrolll 이벤트, 이벤트 핸들링]
+ * *                   표시/감춤을 처리하기 위한 조건
+ * *                  (사용자가 스크롤 한 뷰포트의 Y축 높이 값과 앱 헤더의 높이 값 비교)
+ *
+ * * 앱 헤더 요소, 페이지 상단 이동 버튼 요소, window 전역 객체
+ * * scroll 이벤트 유형(type), 이벤트 유형에 연결될 이벤트 리스너 -> 이벤트 핸들링
+ * * 이벤트 리스너(함수) 로직 -> 앱 헤더 높이 값보다 scrollY 값이 커지면 ? goToTop 버튼 표시 : goToTop 버튼 감춤
+ */
+
 // * 브라우저 윈도우의 스크롤 Y축 높이 > 앱 헤더의 높이
 var appHeaderNode = document.querySelector('.app-header');
 var appHeaderHeight = appHeaderNode.clientHeight;
