@@ -1,4 +1,5 @@
 # User
+.vscode
 .schedules
 .parcel-cache
 temp/
