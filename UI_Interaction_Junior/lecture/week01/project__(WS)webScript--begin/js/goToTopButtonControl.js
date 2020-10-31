@@ -4,15 +4,42 @@
 // <head></head> 안에서 실행
 var goToTopNode = document.querySelector('.button-goToTop');
 
-function showGoToTopButton() {
-  console.log('3초 뒤에 showGoToTopButton 함수 실행 됨');
-  // goToTopNode에 class 속성 값 'is--active'를 추가한다.
-  // class 속성을 DOM 요소에 추가하는 메서드 .classList.add()
-  goToTopNode.classList.add('is--active');
-}
+// function showGoToTopButton() {
+//   console.log('3초 뒤에 showGoToTopButton 함수 실행 됨');
+//   // goToTopNode에 class 속성 값 'is--active'를 추가한다.
+//   // class 속성을 DOM 요소에 추가하는 메서드 .classList.add()
+//   goToTopNode.classList.add('is--active');
+// }
 
 // 3초 뒤에....
-window.setTimeout(showGoToTopButton, 3000);
+// window.setTimeout(showGoToTopButton, 3000);
+
+// * 브라우저 윈도우의 스크롤 Y축 높이 > 앱 헤더의 높이
+var appHeaderNode = document.querySelector('.app-header');
+var appHeaderHeight = appHeaderNode.clientHeight;
+var showGoToTopButton = function () {
+  goToTopNode.classList.add('is--active');
+};
+var hideGoToTopButton = function () {
+  goToTopNode.classList.remove('is--active');
+};
+
+var handleScroll = function () {
+  var viewportYpos = window.scrollY;
+  if (viewportYpos > appHeaderHeight) {
+    console.log('goToTopButton 활성화');
+    showGoToTopButton();
+  } else {
+    console.log('goToTopButton 비 활성화');
+    hideGoToTopButton();
+  }
+};
+
+// handleScroll();
+
+// window.setTimeout(handleScroll, 2000);
+
+window.addEventListener('scroll', handleScroll);
 
 // 앱 초기화 함수
 // function init() {
