@@ -55,15 +55,21 @@ console.log('result2:', result2); // 158.6784 평방미터
 function toggleFloorSpaceValue(value, isPeyongValue) {
   // 프로그래밍 사고의 힘(조건에 따른 변수를 만들 수 있어야 한다)
   // "값의 유형이 '평'이니?"
-  if (isPeyongValue) {
-    // 조건 1. 값이 평수인 경우
-    return peyong2squareMeter(value);
-  } else {
-    // 조건 2. 값이 평방미터인 경우
-    return squareMeter2peyong(value);
-  }
+  // if (isPeyongValue) {
+  //   // 조건 1. 값이 평수인 경우
+  //   return peyong2squareMeter(value);
+  // } else {
+  //   // 조건 2. 값이 평방미터인 경우
+  //   return squareMeter2peyong(value);
+  // }
+
+  // 3항식
+  return isPeyongValue ? peyong2squareMeter(value) : squareMeter2peyong(value);
 }
+
 // 미션 3-2. 작성한 함수를 사용해 32평(坪) 값을 전달해 평방미터 값을 구해보세요.
-toggleFloorSpaceValue(32, true);
+var pV1 = toggleFloorSpaceValue(32, true);
 // 미션 3-3. 작성한 함수를 사용해 330.58 평방미터(㎡) 값을 전달해 평(坪) 값을 구해보세요.
-toggleFloorSpaceValue(158.6784);
+var pV2 = toggleFloorSpaceValue(158.6784);
+
+console.log(pV1 /* 평방미터 */, pV2 /* 평 */);
