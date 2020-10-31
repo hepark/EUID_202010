@@ -4,9 +4,15 @@
 // <head></head> 안에서 실행
 var goToTopNode = document.querySelector('.button-goToTop');
 
+function showGoToTopButton() {
+  console.log('3초 뒤에 showGoToTopButton 함수 실행 됨');
+  // goToTopNode에 class 속성 값 'is--active'를 추가한다.
+  // class 속성을 DOM 요소에 추가하는 메서드 .classList.add()
+  goToTopNode.classList.add('is--active');
+}
+
 // 3초 뒤에....
-// goToTopNode에 class 속성 값 'is--active'를 추가한다.
-// class 속성을 DOM 요소에 추가하는 메서드 .classList.add()
+window.setTimeout(showGoToTopButton, 3000);
 
 // 앱 초기화 함수
 // function init() {
