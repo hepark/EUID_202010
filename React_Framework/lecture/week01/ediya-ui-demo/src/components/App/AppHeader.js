@@ -7,7 +7,13 @@ const AppHeader = () => {
   return (
     <div className="app-header-container">
       <header className="app-header">
-        <HomeLink alt="Ediya Coffee" />
+        <HomeLink>
+          <img
+            src={require('assets/images/brand.svg')}
+            alt="Ediya Coffee"
+            className="respons"
+          />
+        </HomeLink>
 
         <Button className="is-open-menu" label="메뉴 열기">
           <span className="ir" />
