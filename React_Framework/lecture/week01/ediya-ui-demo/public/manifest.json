@@ -1,6 +1,6 @@
 {
-  "short_name": "E.UID",
-  "name": "이듬(E.UID) 블렌디드 러닝",
+  "short_name": "Ediya Coffee",
+  "name": "이디야 커피(Ediya Coffee)",
   "icons": [
     {
       "src": "favicon.png",
@@ -8,18 +8,18 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "favicon.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "favicon.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#5382F6",
+  "theme_color": "#31287C",
   "background_color": "#ffffff"
 }
