@@ -1,6 +1,7 @@
 import React from 'react';
 import HomeLink from 'components/common/HomeLink';
 import Button from 'components/common/Button';
+import Navigation from 'components/common/Navigation';
 
 const AppHeader = () => {
   return (
@@ -12,22 +13,7 @@ const AppHeader = () => {
           <span className="ir" />
         </Button>
 
-        <nav className="app-navigation">
-          <h2 className="a11y-hidden">메인 메뉴</h2>
-          <ul className="reset-list">
-            {/* 비동기 데이터 바인딩 → 내비게이션 리스트 렌더링 (아래 템플릿 코드 활용) */}
-          </ul>
-          <button
-            type="button"
-            className="button is-close-menu"
-            title="메뉴 닫기"
-            aria-label="메뉴 닫기"
-          >
-            <span className="close" aria-hidden="true">
-              ×
-            </span>
-          </button>
-        </nav>
+        <Navigation headline="이디야 글로벌 내비게이션" />
       </header>
     </div>
   );
