@@ -1,12 +1,11 @@
 import React from 'react';
-import AppHeader from './AppHeader';
-import AppFooter from './AppFooter';
+import Layout from './Layout';
 
 const App = (props) => (
   <>
-    <AppHeader />
-    <main>main</main>
-    <AppFooter />
+    <Layout headline="메인 콘텐츠 제목">
+      <p>블라 블라 블라....</p>
+    </Layout>
   </>
 );
 
