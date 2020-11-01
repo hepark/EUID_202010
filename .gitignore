@@ -4,7 +4,7 @@
 .parcel-cache
 temp/
 *--begin.zip
-*.pdf
+# *.pdf
 
 # General
 .DS_Store
