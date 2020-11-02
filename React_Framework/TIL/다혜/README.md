@@ -28,3 +28,48 @@
 - React 컴포넌트 통신 👉[DAY 08](./D08.md)
 - React Context API 👉[DAY 09](./D09.md)
 - React 접근성(A11Y) 👉[DAY 10](./D10.md)
+
+---
+
+### [WEEK 03] React 미니 프로젝트 실습, 고차 컴포넌트, React 폼 컨트롤
+
+<details start>
+<summary>Mini Project</summary>
+
+👇[DAY 11](./D11.md)
+- 프로젝트 시작하기 
+- 문서 헤드 구성 
+- 디렉토리 구성 
+- 컴포넌트 구성 Part 1
+    - 컴포넌트 등록 AppHeader, AppMain, GoToTop 
+    - JSX 코드 정리 AppHeader, AppMain, GoToTop 
+- 컴포넌트 구성 Part 2
+    - 컴포넌트 추가 등록 AppHomeLink, AppNavigation, BeverageList, BeverageItem
+    - 컴포넌트 스타일 검토 
+
+---
+
+👇[DAY 12](./D12.md)
+- 컴포넌트 `props` 디자인
+    - 컴포넌트 `props` 설계 `AppHomeLink`
+    - 컴포넌트 `props` 설계 (`classnames` 라이브러리, `as` 속성 등)
+- 컴포넌트 이벤트 핸들링 & 타임 컨트롤
+- 리스트 렌더링 & 컨텍스트 Part 1
+
+---
+
+👇[DAY 13](./D13.md)
+- 컴포넌트 접근성 개선
+    - 키보드 접근성 설정 `ref`, `forwardRef`, `shouldComponentUpdate`
+    - 컴포넌트 참조 전달(`forwardRef`)과 개발 도구에서 이름 표시 설정
+- 리스트 렌더링 & 컨텍스트 Part 2
+    - 컴포넌트 리스트 렌더링 + Context API `BeverageList`
+    - 다이얼로그 인터랙션 `BeverageItem`
+- 페이지 상단 스크롤 이동
+    - 페이지 상단 이동 인터랙션 `GoToTop`
+    - React 훅 활용 `useState`, `useEffect`
+
+</details>
+    
+- 고차 컴포넌트 (HOC, Higher-Order Component) 👉[DAY 14](./D14.md)
+- React 폼 컨트롤 👉[DAY 15](./D15.md)
