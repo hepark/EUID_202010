@@ -10,6 +10,92 @@
 
 <img src="../../assets/cover--calendar.png" alt />
 
+## 3주차
+
+<details open>
+  <summary>🎯 학습 세부 항목 (펼쳐보세요)</summary>
+  <br />
+
+  JavaScript 배열, 반복 및 이벤트 처리, 스코프, 호이스트 현상에 대해 학습합니다.
+
+  - 배열
+  - 반복 처리
+  - 이벤트 처리 시점
+  - 값 복사 vs 참조
+  - 스코프 / 호이스트
+  
+  <br />
+
+  ### ␥ 월요일
+
+  <details>
+    <summary>JavaScript 반복 처리에 대해 학습(1)합니다.</summary>
+    <br />
+
+  - ☑︎ 리스트 / 반복 처리 I
+    - 배열과 반복/순환 문 (2분 55초)
+    - while 문 (15분 04초)
+
+  </details>
+
+  <br />
+
+  ### ␥ 화요일
+
+  <details>
+    <summary>JavaScript 반복 처리에 대해 학습(2)합니다.</summary>
+    <br />
+
+  - ☑︎ 리스트 / 반복 처리 II
+    - continue, break, label 문 & do ~while 문 (15분 13초)
+    - for 문 (11분 39초)
+    - for ~ in 문 (4분 46초)
+  </details>
+
+  <br/>
+
+  ### ␥ 수요일
+
+  <details>
+    <summary>JavaScript 이벤트 처리 시점에 대해 학습합니다.</summary>
+    <br />
+
+  - ☑︎ 이벤트 처리 시점 (10분 2초, 7분 9초, 5분 32초)
+  </details>
+
+  <br/>
+
+  ### ␥ 목요일
+
+  <details>
+    <summary>JavaScript 값 복사, 참조, 함수, 블록 영역에 대해 학습합니다.</summary>
+    <br />
+
+  - ☑︎ 값 복사 vs 값 참조 (11분 42초)
+  - ☑︎ 함수 영역 vs 블록 영역 (9분 40초)
+  </details>
+
+  <br/>
+
+  ### ␥ 금요일
+
+  <details>
+    <summary>JavaScript 프로그래밍의 특징 중 호이스팅, 스코프 체이닝에 대해 학습합니다.</summary>
+    <br />
+
+  - ☑︎ 호이스팅 / 스코프 체이닝 (19분 1초)
+  </details>
+
+</details>
+
+<br/>
+
+<!-- -------------------------------------------------------------------------------------------  -->
+
+---
+
+<br/>
+
 ## 2주차
 
 <details>
