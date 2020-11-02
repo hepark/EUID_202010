@@ -2,6 +2,12 @@
 
 # TIL(Today I Learned, 오늘 내가 배운 것들)
 
+### [onGoing] 웹 기초 자료 모음 
+볼 때마다 새로운(?) 기초 지식을 매일 조금씩 쌓아두는 방앗간🦥 
+
+- Git cli 커맨드 모음 👉 [Git](./git.md)
+- Modern JS 문법 👉 [ModernJS](./modernJS.md)
+
 ### [WEEK 01] Front-End 프레임워크 소개 및 React 사용법, 그리고 ECMAScript 2015(이하 ES6)
 
 - Front-End 개발 학습 가이드 👉[DAY 01](./D01.md)
