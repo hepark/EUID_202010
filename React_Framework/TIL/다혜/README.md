@@ -2,8 +2,8 @@
 
 # TIL(Today I Learned, 오늘 내가 배운 것들)
 
-### [onGoing] 웹 기초 자료 모음 
-볼 때마다 새로운(?) 기초 지식을 매일 조금씩 쌓아두는 방앗간🦥 
+### [onGoing] 방앗간
+볼 때마다 새로운(?) 웹 기초 지식을 매일 조금씩 쌓아두는 방앗간🦥 
 
 - Git cli 커맨드 모음 👉 [Git](./git.md)
 - Modern JS 문법 👉 [ModernJS](./modernJS.md)
