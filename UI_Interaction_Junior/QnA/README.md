@@ -14,8 +14,66 @@
 1. [함수의 `get`, `set`이 정확히 이해가 안되는데 구체적인 사용 예시를 알려주세요.](#q6-질문)
 1. [`setAttribute`에 대해 정확히 인지를 못했습니다.](#q7-질문)
 1. [`node`와 `element`의 차이가 무엇인지 알고 싶습니다.](#q8-질문)
-1. [`while`문 동작오류 문의](#q9-질문)
-1. [`while`문 아래에 `레이블`의 역할은?](#q10-질문)
+1. [`while`문 동작 오류 원인을 알고 싶습니다.](#q9-질문)
+1. [`while`문 아래에 `레이블`의 역할에 대해 알고 싶습니다.](#q10-질문)
+
+<br/>
+
+## Q10. 질문
+
+아래 코드 중 `loopCount:`처럼 레이블의 역할이 무엇인지 궁금합니다.  
+현업에서는 이런 코드를 못 본 것 같은데 왜 자주 쓰이지 않는지도 궁금하네요.
+
+<details>
+  <summary>A10. 답변</summary>
+  <br/>
+
+  반복문에 레이블(label)을 붙이고, `break`나 `continue` 구문을 사용해 
+  반복문의 **어느 위치에서 작업을 멈추고** **어느 위치에서 다시 수행할 지**를 알려줄 수 있습니다.
+  레이블 사용법에 대한 상세한 내용은 [label, MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/label) 문서를 참고해보세요.
+
+  ```js
+  var count = 10;
+
+  label1:
+  while(count-- > 0) {
+    
+    if (count === 8) {
+
+      label2:
+      while(true) {
+        count -= 2;
+        console.log('label2: while: ', count);
+        if (count < 6) {
+          console.log('label2: while: count < 6: ', count);
+          console.log('label2 → label1 레이블로 continue 점프(↖)');
+          continue label1;
+        }
+      }
+    }
+
+    console.log('label1: while: ', count);
+
+  }
+  ```
+
+  **출력 결과**
+
+  ```
+  label1: while: 9
+    label2: while: 6
+    label2: while: 4
+    label2: while: count < 6: 4
+    label2 → label1 레이블로 continue 점프(↖)
+  label1: while: 3
+  label1: while: 2
+  label1: while: 1
+  ```
+
+  현업에서 이런 코드를 자주 못 본 이유는 중첩된 반복문 사용이 상대적으로 UI 개발 상에서 자주 사용되지 않았기 때문일 것입니다.
+  x, y축을 사용하는 UI를 제어해야 하는 경우라면 레이블을 사용하는 코드를 볼 수도 있을 거에요. :-)
+  
+</details>
 
 <br />
 
@@ -23,14 +81,9 @@
 
 <br />
 
-## 10. 질문
-
-아래 코드중 loopCount:처럼 레이블의 역할이 무엇인지 궁금합니다. 현업에서는 이런 코드를 못본것 같은데
-왜 자주 쓰이지 않는지도 궁금하네요
-
 ## Q9. 질문
 
-안쪽 while문이 돌지가 않는데 무슨 문제인지 잘모르겠네요
+안쪽 while 문이 돌지가 않는데 무슨 문제인지 잘 모르겠네요.
 
 ```js
 var while_condition = true;
@@ -38,7 +91,6 @@ var count = 0;
 var break_point = 10;
 var inner_count = 0;
 
-// 레이블값이 하는 역할은?
 loopCount: while (while_condition) {
   ++count;
 
@@ -49,7 +101,8 @@ loopCount: while (while_condition) {
       if (inner_count === break_point / 2) {
         break loopCount;
       }
-      console.log("inner_count:", inner_count); // inner_count값이 출력안됨
+      // inner_count값이 출력 안됨
+      console.log("inner_count:", inner_count);
     }
   }
 
@@ -63,6 +116,65 @@ loopCount: while (while_condition) {
   }
 }
 ```
+
+<details>
+  <summary>Q9. 답변</summary>
+  <br/>
+
+  `count === 3 || count === 7` 조건문 안에 `continue`가 있어서 while 문이 작동하지 않는 것입니다.  
+  코드를 아래와 같이 변경한 후 테스트 해보세요.
+
+  ```js
+  var while_condition = true;
+  var count = 0;
+  var break_point = 10;
+  var inner_count = 0;
+
+  loopCount: while (while_condition) {
+    ++count;
+
+    if (count === 3 || count === 7) {
+      continue;
+    }
+
+    while (true) {
+      inner_count++;
+      if (inner_count === break_point / 2) {
+        console.log('loopCount 종료 (1)');
+        break loopCount;
+      }
+      console.log('inner_count:', inner_count);
+    }
+
+    if (count === 6) {
+      console.log('loopCount 종료 (2)');
+      break loopCount;
+    }
+
+    console.log('count;', count);
+
+    if (count >= break_point) {
+      while_condition = false;
+    }
+  }
+  ``` 
+
+  **출력 결과**
+
+  ```sh
+  inner_count: 1
+  inner_count: 2
+  inner_count: 3
+  inner_count: 4
+  loopCount 종료 (1)
+  ```
+</details>
+
+<br />
+
+---
+
+<br />
 
 ## Q8. 질문
 
