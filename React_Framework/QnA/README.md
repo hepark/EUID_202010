@@ -11,6 +11,7 @@
 1. [prettier의 css,scss 포맷팅 관련 옵션설정은 따로 없나요?](#q3-질문)
 1. [Virtual DOM 패러다임을 유행시킨 건 리액트인가요?](#q4-질문)
 1. [create-react-app이 ie를 지원하지 않는다는데 어떻게 해결해야 하나요?](#q5-질문)
+1. [파일 확장자 `js`와 `jsx`는 특별한 차이점이 있나요?](#q6-질문)
 
 <br />
 
@@ -18,6 +19,36 @@
 
 Mini Project {E1}실습에서는 컴포넌트 파일 확장자가 `js`파일이 아닌 `jsx`파일을 쓰는데
 `js`와 `jsx`와는 특별한 차이점이 있는건가요?
+
+<details>
+  <summary>A6. 답변</summary>
+  <!-- <br/> -->
+
+  ### ES 표준 확장이 아닌 JSX
+
+  JSX는 ECMAScript 표준 확장이 아니라서 `js` 확장자가 아닌, `jsx` 확장자를 통해 별도 관리되어야 하고
+  React 앱의 컴포넌트 파일 임을 명확화 할 수 있습니다. 뿐만 아니라 JSX 코드 안에서 Emmet을 사용할 수 있어
+  구분해 사용하였습니다.
+  하지만 `jsx` 확장자를 사용하는 것이 React 앱 개발에 필수로 요구되지 않을 뿐더러, `js` 확장자를 사용한다고 해서
+  특별한 문제가 발생하지는 않습니다. React 컴포넌트 파일, 일반 JS 파일을 구분하지 않고 `js` 확장자를 통일해 사용해도 무방합니다.
+
+  ### VS Code 설정
+
+  `js` 확장자에서 Emmet 사용을 할 수 없는 불편함이 있을 수 있습니다. 이 문제는 VS Code 설정을 통해 해결할 수 있습니다.
+
+  *settings.json*
+
+  ```json
+  {
+    "emmet.includeLanguages": { "javascript": "javascriptreact" },
+    "files.associations": { "*.js": "javascriptreact" },
+  }
+  ```
+
+  ### 결론
+
+  React 컴포넌트 파일을 별도로 `jsx` 확장자로 구분해 사용하지 않고, `js` 확장자로 통일해 사용해 앱을 개발해도 무방합니다. :-)
+</details>
 
 ---
 
@@ -36,7 +67,7 @@ import 'react-app-polyfill/stable';
 
 <br/>
 
-<details open>
+<details>
   <summary>A5. 답변</summary>
 
 ### [브라우저 호환성(Supported Browsers)](https://create-react-app.dev/docs/supported-browsers-features#supported-browsers)

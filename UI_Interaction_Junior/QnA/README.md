@@ -26,7 +26,7 @@
 
 `node`와 `element`의 차이가 무엇인지 알고 싶습니다. 특히 node는 element의 상위 개념이라고 하는데 와닿지 않아서요:) 
 
-<details open>
+<details>
   <summary>A8. 답변</summary>
   <!-- <br/> -->
 
@@ -88,7 +88,7 @@
 
 `setAttribute()`는 새롭게 속성 정의를 할 때 사용하는 것인가요? 인자 활용법을 이해 못했습니다.
 
-<details open>
+<details>
   <summary>A7. 답변</summary>
   <br/>
 
