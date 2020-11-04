@@ -12,7 +12,14 @@
 1. [Virtual DOM 패러다임을 유행시킨 건 리액트인가요?](#q4-질문)
 1. [create-react-app이 ie를 지원하지 않는다는데 어떻게 해결해야 하나요?](#q5-질문)
 1. [파일 확장자 `js`와 `jsx`는 특별한 차이점이 있나요?](#q6-질문)
+1. [@import-normalize;](#q7-질문)
 
+<br />
+
+## Q7. 질문
+
+normalize css를 불러오는 부분이 에러가 나는 거 같은데 이건 어떤 형식인 거에요?
+에러 내용: Unknown at rule @import-normalizescss
 <br />
 
 ## Q6. 질문
