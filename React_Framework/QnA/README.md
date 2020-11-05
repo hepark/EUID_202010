@@ -12,8 +12,43 @@
 1. [Virtual DOM 패러다임을 유행시킨 건 리액트인가요?](#q4-질문)
 1. [create-react-app이 ie를 지원하지 않는다는데 어떻게 해결해야 하나요?](#q5-질문)
 1. [파일 확장자 `js`와 `jsx`는 특별한 차이점이 있나요?](#q6-질문)
+1. [`normalize.css`를 불러오는 부분이 에러가 발생하는데 문제 원인이 뭔가요?](#q7-질문)
 
 <br />
+
+## Q7. 질문
+
+`normalize.css`를 불러오는 부분이 에러가 발생하는데 문제 원인이 뭔가요? → 에러 내용: `Unknown at rule @import-normalize`
+
+<details open>
+  <summary>A7. 답변</summary>
+  <!-- <br/> -->
+
+  ### 문제 원인
+
+  믹스인을 호출하는 `@include` 문법은 Sass의 기능이라서 CSS 파일에서 사용될 경우 경고를 표시합니다.
+
+  ![](./_/at-rule-error-01.png)
+
+  ### 해결 방법 1
+
+  CSS 파일 대신 SCSS 파일을 사용하면 유효한 문법이므로 오류가 발생하지 않습니다.
+
+  ### 해결 방법 2
+
+  VS Code 설정 → 설정 검색 `css.lint.unknownAtRules` → 무시(`ignore`) 값으로 설정을 변경하면 더 이상 오류를 표시하지 않습니다.
+
+  ![](./_/at-rule-error-02.png)
+  ![](./_/at-rule-error-03.png)
+
+
+</details>
+
+<br/>
+
+---
+
+<br/>
 
 ## Q6. 질문
 
@@ -50,6 +85,8 @@ Mini Project {E1}실습에서는 컴포넌트 파일 확장자가 `js`파일이 
   React 컴포넌트 파일을 별도로 `jsx` 확장자로 구분해 사용하지 않고, `js` 확장자로 통일해 사용해 앱을 개발해도 무방합니다. :-)
 </details>
 
+<br/>
+
 ---
 
 <br />
@@ -64,8 +101,6 @@ Mini Project {E1}실습에서는 컴포넌트 파일 확장자가 `js`파일이 
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 ```
-
-<br/>
 
 <details>
   <summary>A5. 답변</summary>
@@ -156,8 +191,6 @@ import 'react-app-polyfill/stable';
 ## Q4. 질문
 
 유튜브 강의에 있는 virtual-dom 라이브러리 깃헙에 가보면 react에서 영감을 얻었다고 적어놓은 문구가 있던데 Virtual DOM 패러다임을 유행시킨건 리액트인가요?
-
-<br/>
 
 <details>
   <summary>A4. 답변</summary>
