@@ -8,7 +8,7 @@
 - Git cli command 모음 👉 [Git](./git.md)
 - Modern JS 문법 👉 [ModernJS](./modernJS.md)
 
-git으로 작성하는 개발일지 템플릿(Last updated on 2020-11-06)🦥
+[git으로 작성하는 개발일지 템플릿(Last updated on 2020-11-06)🦥](./template.md)
 
 <details start>
 <summary>미리보기😉</summary>
