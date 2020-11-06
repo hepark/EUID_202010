@@ -8,6 +8,20 @@
 - Git cli command 모음 👉 [Git](./git.md)
 - Modern JS 문법 👉 [ModernJS](./modernJS.md)
 
+[git으로 작성하는 개발일지 템플릿(Last updated on 2020-11-06)🦥](./template.md)
+
+<details start>
+<summary>미리보기👀</summary>
+
+![git으로 작성하는 개발일지 템플릿](./assets/template.gif "git으로 작성하는 개발일지 템플릿")
+
+- 한 눈에 목차가 보인다. 
+    - 토글 적극 활용!😉 토글을 열기 전에는 목차가 한눈에 보이고, 토글을 열고 나면 세부 내용을 볼 수 있게 했다. 
+- 큰 주제가 넘어갈 때마다 `divider`를 넣어 명료하게 표시하였다. 
+- 내용의 성격을 구분하기 위해 이모지를 적극 활용하였다.
+    - 질문은 ❓ 답변은 🤖 이해가 덜 된 개념은 🤯 귤 팁은 🍊     
+</details> 
+
 ### [WEEK 01] Front-End 프레임워크 소개 및 React 사용법, 그리고 ECMAScript 2015(이하 ES6)
 
 - Front-End 개발 학습 가이드 👉[DAY 01](./D01.md)
