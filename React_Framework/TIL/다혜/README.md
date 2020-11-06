@@ -11,7 +11,7 @@
 [git으로 작성하는 개발일지 템플릿(Last updated on 2020-11-06)🦥](./template.md)
 
 <details start>
-<summary>미리보기😉</summary>
+<summary>미리보기👀</summary>
 
 ![git으로 작성하는 개발일지 템플릿](./assets/template.gif "git으로 작성하는 개발일지 템플릿")
 
