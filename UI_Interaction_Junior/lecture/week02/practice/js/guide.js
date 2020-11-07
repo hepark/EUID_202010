@@ -71,18 +71,35 @@ var firstLinkItem = globalNavigationList[0]; // ?????
 // while, do ~ while, for
 for (var z = 0; z < footerNavigationList.length; ++z) {
   var item = footerNavigationList[z];
-  console.log(item);
+  // console.log(item);
 }
 
 // 4. 새로운 아이템 추가 (앞 또는 뒤 아이템)
+// '갑질 근절!', '매니저의 방'
+footerNavigationList.unshift('갑질 근절!');
+footerNavigationList.push('매니저의 방', '카페 알바의 방');
+// console.log(footerNavigationList);
 
 // 5. 아이템 제거 (앞/뒤 또는 특정 순서에 위치한 아이템)
+// .pop()
+// .shift()
+// .splice()
+
+footerNavigationList.shift();
+footerNavigationList.splice(footerNavigationList.length - 2, 1);
+footerNavigationList.pop();
 
 // 6. 특정 아이템의 순서 추출
+// .indexOf()
+// .findIndex()
+// .lastIndexOf()
 
 // 7. 새로운 아이템을 배열의 특정 순서 위치에 추가
+// .splice(startIndex, removeCount, addItems)
+// footerNavigationList.splice(2, 3, '한나', '두나', '세나')
 
 // 8. 배열 복사
+var cloneFNL = footerNavigationList; // 복사
 
 // 9. 배열 아이템에 접근 (첫번째, 특정 순서, 마지막 번째 아이템)
 var lastLinkItemOfFooterNavigation =
