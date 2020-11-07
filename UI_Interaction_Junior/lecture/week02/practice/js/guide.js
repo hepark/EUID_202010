@@ -12,12 +12,12 @@
 // 1. 배열 생성 (글로벌, 푸터 내비게이션 / 음료 메뉴 리스트)
 var globalNavigationList = [
   // {id, link, text}
-  '로그인',
-  '회원가입',
-  '이디야 디자인',
-  '이디야 음료',
-  '이디야 뉴스',
-  '매장 찾기',
+  { id: 'gnav-1', link: '/views/login.html', text: '로그인' },
+  { id: 'gnav-2', link: '/views/signup.html', text: '회원가입' },
+  { id: 'gnav-3', link: '/views/design.html', text: '이디야 디자인' },
+  { id: 'gnav-4', link: '/views/beverage.html', text: '이디야 음료' },
+  { id: 'gnav-5', link: '/views/news.html', text: '이디야 뉴스' },
+  { id: 'gnav-6', link: '/views/store.html', text: '매장 찾기' },
 ];
 
 var footerNavigationList = [
@@ -64,8 +64,12 @@ var beverageMenuList = [
 ];
 
 // 2. 특정 배열 아이템을 변수에 할당
+var firstLinkItem = globalNavigationList[0]; // ?????
+
+console.log(firstLinkItem);
 
 // 3. 배열 아이템 순환하여 Console 패널에 출력
+// footerNavigationList를 순환하여 각 아이템을 Console에 출력해보세요.
 
 // 4. 새로운 아이템 추가 (앞 또는 뒤 아이템)
 
@@ -78,8 +82,22 @@ var beverageMenuList = [
 // 8. 배열 복사
 
 // 9. 배열 아이템에 접근 (첫번째, 특정 순서, 마지막 번째 아이템)
+var lastLinkItemOfFooterNavigation =
+  footerNavigationList[footerNavigationList.length - 1]; // 배열의 마지막 아이템에 접근하려면?
+
+console.log(lastLinkItemOfFooterNavigation);
 
 // 10. 배열 → 문자 → 배열 (메서드 체이닝)
+
+// 문자 -> 배열 -> 문자
+var friendsString = '한나 두나 세나';
+console.log(friendsString);
+var friendsArray = friendsString.split(' ');
+console.log(friendsArray);
+friendsString = friendsArray.join(' + ');
+console.log(friendsString);
+
+'한나 두나 세나'.split(' ').join(' + ');
 
 /* -------------------------------------------------------------------------- */
 /* 배열(집합) + 이벤트 핸들링 */
