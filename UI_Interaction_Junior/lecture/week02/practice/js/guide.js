@@ -99,7 +99,18 @@ footerNavigationList.pop();
 // footerNavigationList.splice(2, 3, '한나', '두나', '세나')
 
 // 8. 배열 복사
-var cloneFNL = footerNavigationList; // 복사
+var cloneFNL = []; // footerNavigationList를 복사할 배열
+
+// 배열1을 순환해서 배열2에 각 아이템을 동일한 인덱스에 복사할 수 있다.
+var i = 0;
+
+while (i < footerNavigationList.length) {
+  cloneFNL[i] = footerNavigationList[i];
+  i++;
+}
+
+// 위 방법보다는 slice() 메서드를 사용하는 것이 깔끔!!
+cloneFNL = footerNavigationList.slice();
 
 // 9. 배열 아이템에 접근 (첫번째, 특정 순서, 마지막 번째 아이템)
 var lastLinkItemOfFooterNavigation =
