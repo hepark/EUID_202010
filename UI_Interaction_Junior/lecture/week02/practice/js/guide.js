@@ -66,10 +66,13 @@ var beverageMenuList = [
 // 2. 특정 배열 아이템을 변수에 할당
 var firstLinkItem = globalNavigationList[0]; // ?????
 
-console.log(firstLinkItem);
-
 // 3. 배열 아이템 순환하여 Console 패널에 출력
-// footerNavigationList를 순환하여 각 아이템을 Console에 출력해보세요.
+// footerNavigationList를 순환(Loop)하여 각 아이템을 Console에 출력해보세요.
+// while, do ~ while, for
+for (var z = 0; z < footerNavigationList.length; ++z) {
+  var item = footerNavigationList[z];
+  console.log(item);
+}
 
 // 4. 새로운 아이템 추가 (앞 또는 뒤 아이템)
 
@@ -85,17 +88,12 @@ console.log(firstLinkItem);
 var lastLinkItemOfFooterNavigation =
   footerNavigationList[footerNavigationList.length - 1]; // 배열의 마지막 아이템에 접근하려면?
 
-console.log(lastLinkItemOfFooterNavigation);
-
 // 10. 배열 → 문자 → 배열 (메서드 체이닝)
 
 // 문자 -> 배열 -> 문자
 var friendsString = '한나 두나 세나';
-console.log(friendsString);
 var friendsArray = friendsString.split(' ');
-console.log(friendsArray);
 friendsString = friendsArray.join(' + ');
-console.log(friendsString);
 
 '한나 두나 세나'.split(' ').join(' + ');
 
