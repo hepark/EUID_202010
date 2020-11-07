@@ -10,6 +10,58 @@
 /* 배열 가지고 놀기 (반복 처리 + 배열 메서드) : https://bit.ly/ArrayReference */
 
 // 1. 배열 생성 (글로벌, 푸터 내비게이션 / 음료 메뉴 리스트)
+var globalNavigationList = [
+  // {id, link, text}
+  '로그인',
+  '회원가입',
+  '이디야 디자인',
+  '이디야 음료',
+  '이디야 뉴스',
+  '매장 찾기',
+];
+
+var footerNavigationList = [
+  '개인정보처리방침',
+  '멤버스 이용약관',
+  '가맹 안내',
+  '대량쿠폰구매',
+  '채용안내',
+  '고객의 소리',
+  '사이트맵',
+  '점주의 방',
+];
+var beverageMenuList = [
+  // 음료 정보 객체
+  // 고유 식별자(Identify, ID)
+  // 음료 종류(category)
+  // 음료 이름(name)
+  //      - 한글 이름(korean)
+  //      - 영문 이름(english)
+  {
+    id: 'beverage-1',
+    category: '쉐이크',
+    name: {
+      ko: '초코 묻고 더블',
+      en: 'choco shake',
+    },
+  },
+  {
+    id: 'beverage-2',
+    category: '쉐이크',
+    name: {
+      ko: '밥대신 라이스',
+      en: 'rice shake',
+    },
+  },
+  {
+    id: 'beverage-3',
+    category: '쉐이크',
+    name: {
+      ko: '치즈가 쿠키했대',
+      en: 'cheese shake',
+    },
+  },
+];
 
 // 2. 특정 배열 아이템을 변수에 할당
 
