@@ -127,3 +127,21 @@ friendsString = friendsArray.join(' + ');
 
 /* -------------------------------------------------------------------------- */
 /* 배열(집합) + 이벤트 핸들링 */
+
+// 페이지가 화면에 모두 그려진 후,
+// 렌더링을 할꺼에요.
+
+function render() {
+  // 내비게이션 링크 수집(접근)
+  var globalNavLinks = document.querySelectorAll('.app-navigation a');
+  console.log(globalNavLinks);
+}
+
+// 문서만 해석이 끝난 시점에 함수를 실행하는 경우 (defer 속성과 유사)
+// window.addEventListener('DOMContentLoaded', render);
+
+// 문서의 로드가 끝난 시점에 함수를 실행하는 경우
+window.addEventListener('load', render);
+
+// 시간을 사용자가 제어해서 임의로 함수를 실행하는 경우
+// window.setTimeout(render, 1000);
