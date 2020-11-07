@@ -134,7 +134,22 @@ friendsString = friendsArray.join(' + ');
 function render() {
   // 내비게이션 링크 수집(접근)
   var globalNavLinks = document.querySelectorAll('.app-navigation a');
-  console.log(globalNavLinks);
+
+  // click이벤트에 연결된 함수(재사용) 정의(표현식)
+  var handleClick = function (i) {
+    return function (event) {
+      event.preventDefault();
+      console.log('index:', i);
+    };
+  };
+
+  // 노드리스트(집합)
+  // 집합에는 이벤트를 걸 수 있다??? 없다!!
+  for (let i = 0, l = globalNavLinks.length; i < l; ++i) {
+    var linkEl = globalNavLinks[i];
+    // 링크 요소에 click 이벤트를 연결하고 싶다.
+    linkEl.addEventListener('click', handleClick(i));
+  }
 }
 
 // 문서만 해석이 끝난 시점에 함수를 실행하는 경우 (defer 속성과 유사)
