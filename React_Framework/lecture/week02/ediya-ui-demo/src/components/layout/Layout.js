@@ -1,19 +1,17 @@
 import React from 'react';
 import { string } from 'prop-types';
-import AppHeader from './AppHeader';
-import AppFooter from './AppFooter';
+import Header from './Header';
+import Footer from './Footer';
 
 const Layout = ({ headline, children, ...props }) => {
-  // const { headline, children } = props;
-
   return (
     <>
-      <AppHeader />
+      <Header />
       <main {...props}>
         <h2>{headline}</h2>
         {children}
       </main>
-      <AppFooter />
+      <Footer />
     </>
   );
 };
