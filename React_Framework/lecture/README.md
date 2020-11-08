@@ -12,7 +12,7 @@
 
 ## 3주차
 
-<details open>
+<details>
   <summary>🎯 학습 세부 항목 (펼쳐보세요)</summary>
   <br/>
 
