@@ -10,7 +10,7 @@ const Header = () => {
         <h1 className="brand">
           <Link>
             <img
-              src={require('assets/images/brand.svg')}
+              src={require('assets/images/brand.svg').default}
               alt="Ediya Coffee"
               className="respons"
             />

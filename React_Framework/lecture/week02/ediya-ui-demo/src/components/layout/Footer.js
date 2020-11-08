@@ -20,6 +20,7 @@ class Footer extends Component {
     this.setState({
       isLoading: true,
     });
+
     fetchData(
       API.footer,
       ({ data: { contactInfo, navigation } }) => {
@@ -41,7 +42,7 @@ class Footer extends Component {
   }
 
   render() {
-    const { contactInfo, isLoading, hasError } = this.state;
+    const { contactInfo, navigation, isLoading, hasError } = this.state;
 
     // 데이터 로딩 중일 때 렌더링
     if (!contactInfo || isLoading) {
@@ -52,6 +53,15 @@ class Footer extends Component {
     if (hasError) {
       return <div role="alert">{hasError.message} 오류가 발생했습니다.</div>;
     }
+
+    const {
+      CEO,
+      address,
+      fax,
+      tel,
+      companyRegistrationNumber: cr_number,
+      mailOrderBusinessReport: mob_report,
+    } = contactInfo;
 
     // 데이터 로딩 이후, 오류 없을 경우 렌더링
     return (
@@ -66,50 +76,33 @@ class Footer extends Component {
             /> */}
           </div>
           <ul className="guide-list reset-list">
-            <li>
-              <a href="#">개인정보처리방침</a>
-            </li>
-            <li>
-              <a href="#">멤버스 이용약관</a>
-            </li>
-            <li>
-              <a href="#">가맹 안내</a>
-            </li>
-            <li>
-              <a href="#">대량쿠폰구매</a>
-            </li>
-            <li>
-              <a href="#">채용안내</a>
-            </li>
-            <li>
-              <a href="#">고객의 소리</a>
-            </li>
-            <li>
-              <a href="#">사이트맵</a>
-            </li>
-            <li>
-              <a href="#">점주의 방</a>
-            </li>
+            {navigation.map(({ id, link, text }) => (
+              <li key={id}>
+                <a href={link}>{text}</a>
+              </li>
+            ))}
           </ul>
           <address className="address">
+            <span>{address}</span>
             <span>
-              서울특별시 강남구 논현로 636 이디야빌딩(서울특별시 강남구 논현동
-              221-17)
+              <b>TEL : </b>
+              {tel}
             </span>
             <span>
-              <b>TEL : </b>02-543-6467
+              <b>FAX : </b>
+              {fax}
             </span>
             <span>
-              <b>FAX : </b>02-543-7191
+              <b>사업자등록번호 : </b>
+              {cr_number}
             </span>
             <span>
-              <b>사업자등록번호 : </b>107-86-16302
+              <b>통신판매업 신고 : </b>
+              {mob_report}
             </span>
             <span>
-              <b>통신판매업 신고 : </b>강남 제 002519호
-            </span>
-            <span>
-              <b>대표이사 : </b>문창기
+              <b>대표이사 : </b>
+              {CEO}
             </span>
           </address>
           <small className="copyright">

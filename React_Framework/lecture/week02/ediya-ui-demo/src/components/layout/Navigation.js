@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { string } from 'prop-types';
+import { fetchData } from 'utils';
 import Button from 'components/common/Button';
+import { API, CLASSES } from 'constants/index';
 
 class Navigation extends Component {
   static propTypes = {
@@ -10,30 +12,40 @@ class Navigation extends Component {
   /* -------------------------------------------------------------------------- */
 
   state = {
-    hasError: null,
+    items: [],
+    isLoading: false,
+    hasError: false,
+  };
+
+  /* -------------------------------------------------------------------------- */
+  // 비공개 메서드
+  #checkCurrentPage = (linkPath) => {
+    const { href } = window.location;
+    const isCurrentPage = href.includes(linkPath);
+    return isCurrentPage ? CLASSES.currentPage : null;
   };
 
   /* -------------------------------------------------------------------------- */
 
   componentDidMount() {
-    this.fetchData();
-  }
-
-  fetchData() {
-    fetch(`${process.env.PUBLIC_URL}/api/navigation.json`)
-      .then((response) => response.json())
-      .then(({ data: navigationData }) => console.log(navigationData))
-      .catch(({ message }) =>
+    this.setState({ isLoading: true });
+    fetchData(
+      API.navigation,
+      ({ data: items }) => {
+        this.setState({ isLoading: false, items });
+      },
+      ({ message }) => {
         this.setState({
-          hasError: {
-            message,
-          },
-        })
-      );
+          isLoading: false,
+          hasError: { message },
+        });
+      }
+    );
   }
 
   render() {
     const { headline, ...navWrapperProps } = this.props;
+    const { items } = this.state;
 
     return (
       <nav
@@ -45,7 +57,11 @@ class Navigation extends Component {
           {headline}
         </h2>
         <ul className="reset-list">
-          {/* 비동기 데이터 바인딩 → 내비게이션 리스트 렌더링 (아래 템플릿 코드 활용) */}
+          {items.map((item) => (
+            <li key={item.id} className={this.#checkCurrentPage(item.link)}>
+              <a href={item.link}>{item.text}</a>
+            </li>
+          ))}
         </ul>
         <Button className="is-close-menu" label="메뉴 닫기">
           <span className="close" aria-hidden="true">
