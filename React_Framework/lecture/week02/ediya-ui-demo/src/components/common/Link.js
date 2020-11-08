@@ -11,7 +11,7 @@ const Link = ({ to, children, external, label, ...props }, ref) => {
       href={to}
       title={labelValue}
       aria-label={labelValue}
-      rel={external ? 'noopener norefferer' : null}
+      rel={external ? 'noopener noreferrer' : null}
       target={external ? '_blank' : null}
     >
       {children}
