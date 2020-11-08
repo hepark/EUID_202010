@@ -1,9 +1,11 @@
 import 'styles/index.css';
-import React from 'react';
 import ReactDOM from 'react-dom';
-import App from 'components/app/App';
+import bootstrap from './bootstrap';
+import { getNode as $ } from 'utils';
 
-ReactDOM.render(<App />, document.getElementById('reactApp'));
+console.log($);
+
+ReactDOM.render(bootstrap(/* Strict 모드 활성화 */), $('#reactApp'));
 
 // 앱을 오프라인에서 작동시키고 보다 빠르게 로드 하고자 한다면?
 // 아래 코드의 unregister()를 register()로 변경합니다.
