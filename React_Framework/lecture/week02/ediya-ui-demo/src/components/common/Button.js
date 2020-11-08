@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
-const Button = ({ type, label, children, className, ...buttonProps }) => {
+const Button = ({ type, label, children, className, ...buttonProps }, ref) => {
   const buttonLabel = label ? label : null;
   let buttonClassNames = 'button';
   if (className) {
@@ -8,6 +8,7 @@ const Button = ({ type, label, children, className, ...buttonProps }) => {
   }
   return (
     <button
+      ref={ref}
       {...buttonProps}
       type={type || 'button'}
       className={buttonClassNames}
@@ -19,4 +20,4 @@ const Button = ({ type, label, children, className, ...buttonProps }) => {
   );
 };
 
-export default Button;
+export default forwardRef(Button);
