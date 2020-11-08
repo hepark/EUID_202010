@@ -1,9 +1,5 @@
 import React from 'react';
-// import App from 'app/App';
-
-const App = () => {
-  return <div>App</div>;
-};
+import App from 'app/App';
 
 function bootstrap(useStrictMode = false) {
   return useStrictMode ? (

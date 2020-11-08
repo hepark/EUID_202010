@@ -8,6 +8,7 @@ const CONFIG = {
   // 로컬라이제이션
   locale: ko,
   // 규칙 재정의
+  // https://github.com/yamoo9/axe-core/blob/develop/doc/rule-descriptions.md
   rules: [{ id: 'area-alt', enabled: false }],
 };
 
