@@ -75,19 +75,72 @@ for (let i = 0; i < footerNavigationList.length; ++i) {
 }
 
 // 4. 새로운 아이템 추가 (앞 또는 뒤 아이템)
+//'값질 근절','매니저의 방'
+footerNavigationList.unshift('값질 근절');
+footerNavigationList.push('매니저의 방', '카페 알바의 방');
 
 // 5. 아이템 제거 (앞/뒤 또는 특정 순서에 위치한 아이템)
+// 중간의 아이템 제거 splice()
+// shift,pop -> 원본을 변형시키는 문제
+// indexOf() 문자와 배열을 모두 찾을수 있다.
+// indexOf()는 문자의 순서 위치를 말한다
+// indexOf() 배열의 위치를 조회할 수도 있다.
+
+footerNavigationList.shift(); //값질 근절 제거
+footerNavigationList.splice(footerNavigationList.length - 2);
+console.log(footerNavigationList);
 
 // 6. 특정 아이템의 순서 추출
+// .indexOf()
 
 // 7. 새로운 아이템을 배열의 특정 순서 위치에 추가
-
+// 추가할때도 splice(startindex,removecount,additems)
+footerNavigationList.splice(2, 3, '한나', '두나', '세나');
 // 8. 배열 복사
 
 // 9. 배열 아이템에 접근 (첫번째, 특정 순서, 마지막 번째 아이템)
-var lastLinkItemOfFooterNavigation = globalNavigationList[length - 1];
+var lastLinkItemOfFooterNavigation =
+  globalNavigationList[globalNavigationList.length - 1];
 console.log(lastLinkItemOfFooterNavigation);
 // 10. 배열 → 문자 → 배열 (메서드 체이닝)
 
 /* -------------------------------------------------------------------------- */
 /* 배열(집합) + 이벤트 핸들링 */
+function render() {
+  var el_all = document.querySelectorAll('.app-navigation a');
+  console.log(el_all);
+
+  // var handler = function (e){
+  //   e.preventDefault();
+    
+  // }
+  // el_all.forEach(function (item, index) {
+  //   item.addEventListener('click', function (e) {
+  //     e.preventDefault();
+  //     console.log(this);
+  //     console.log(index);
+  //   });
+
+  // 함수가 실행된 이유에 가비지컬렉터가 데이터를 다 소멸 시킴 
+  // function outer(){
+  //   var a = 9;
+  //   return function inner(){
+  //     console.log(a);
+  //   }
+  // }
+// var inner = outer();
+// inner()
+  // outer를 실행하면 함수는 원래 소멸되어야 한다.
+  // 하지만 return을 함수로 내보내면 함수값은 살아남을수 있다.
+  // 결과적으로 반환받은 함수는 기억을 할수 있고 스코프 체이닝이 가능하다. 
+  for(var i=0; i <el_all.length; ++i){
+    var link_EL = el_all[i];
+    link_EL.addEventListener('click',function(event){
+      event.preventDefault();
+      console.log('index',i);
+    });
+  }
+  });
+}
+
+window.addEventListener('load', render);
