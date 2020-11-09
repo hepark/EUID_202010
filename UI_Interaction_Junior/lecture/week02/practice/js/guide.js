@@ -64,30 +64,99 @@ var beverageMenuList = [
 ];
 
 // 2. 특정 배열 아이템을 변수에 할당
-var firstLink = globalNavigationList[0];
-console.log(firstLink);
+var firstLinkItem = globalNavigationList[0]; // ?????
+
 // 3. 배열 아이템 순환하여 Console 패널에 출력
-// footerNavigationList.forEach((item) => {``
-//   console.log(item);
-// });
-for (let i = 0; i < footerNavigationList.length; ++i) {
-  console.log(i);
+// footerNavigationList를 순환(Loop)하여 각 아이템을 Console에 출력해보세요.
+// while, do ~ while, for
+for (var z = 0; z < footerNavigationList.length; ++z) {
+  var item = footerNavigationList[z];
+  // console.log(item);
 }
 
 // 4. 새로운 아이템 추가 (앞 또는 뒤 아이템)
+// '갑질 근절!', '매니저의 방'
+footerNavigationList.unshift('갑질 근절!');
+footerNavigationList.push('매니저의 방', '카페 알바의 방');
+// console.log(footerNavigationList);
 
 // 5. 아이템 제거 (앞/뒤 또는 특정 순서에 위치한 아이템)
+// .pop()
+// .shift()
+// .splice()
+
+footerNavigationList.shift();
+footerNavigationList.splice(footerNavigationList.length - 2, 1);
+footerNavigationList.pop();
 
 // 6. 특정 아이템의 순서 추출
+// .indexOf()
+// .findIndex()
+// .lastIndexOf()
 
 // 7. 새로운 아이템을 배열의 특정 순서 위치에 추가
+// .splice(startIndex, removeCount, addItems)
+// footerNavigationList.splice(2, 3, '한나', '두나', '세나')
 
 // 8. 배열 복사
+var cloneFNL = []; // footerNavigationList를 복사할 배열
+
+// 배열1을 순환해서 배열2에 각 아이템을 동일한 인덱스에 복사할 수 있다.
+var i = 0;
+
+while (i < footerNavigationList.length) {
+  cloneFNL[i] = footerNavigationList[i];
+  i++;
+}
+
+// 위 방법보다는 slice() 메서드를 사용하는 것이 깔끔!!
+cloneFNL = footerNavigationList.slice();
 
 // 9. 배열 아이템에 접근 (첫번째, 특정 순서, 마지막 번째 아이템)
-var lastLinkItemOfFooterNavigation = globalNavigationList[length - 1];
-console.log(lastLinkItemOfFooterNavigation);
+var lastLinkItemOfFooterNavigation =
+  footerNavigationList[footerNavigationList.length - 1]; // 배열의 마지막 아이템에 접근하려면?
+
 // 10. 배열 → 문자 → 배열 (메서드 체이닝)
+
+// 문자 -> 배열 -> 문자
+var friendsString = '한나 두나 세나';
+var friendsArray = friendsString.split(' ');
+friendsString = friendsArray.join(' + ');
+
+'한나 두나 세나'.split(' ').join(' + ');
 
 /* -------------------------------------------------------------------------- */
 /* 배열(집합) + 이벤트 핸들링 */
+
+// 페이지가 화면에 모두 그려진 후,
+// 렌더링을 할꺼에요.
+
+function render() {
+  // 내비게이션 링크 수집(접근)
+  var globalNavLinks = document.querySelectorAll('.app-navigation a');
+
+  // click이벤트에 연결된 함수(재사용) 정의(표현식)
+  var handleClick = function (i) {
+    return function (event) {
+      event.preventDefault();
+      console.log('index:', i);
+    };
+  };
+
+  // 노드리스트(집합)
+  // 집합에는 이벤트를 걸 수 있다??? 없다!!
+  for (let i = 0, l = globalNavLinks.length; i < l; ++i) {
+    var linkEl = globalNavLinks[i];
+    // 링크 요소에 click 이벤트를 연결하고 싶다.
+    linkEl.addEventListener('click', handleClick(i));
+  }
+}
+
+// 문서만 해석이 끝난 시점에 함수를 실행하는 경우 (defer 속성과 유사)
+// window.addEventListener('DOMContentLoaded', render);
+
+// 문서의 로드가 끝난 시점에 함수를 실행하는 경우
+window.addEventListener('load', render);
+
+// 시간을 사용자가 제어해서 임의로 함수를 실행하는 경우
+// window.setTimeout(render, 1000);

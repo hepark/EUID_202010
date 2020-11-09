@@ -10,9 +10,89 @@
 
 <img src="../../assets/cover--calendar.png" alt />
 
-## 3주차
+## 4주차
 
 <details open>
+  <summary>🎯 학습 세부 항목 (펼쳐보세요)</summary>
+  <br />
+
+  JavaScript 즉시 실행 함수식(IIFE), 클로저(Closure), 문서객체모델(DOM)에 대해 학습합니다.
+
+  - IIFE, SEAF
+  - JavaScript Closure
+  - DOM, CSSOM API
+  
+  <br />
+
+  ### ␥ 월요일
+
+  <details>
+    <summary>JavaScript 즉시 실행 함수 식과 클로저에 대해 학습합니다.</summary>
+    <br />
+
+  - ☑︎ 즉시 실행 함수 식 (9분 52초)
+  - ☑︎ JavaScript 클로저 (11분 27초, 13분 53초, 19분 0초)
+
+  </details>
+
+  <br />
+
+  ### ␥ 화요일
+
+  <details>
+    <summary>문서 객체 모델(DOM)에 대해 학습합니다.</summary>
+    <br />
+
+  - ☑︎ 문서 프로그래밍 인터페이스 (11분 11초, 11분 50초)
+  </details>
+
+  <br/>
+
+  ### ␥ 수요일
+
+  <details>
+    <summary>문서 객체 모델(DOM) 노드(Node)에 대해 학습합니다.</summary>
+    <br />
+
+  - ☑︎ Document / Node 메서드 (13분 41초, 14분 56초, 7분 17초)
+  </details>
+
+  <br/>
+
+  ### ␥ 목요일
+
+  <details>
+    <summary>문서 객체 모델(DOM) 요소 노드(ElementNode)의 속성과 메서드에 대해 학습합니다.</summary>
+    <br />
+
+  - ☑︎ ElementNode 속성 / 메서드 (17분 45초, 11분 48초, 16분 51초)
+  </details>
+
+  <br/>
+
+  ### ␥ 금요일
+
+  <details>
+    <summary>요소의 스타일 속성과 메서드, CSSOM에 대해 학습합니다.</summary>
+    <br />
+
+  - ☑︎ HTML 요소 스타일 속성 / 메서드 (9분 40초, 11분 13초)
+  - ☑︎ CSS 객체 모델 (17분 32초)
+  </details>
+
+</details>
+
+<br/>
+
+<!-- -------------------------------------------------------------------------------------------  -->
+
+---
+
+<br/>
+
+## 3주차
+
+<details>
   <summary>🎯 학습 세부 항목 (펼쳐보세요)</summary>
   <br />
 
