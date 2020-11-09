@@ -16,6 +16,161 @@
 
 <br />
 
+## Q8. 질문
+
+이디아 예제의 Navigation 컴포넌트를 훅으로 변환시키는 연습을 하는 도중에 `useEffect`에 의존배열 items를 넣을경우 무한 렌더링이 일어납니다. 
+처음 컴포넌트가 마운트 되었을 시점에 fetch를 하여 처음 한번만 메뉴 items 배열을 받아오고 이 items 배열이 기존 값과 달라질때만 리렌더링을 시키고자 하는게 의도였는데 
+의존배열에 items를 넣을 경우 무한으로 fetch 하는 현상이 일어나는거 같습니다. 
+왜 이런 현상이 일어나는 것일까요? 😂
+
+<details>
+ <summary>Navigation 컴포넌트 코드</summary>
+ <!-- <br/> -->
+
+ 
+ ```jsx
+import React, { useEffect, useRef, useState } from 'react';
+import { string } from 'prop-types';
+import classNames from 'classnames';
+import Button from 'components/common/Button';
+import { fetchData, delay } from 'utils';
+import { API, CLASSES } from 'constants/index';
+
+const Navigation = ({ headline }) => {
+  const [items, setItems] = useState([]);
+  const [isOpened, setIsOpened] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [activeClass, setActiveClassss] = useState('');
+
+  const openMenuButtonRef = useRef();
+  const closeMenuButtonRef = useRef();
+  const firstLinkRef = useRef();
+
+  const _checkCurrentPage = (linkPath) => {
+    const { href } = window.location;
+    const isCurrentPage = href.includes(linkPath);
+    return isCurrentPage ? CLASSES.currentPage : null;
+  };
+
+  const _handleKeydown = (e) => {
+    const { current: firstLinkNode } = firstLinkRef;
+    const { current: closeMenuButtonNode } = closeMenuButtonRef;
+
+    const { target, key, shiftKey } = e;
+
+    if (shiftKey && key === 'Tab' && target.isEqualNode(firstLinkNode)) {
+      e.preventDefault();
+      closeMenuButtonNode.focus();
+    }
+
+    if (!shiftKey && key === 'Tab' && target.isEqualNode(closeMenuButtonNode)) {
+      e.preventDefault();
+      firstLinkNode.focus();
+    }
+  };
+
+  const handleOpenMenu = () => {
+    setIsOpened(true);
+    delay(100).then(() => {
+      setActiveClassss(CLASSES.activeClass);
+      document.addEventListener('keydown', _handleKeydown);
+    });
+  };
+
+  const handleCloseMenu = () => {
+    setActiveClassss('');
+    delay(400).then(() => {
+      setIsOpened(false);
+    });
+    document.removeEventListener('keydown', _handleKeydown);
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchData(
+      API.navigation,
+      ({ data: items }) => {
+        setIsLoading(false);
+        setItems(items);
+      },
+      ({ message }) => {
+        setIsLoading(false);
+        setHasError({ message });
+      }
+    );
+    console.log(items)
+  }, [items]);
+
+  // 데이터를 로딩 중인 상태 렌더링
+  if (isLoading) {
+    return <div role="alert">데이터 로딩 중입니다...</div>;
+  }
+
+  // 오류가 발생했을 때 상태 렌더링
+  if (hasError) {
+    return <div role="alert">{hasError.message} 오류가 발생했습니다.</div>;
+  }
+  // 로딩 끝, 오류 없음 상태 렌더링
+  return (
+    <>
+      <Button
+        ref={openMenuButtonRef}
+        className="is-open-menu"
+        label="메뉴 열기"
+        onClick={handleOpenMenu}
+      >
+        <span className="ir" />
+      </Button>
+
+      <nav
+        hidden={!isOpened}
+        aria-labelledby="globalNav"
+        className={classNames('app-navigation', activeClass)}
+        // {...navWrapperProps}
+      >
+        <h2 id="globalNav" className="a11y-hidden">
+          {headline}
+        </h2>
+
+        <ul className="reset-list">
+          {/* 비동기 데이터 바인딩 → 내비게이션 리스트 렌더링 (아래 템플릿 코드 활용) */}
+          {items.map((item, index) => (
+            <li key={item.id} className={_checkCurrentPage(item.link)}>
+              <a ref={index === 0 ? firstLinkRef : null} href={item.link}>
+                {item.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <Button
+          ref={closeMenuButtonRef}
+          className="is-close-menu"
+          label="메뉴 닫기"
+          onClick={handleCloseMenu}
+        >
+          <span className="close" aria-hidden="true">
+            ×
+          </span>
+        </Button>
+      </nav>
+    </>
+  );
+};
+
+Navigation.propTypes = {
+  headline: string.isRequired,
+};
+
+export default Navigation;
+ ```
+</details>
+
+---
+
+
+<br />
+
 ## Q7. 질문
 
 `normalize.css`를 불러오는 부분이 에러가 발생하는데 문제 원인이 뭔가요? → 에러 내용: `Unknown at rule @import-normalize`
