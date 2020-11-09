@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스크롤 뷰 이벤트 핸들링</title>
+    <link rel="shortcut icon" href="./assets/favicon.svg" />
+    <link rel="stylesheet" href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css" />
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
+    <link rel="stylesheet" href="./scrollIntoViewDemo.css" />
+    <script defer src="./scroll.js"></script>
+  </head>
+
+  <body>
+
+    <h1 class="a11yHidden" lang="en">Scroll In To View DEMO</h1>
+
+    <!-- 스크롤 인 투 뷰 컴포넌트 -->
+    <article class="scrollView scrollView--horizontal">
+      <h2 class="a11yHidden">스크롤 인 투 뷰 컴포넌트 헤드라인</h2>
+
+      <!-- 탭 상태 컨트롤: 활성화/비활성화: aria-selected, tabindex 업데이트 -->
+      <div class="scrollView__control" role="tablist" aria-label="스크롤 인 투 뷰 컴포넌트 컨트롤 레이블">
+        <button
+          type="button"
+          lang="en"
+          class="scrollView__controlTab scrollView__controlTab--rounded scrollView__controlTab--selected"
+          role="tab" aria-selected="true" aria-controls="scene--seoul" tabindex="0">
+          <span class="a11yHidden">Seoul</span>
+        </button>
+        <button
+          type="button"
+          lang="en"
+          class="scrollView__controlTab scrollView__controlTab--rounded"
+          role="tab" aria-selected="false" aria-controls="scene--christtheRedeemer" tabindex="-1">
+          <span class="a11yHidden">Christthe Redeemer</span>
+        </button>
+        <button
+          type="button"
+          lang="en"
+          class="scrollView__controlTab scrollView__controlTab--rounded"
+          role="tab" aria-selected="false" aria-controls="scene--eiffelTower" tabindex="-1">
+          <span class="a11yHidden">Eiffel Tower</span>
+        </button>
+      </div>
+
+      <!-- 탭 패널 상태 컨트롤: 활성화/비활성화: tabindex 업데이트 -->
+      <div class="scrollView__scene scrolView__scene--selected" id="scene--seoul" role="tabpanel" tabindex="0">
+        <div class="container" role="group">
+          <figure lang="en">
+            <img src="./assets/seoul.svg" alt="Seoul" width="300" height="300" />
+            <figcaption>Seoul</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="scrollView__scene" id="scene--christtheRedeemer" role="tabpanel" tabindex="-1">
+        <div class="container" role="group">
+          <figure lang="en">
+            <img src="./assets/ChristtheRedeemer.svg" alt="Christthe Redeemer" width="300" height="300" />
+            <figcaption>Christthe Redeemer</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="scrollView__scene" id="scene--eiffelTower" role="tabpanel" tabindex="-1">
+        <div class="container" role="group">
+          <figure lang="en">
+            <img src="./assets/EiffelTower.svg" alt="Eiffel Tower" width="300" height="300" />
+            <figcaption>Eiffel Tower</figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+  </body>
+
+</html>
