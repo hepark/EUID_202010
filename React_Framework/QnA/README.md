@@ -13,79 +13,170 @@
 1. [create-react-app이 ie를 지원하지 않는다는데 어떻게 해결해야 하나요?](#q5-질문)
 1. [파일 확장자 `js`와 `jsx`는 특별한 차이점이 있나요?](#q6-질문)
 1. [`normalize.css`를 불러오는 부분이 에러가 발생하는데 문제 원인이 뭔가요?](#q7-질문)
+1. [`useEffect()` 훅을 사용해 데이터를 패치(fetch) 하는데 무한 루프가 발생하는 이유가 뭘까요?](#q8-질문)
 
 <br />
 
 ## Q8. 질문
 
-이디아 예제의 Navigation 컴포넌트를 훅으로 변환시키는 연습을 하는 도중에 `useEffect`에 의존배열 items를 넣을경우 무한 렌더링이 일어납니다. 
-처음 컴포넌트가 마운트 되었을 시점에 fetch를 하여 처음 한번만 메뉴 items 배열을 받아오고 이 items 배열이 기존 값과 달라질때만 리렌더링을 시키고자 하는게 의도였는데 
-의존배열에 items를 넣을 경우 무한으로 fetch 하는 현상이 일어나는거 같습니다. 
-왜 이런 현상이 일어나는 것일까요? 😂
+이디아 예제의 Navigation 컴포넌트를 훅으로 변환시키는 연습을 하는 도중에 `useEffect()` 훅에 의존배열 `items`를 넣을 경우 무한 렌더링이 일어납니다. 
+처음 컴포넌트가 마운트 되었을 시점에 데이터 패치(fetch)를 하여 처음 한번만 메뉴 `items` 배열을 받아오고 이 `items` 배열이 기존 값과 달라질때만 
+리렌더링을 시키고자 하는게 의도였는데 의존배열에 `items`를 넣을 경우 무한으로 fetch 하는 현상이 일어나는거 같습니다. 왜 이런 현상이 일어나는 것일까요? 😂
 
 <details>
- <summary>Navigation 컴포넌트 코드</summary>
- <!-- <br/> -->
+  <summary>Navigation 컴포넌트 코드</summary>
+  <br/>
 
- 
- ```jsx
-import React, { useEffect, useRef, useState } from 'react';
-import { string } from 'prop-types';
-import classNames from 'classnames';
-import Button from 'components/common/Button';
-import { fetchData, delay } from 'utils';
-import { API, CLASSES } from 'constants/index';
+  ```jsx
+  import React, { useEffect, useRef, useState } from 'react';
+  import { string } from 'prop-types';
+  import classNames from 'classnames';
+  import Button from 'components/common/Button';
+  import { fetchData, delay } from 'utils';
+  import { API, CLASSES } from 'constants/index';
 
-const Navigation = ({ headline }) => {
-  const [items, setItems] = useState([]);
-  const [isOpened, setIsOpened] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [activeClass, setActiveClassss] = useState('');
+  const Navigation = ({ headline }) => {
+    const [items, setItems] = useState([]);
+    const [isOpened, setIsOpened] = useState(false);
+    const [hasError, setHasError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [activeClass, setActiveClassss] = useState('');
 
-  const openMenuButtonRef = useRef();
-  const closeMenuButtonRef = useRef();
-  const firstLinkRef = useRef();
+    const openMenuButtonRef = useRef();
+    const closeMenuButtonRef = useRef();
+    const firstLinkRef = useRef();
 
-  const _checkCurrentPage = (linkPath) => {
-    const { href } = window.location;
-    const isCurrentPage = href.includes(linkPath);
-    return isCurrentPage ? CLASSES.currentPage : null;
-  };
+    const _checkCurrentPage = (linkPath) => {
+      const { href } = window.location;
+      const isCurrentPage = href.includes(linkPath);
+      return isCurrentPage ? CLASSES.currentPage : null;
+    };
 
-  const _handleKeydown = (e) => {
-    const { current: firstLinkNode } = firstLinkRef;
-    const { current: closeMenuButtonNode } = closeMenuButtonRef;
+    const _handleKeydown = (e) => {
+      const { current: firstLinkNode } = firstLinkRef;
+      const { current: closeMenuButtonNode } = closeMenuButtonRef;
 
-    const { target, key, shiftKey } = e;
+      const { target, key, shiftKey } = e;
 
-    if (shiftKey && key === 'Tab' && target.isEqualNode(firstLinkNode)) {
-      e.preventDefault();
-      closeMenuButtonNode.focus();
+      if (shiftKey && key === 'Tab' && target.isEqualNode(firstLinkNode)) {
+        e.preventDefault();
+        closeMenuButtonNode.focus();
+      }
+
+      if (!shiftKey && key === 'Tab' && target.isEqualNode(closeMenuButtonNode)) {
+        e.preventDefault();
+        firstLinkNode.focus();
+      }
+    };
+
+    const handleOpenMenu = () => {
+      setIsOpened(true);
+      delay(100).then(() => {
+        setActiveClassss(CLASSES.activeClass);
+        document.addEventListener('keydown', _handleKeydown);
+      });
+    };
+
+    const handleCloseMenu = () => {
+      setActiveClassss('');
+      delay(400).then(() => {
+        setIsOpened(false);
+      });
+      document.removeEventListener('keydown', _handleKeydown);
+    };
+
+    useEffect(() => {
+      setIsLoading(true);
+      fetchData(
+        API.navigation,
+        ({ data: items }) => {
+          setIsLoading(false);
+          setItems(items);
+        },
+        ({ message }) => {
+          setIsLoading(false);
+          setHasError({ message });
+        }
+      );
+      console.log(items)
+    }, [items]);
+
+    // 데이터를 로딩 중인 상태 렌더링
+    if (isLoading) {
+      return <div role="alert">데이터 로딩 중입니다...</div>;
     }
 
-    if (!shiftKey && key === 'Tab' && target.isEqualNode(closeMenuButtonNode)) {
-      e.preventDefault();
-      firstLinkNode.focus();
+    // 오류가 발생했을 때 상태 렌더링
+    if (hasError) {
+      return <div role="alert">{hasError.message} 오류가 발생했습니다.</div>;
     }
+    // 로딩 끝, 오류 없음 상태 렌더링
+    return (
+      <>
+        <Button
+          ref={openMenuButtonRef}
+          className="is-open-menu"
+          label="메뉴 열기"
+          onClick={handleOpenMenu}
+        >
+          <span className="ir" />
+        </Button>
+
+        <nav
+          hidden={!isOpened}
+          aria-labelledby="globalNav"
+          className={classNames('app-navigation', activeClass)}
+          // {...navWrapperProps}
+        >
+          <h2 id="globalNav" className="a11y-hidden">
+            {headline}
+          </h2>
+
+          <ul className="reset-list">
+            {/* 비동기 데이터 바인딩 → 내비게이션 리스트 렌더링 (아래 템플릿 코드 활용) */}
+            {items.map((item, index) => (
+              <li key={item.id} className={_checkCurrentPage(item.link)}>
+                <a ref={index === 0 ? firstLinkRef : null} href={item.link}>
+                  {item.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <Button
+            ref={closeMenuButtonRef}
+            className="is-close-menu"
+            label="메뉴 닫기"
+            onClick={handleCloseMenu}
+          >
+            <span className="close" aria-hidden="true">
+              ×
+            </span>
+          </Button>
+        </nav>
+      </>
+    );
   };
 
-  const handleOpenMenu = () => {
-    setIsOpened(true);
-    delay(100).then(() => {
-      setActiveClassss(CLASSES.activeClass);
-      document.addEventListener('keydown', _handleKeydown);
-    });
+  Navigation.propTypes = {
+    headline: string.isRequired,
   };
 
-  const handleCloseMenu = () => {
-    setActiveClassss('');
-    delay(400).then(() => {
-      setIsOpened(false);
-    });
-    document.removeEventListener('keydown', _handleKeydown);
-  };
+  export default Navigation;
+  ```
+</details>
 
+<br/>
+
+<details open>
+  <summary>A8. 답변</summary>
+
+  ### 무한 루프 현상이 발생한 이유
+
+  비동기 네트워크 통신 요청은 내비게이션 함수 컴포넌트 생성 시점에 **1회** 진행되어 데이터를 패치(fetch)한 후, `items` 상태를 **1회** 업데이트 하여야 합니다.
+  즉, **데이터 패치는 컴포넌트 생성 시점에 1회만 시도 되어야 합니다.** 하지만 질문 코드의 `useEffect()` 훅 코드를 살펴보면 콜백 함수 (재)실행 여부를 결정하는 
+  2번째 인자 배열에 `items` 상태 값이 설정되어 있습니다. `items` 상태 값이 변경될 때만 `useEffect()` 훅의 콜백 함수가 실행되도록 구성하기 위함이겠죠.
+
+  ```js
   useEffect(() => {
     setIsLoading(true);
     fetchData(
@@ -99,75 +190,49 @@ const Navigation = ({ headline }) => {
         setHasError({ message });
       }
     );
-    console.log(items)
-  }, [items]);
+  }, [items]); // items 상태가 업데이트 될 때 마다 콜백 함수 (재)실행
+  ```
 
-  // 데이터를 로딩 중인 상태 렌더링
-  if (isLoading) {
-    return <div role="alert">데이터 로딩 중입니다...</div>;
-  }
+  **바로 이 설정이 무한 루프 문제가 발생한 원인입니다.** 왜 그러한 지 코드 흐름을 간단하게 정리해봅시다.
 
-  // 오류가 발생했을 때 상태 렌더링
-  if (hasError) {
-    return <div role="alert">{hasError.message} 오류가 발생했습니다.</div>;
-  }
-  // 로딩 끝, 오류 없음 상태 렌더링
-  return (
-    <>
-      <Button
-        ref={openMenuButtonRef}
-        className="is-open-menu"
-        label="메뉴 열기"
-        onClick={handleOpenMenu}
-      >
-        <span className="ir" />
-      </Button>
+  1. **`items` 상태 초기 값 `[]`**
+  1. **`items` 상태에 의존하므로,** `useEffect()` 콜백 함수 실행 → 비동기 통신 → 데이터 패치 → **`items` 상태 업데이트**
+  1. **`items` 상태 업데이트 됨에 따라,** 다시 `useEffect()` 콜백 함수 실행 → 비동기 통신 → 데이터 패치 → **`items` 상태 업데이트**
+  1. **`items` 상태 업데이트 됨에 따라,** 다시 `useEffect()` 콜백 함수 실행 → 비동기 통신 → 데이터 패치 → **`items` 상태 업데이트**
+  1. ...
+  1. ...
+  1. ...
+  1. (⚠️ 무한 루프 발생)
 
-      <nav
-        hidden={!isOpened}
-        aria-labelledby="globalNav"
-        className={classNames('app-navigation', activeClass)}
-        // {...navWrapperProps}
-      >
-        <h2 id="globalNav" className="a11y-hidden">
-          {headline}
-        </h2>
+  <br/>
 
-        <ul className="reset-list">
-          {/* 비동기 데이터 바인딩 → 내비게이션 리스트 렌더링 (아래 템플릿 코드 활용) */}
-          {items.map((item, index) => (
-            <li key={item.id} className={_checkCurrentPage(item.link)}>
-              <a ref={index === 0 ? firstLinkRef : null} href={item.link}>
-                {item.text}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <Button
-          ref={closeMenuButtonRef}
-          className="is-close-menu"
-          label="메뉴 닫기"
-          onClick={handleCloseMenu}
-        >
-          <span className="close" aria-hidden="true">
-            ×
-          </span>
-        </Button>
-      </nav>
-    </>
-  );
-};
+  ### 문제 해결 방법: 데이터 패치는 1회만 실행
 
-Navigation.propTypes = {
-  headline: string.isRequired,
-};
+  데이터 패치를 통해 `items` 상태가 업데이트 되고, 다시 데이터 패치, `items` 상태 업데이트... **무한 연쇄 고리를 끊으려면 
+  `useEffect()` 훅에 설정된 의존 상태 값 `items`를 제거하고 빈 배열을 설정해야 합니다.** 빈 배열을 설정하면 의존하는 상태 속성 값이 없으므로
+  컴포넌트 생성 시점에 1회만 콜백함수를 실행하게 됩니다. (클래스 컴포넌트의 `componentDidMount` 라이프 사이클 훅과 유사)
 
-export default Navigation;
- ```
+  ```js
+    useEffect(() => {
+      setIsLoading(true);
+      fetchData(
+        API.navigation,
+        ({ data: items }) => {
+          setIsLoading(false);
+          setItems(items);
+        },
+        ({ message }) => {
+          setIsLoading(false);
+          setHasError({ message });
+        }
+      );
+    }, []);
+  ```
 </details>
 
----
+<br/>
 
+---
 
 <br />
 
@@ -175,7 +240,7 @@ export default Navigation;
 
 `normalize.css`를 불러오는 부분이 에러가 발생하는데 문제 원인이 뭔가요? → 에러 내용: `Unknown at rule @import-normalize`
 
-<details open>
+<details>
   <summary>A7. 답변</summary>
   <!-- <br/> -->
 
