@@ -16,8 +16,18 @@
 1. [`node`와 `element`의 차이가 무엇인지 알고 싶습니다.](#q8-질문)
 1. [`while`문 동작 오류 원인을 알고 싶습니다.](#q9-질문)
 1. [`while`문 아래에 `레이블`의 역할에 대해 알고 싶습니다.](#q10-질문)
+1. [독립적인 클로저 공간이란 것을 알겠는데 foo와 more 클로저는 다른세상인건지 궁금합니다](#q11-질문)
+1. [bind()로 클로저 묶는 부분이 이해가 잘 안됩니다](#q12-질문)
 
 <br/>
+
+## Q12. 질문
+
+bind() 능력이 이해가 안가네요. 물론 bind(),call(),aplly()에 대해 다시 공부해볼 예정이지만 간략하게 세 함수의 차이를 알고 싶습니다:)
+
+## Q11. 질문
+
+11분 30초에 나오는 foo함수 클로저와 more함수 클로저는 왜 다른세상인것인지 구체적인 설명 필요
 
 ## Q10. 질문
 
@@ -28,51 +38,46 @@
   <summary>A10. 답변</summary>
   <br/>
 
-  반복문에 레이블(label)을 붙이고, `break`나 `continue` 구문을 사용해 
-  반복문의 **어느 위치에서 작업을 멈추고** **어느 위치에서 다시 수행할 지**를 알려줄 수 있습니다.
-  레이블 사용법에 대한 상세한 내용은 [label, MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/label) 문서를 참고해보세요.
+반복문에 레이블(label)을 붙이고, `break`나 `continue` 구문을 사용해
+반복문의 **어느 위치에서 작업을 멈추고** **어느 위치에서 다시 수행할 지**를 알려줄 수 있습니다.
+레이블 사용법에 대한 상세한 내용은 [label, MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/label) 문서를 참고해보세요.
 
-  ```js
-  var count = 10;
+```js
+var count = 10;
 
-  label1:
-  while(count-- > 0) {
-    
-    if (count === 8) {
-
-      label2:
-      while(true) {
-        count -= 2;
-        console.log('label2: while: ', count);
-        if (count < 6) {
-          console.log('label2: while: count < 6: ', count);
-          console.log('label2 → label1 레이블로 continue 점프(↖)');
-          continue label1;
-        }
+label1: while (count-- > 0) {
+  if (count === 8) {
+    label2: while (true) {
+      count -= 2;
+      console.log("label2: while: ", count);
+      if (count < 6) {
+        console.log("label2: while: count < 6: ", count);
+        console.log("label2 → label1 레이블로 continue 점프(↖)");
+        continue label1;
       }
     }
-
-    console.log('label1: while: ', count);
-
   }
-  ```
 
-  **출력 결과**
+  console.log("label1: while: ", count);
+}
+```
 
-  ```
-  label1: while: 9
-    label2: while: 6
-    label2: while: 4
-    label2: while: count < 6: 4
-    label2 → label1 레이블로 continue 점프(↖)
-  label1: while: 3
-  label1: while: 2
-  label1: while: 1
-  ```
+**출력 결과**
 
-  현업에서 이런 코드를 자주 못 본 이유는 중첩된 반복문 사용이 상대적으로 UI 개발 상에서 자주 사용되지 않았기 때문일 것입니다.
-  x, y축을 사용하는 UI를 제어해야 하는 경우라면 레이블을 사용하는 코드를 볼 수도 있을 거에요. :-)
-  
+```
+label1: while: 9
+  label2: while: 6
+  label2: while: 4
+  label2: while: count < 6: 4
+  label2 → label1 레이블로 continue 점프(↖)
+label1: while: 3
+label1: while: 2
+label1: while: 1
+```
+
+현업에서 이런 코드를 자주 못 본 이유는 중첩된 반복문 사용이 상대적으로 UI 개발 상에서 자주 사용되지 않았기 때문일 것입니다.
+x, y축을 사용하는 UI를 제어해야 하는 경우라면 레이블을 사용하는 코드를 볼 수도 있을 거에요. :-)
+
 </details>
 
 <br />
@@ -121,53 +126,54 @@ loopCount: while (while_condition) {
   <summary>Q9. 답변</summary>
   <br/>
 
-  `count === 3 || count === 7` 조건문 안에 `continue`가 있어서 while 문이 작동하지 않는 것입니다.  
-  코드를 아래와 같이 변경한 후 테스트 해보세요.
+`count === 3 || count === 7` 조건문 안에 `continue`가 있어서 while 문이 작동하지 않는 것입니다.  
+ 코드를 아래와 같이 변경한 후 테스트 해보세요.
 
-  ```js
-  var while_condition = true;
-  var count = 0;
-  var break_point = 10;
-  var inner_count = 0;
+```js
+var while_condition = true;
+var count = 0;
+var break_point = 10;
+var inner_count = 0;
 
-  loopCount: while (while_condition) {
-    ++count;
+loopCount: while (while_condition) {
+  ++count;
 
-    if (count === 3 || count === 7) {
-      continue;
-    }
+  if (count === 3 || count === 7) {
+    continue;
+  }
 
-    while (true) {
-      inner_count++;
-      if (inner_count === break_point / 2) {
-        console.log('loopCount 종료 (1)');
-        break loopCount;
-      }
-      console.log('inner_count:', inner_count);
-    }
-
-    if (count === 6) {
-      console.log('loopCount 종료 (2)');
+  while (true) {
+    inner_count++;
+    if (inner_count === break_point / 2) {
+      console.log("loopCount 종료 (1)");
       break loopCount;
     }
-
-    console.log('count;', count);
-
-    if (count >= break_point) {
-      while_condition = false;
-    }
+    console.log("inner_count:", inner_count);
   }
-  ``` 
 
-  **출력 결과**
+  if (count === 6) {
+    console.log("loopCount 종료 (2)");
+    break loopCount;
+  }
 
-  ```sh
-  inner_count: 1
-  inner_count: 2
-  inner_count: 3
-  inner_count: 4
-  loopCount 종료 (1)
-  ```
+  console.log("count;", count);
+
+  if (count >= break_point) {
+    while_condition = false;
+  }
+}
+```
+
+**출력 결과**
+
+```sh
+inner_count: 1
+inner_count: 2
+inner_count: 3
+inner_count: 4
+loopCount 종료 (1)
+```
+
 </details>
 
 <br />
