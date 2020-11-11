@@ -14,8 +14,42 @@
 1. [파일 확장자 `js`와 `jsx`는 특별한 차이점이 있나요?](#q6-질문)
 1. [`normalize.css`를 불러오는 부분이 에러가 발생하는데 문제 원인이 뭔가요?](#q7-질문)
 1. [`useEffect()` 훅을 사용해 데이터를 패치(fetch) 하는데 무한 루프가 발생하는 이유가 뭘까요?](#q8-질문)
+1. [이미 사용 중인 `port`가 있다는 메시지가 출력되는데, 사용 중인 `port` 정보를 확인한 후 사용 중지 설정할 수 있을까요?](#q9-질문)
 
 <br />
+
+## Q9. 질문
+
+이미 사용 중인 `port`가 있다는 메시지가 출력되는데, 사용 중인 `port` 정보를 확인한 후 사용 중지 설정할 수 있을까요?
+
+![](https://iili.io/FFQMu9.jpg)
+
+<details open>
+  <summary>A9. 답변</summary>
+  <br/>
+
+  [lsof](https://www.lesstif.com/system-admin/lsof-20776078.html) 명령은 시스템에 열린 파일 목록을 알려주고 사용 중인 프로세스, 디바이스 정보, 파일의 종류 등 상세한 정보를 출력해줍니다.
+  
+  ```sh
+  $ lsof -i :3000
+
+  COMMAND   PID   USER   FD   TYPE                         DEVICE SIZE/OFF   NODE NAME
+  node    73006 yamoo9   26u  IPv4 0xbd39391c7a727877      0t0               TCP *:http-alt (LISTEN)
+  ```
+
+  [kill](https://www.lesstif.com/system-admin/unix-linux-kill-12943674.html) 명령을 사용해 사용 중인 포트를 중지 설정할 수 있습니다. (`PID` 값 설정)
+
+  ```sh
+  $ kill 73006
+  ```
+
+  
+
+</details>
+
+<br/>
+
+<br/>
 
 ## Q8. 질문
 
@@ -167,7 +201,7 @@
 
 <br/>
 
-<details open>
+<details>
   <summary>A8. 답변</summary>
 
   ### 무한 루프 현상이 발생한 이유
