@@ -23,55 +23,280 @@
 
 ## Q12. 질문
 
-이디야 수업 중에 데이터가 로딩이 안 되어서 isLoading을 사용했었는데 최종파일에는 그 부분이 모두 빠져있어서요.
-수업시간에도 궁금하긴 했는데 데이터 로딩은 언제 이루어지나요?
-componentDidMount 시점인 거 같은데, 혹시 렌더링 시점에 불러오게끔 할 수도 있나요? 그리고 isLoading을 체크할 필요는 없는 건가요?
+이디야 수업 중에 데이터가 로딩이 안 되어서 `isLoading`을 사용했었는데 최종 파일에는 그 부분이 모두 빠져있어서요.
+수업시간에도 궁금하긴 했는데 데이터 로딩은 언제 이루어지나요? `componentDidMount` 시점인 거 같은데,
+혹시 렌더링 시점에 불러오게끔 할 수도 있나요? 그리고 `isLoading`을 체크할 필요는 없는 건가요?
+
+<details open>
+  <summary>A12. 답변</summary>
+  <!-- <br/> -->
+
+  ### 데이터 로딩 시점
+
+  알고 계신대로 학습 예제에서 사용된 `fetchData()` 유틸리티 함수를 통해 데이터를 로딩하는 시점은 `componentDidMount` 라이프 사이클 훅 안에서 입니다.
+  즉, 컴포넌트가 실제 DOM에 마운트 된 이후 네트워크 요청을 비동기로 처리합니다.
+
+  ```js
+  componentDidMount() {
+    // 네트워크 데이터 요청/응답
+    fetchData(
+      this.props.api,
+      ({ data }) => this.setState({ data }),
+      ({ message }) => this.setState({ hasError: { message } })
+    )
+  }
+  ```
+
+  ### 렌더링 이전 시점에서 데이터 로딩
+
+  렌더링 이전 시점에 데이터를 로딩하려면? 동기(Synchronous) 방식으로 데이터를 로드 하거나,
+
+  ```js
+  import syncData from './api/data.json';
+
+  class Comp extends Component {
+    // 동기 데이터 → 컴포넌트 상태 설정
+    state = {
+      data: syncData
+    };
+  }
+  ```
+
+  부모 컴포넌트에서 `props`를 통해 데이터를 전달 받아야 합니다.
+
+  ```jsx
+  const Comp = (props) => {
+    const [data, setData] = useState(props.data);
+    // ...
+  }
+  ```
+
+  ### 비동기 방식의 데이터 로딩
+
+  비동기 네트워크 방식으로 데이터를 요청/응답 받아 사용할 경우,
+  응답 받은 후 컴포넌트의 상태로 설정해야 데이터를 읽거나 쓸 수 있습니다.
+  그 시점이 렌더링 이후 시점이라 클래스 컴포넌트는 `componentDidMount` 라이프 사이클 훅을,
+
+  ```js
+  componentDidMount() {
+    fetchData(
+      // 클래스 컴포넌트의 this에 접근하려면? 
+      // render 또는 componentDidMount 시점에서 해야 함
+      this.props.api,
+      ({ data }) => this.setState({ data }),
+      ({ message }) => this.setState({ hasError: { message } })
+    )
+  }
+  ```
+
+  함수 컴포넌트는 `useEffect()` 훅을 사용해야 합니다.
+
+  ```js
+  useEffect(() => {
+    fetchData(
+      // 함수 컴포넌트의 상태에 접근하려면? 
+      // useEffect() 훅을 사용해야 함
+      props.api,
+      ({ data }) => setData(data),
+      ({ message }) => setError(message)
+    )
+  }, []);
+  ```
+
+  ### `render` 시점에 비동기 데이터 요청하려면?
+
+  `render` 라이프 사이클 훅 시점에서도 비동기 데이터 요청이 가능하지만, 아래 예시 코드와 같이 
+  조건을 설정해 요청/응답 받도록 해야합니다. 데이터 패치(fetch)는 1회만 이뤄져야 하기 때문입니다.
+
+  ```js
+  state = {
+    data: null,
+    hasError: null
+  }
+
+  render() {
+    // data 상태 값이 비어 있을 경우, 1회 비동기 네트워크 요청
+    if (!this.state.data) {
+      // 비동기 응답 후, 컴포넌트 상태 업데이트
+      fetchData(
+        this.props.api,
+        ({ data }) => this.setState({ data }),
+        ({ message }) => this.setState({ hasError: { message } })
+      )
+    }
+    // ...
+  }
+  ```
+
+
+  ### `isLoading` 상태 변수가 필요한 경우와 그렇지 않은 경우
+
+  실습 파일에 `isLoading` 상태 값이 설정되지 않은 이유는 
+  `data` 상태의 초기 설정 값을 빈 배열(`[]`)로 설정해
+  렌더링 과정에서 오류를 발생시키지 않기 때문입니다.
+
+  ```js
+  state = {
+    data: [],
+    // ...
+  }
+  ```
+
+  하지만 `data` 상태 초기 값을 `null`로 설정한 경우, 
+  렌더링 과정에서 오류를 발생시킬 수 있어 `isLoading`과 같은 상태 값 설정이 필요합니다.
+
+  ```js
+  state = {
+    data: null,
+    isLoading: false,
+    // ...
+  }
+
+  render() {
+    // 데이터 로딩 중인 상태의 렌더링
+    if (this.state.isLoading) {
+      return <div role="alert">데이터 로딩 중...</div>
+    }
+  }
+  ```
+
+</details>
 
 <br/>
+
+---
+
 <br/>
 
 ## Q11. 질문
 
 클래스 필드 문법이 아래의 2가지 경우라고 이해하면 될까요?
 
-case 1. constructor에서 this로 정의한 메소드를 constructor를 생략할 경우 this없이 바로 선언해서 사용할 수 있다.
+**case 1.** `constructor`에서 `this`로 정의한 메소드를 `constructor`를 생략할 경우, `this` 없이 바로 선언해서 사용할 수 있다.
 
 ```jsx
-  constructor(props) {
-    super(props);
-    this.state = {
-      contactInfo: null,
-    };
-  }
--------------------------------
-  state = {
+constructor(props) {
+  super(props);
+
+  this.state = {
     contactInfo: null,
-  }
+  };
+}
+
+// -------------------------------
+
+state = {
+  contactInfo: null,
+}
 
 ```
 
-case 2. Navigation.propTypoes 를 클래스 내부에서 static propTypes로 사용할 수 있다.
+**case 2.** `Navigation.propTypoes`를 클래스 내부에서 `static propTypes`로 사용할 수 있다.
 
 ```jsx
-
 class Navigation extends Component {
   static propTypes = {
     headline: string.isRequired,
   };
-
+}
 ```
 
+<details open>
+  <summary>A11. 답변</summary>
+  <!-- <br/> -->
+
+  ### 클래스 필드
+
+  [Class fields, MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes/Class_fields) 문서를 참고해 문법 사용법을 살펴보죠.
+  먼저 이 기능은 JavaScript 표준 위원회인 TC39에 제안된 실험적인 기능입니다. 다만, Babel 컴파일러가 이 문법을 사용 가능하도록 코드를 변환시켜주므로 React 프로그래밍에서 자주 사용됩니다.
+  클래스 필드 문법을 사용하는 4가지 방법은 다음과 같습니다.
+
+  #### 방법 1. 클래스 멤버 필드
+
+  인스턴스(객체) 생성 없이, 클래스를 통해 접근 사용 가능한 속성을 다음과 같이 손쉽게 작성할 수 있습니다.
+
+  ```js
+  class ClassFieldDemo {
+    static x = 100; // ClassFieldDemo.x
+  }
+  ```
+
+  #### 방법 2. 인스턴스 멤버 필드
+
+  클래스를 통해 생성된 인스턴스(객체)의 속성을 다음과 같이 손쉽게 작성할 수 있습니다.
+
+  ```js
+  class ClassFieldDemo {
+    x = 10; // this.x
+  }
+  ```
+
+  #### 방법 3. 퍼블릭 클래스 메서드
+
+  인스턴스(객체) 생성 없이, 클래스를 통해 접근 사용 가능한 메서드를 다음과 같이 손쉽게 작성할 수 있습니다.
+
+  ```js
+  class ClassFieldDemo {
+    static getX() {
+      return ClassFieldDemo.x
+    }
+  }
+  ```
+  
+  #### 방법 4. 퍼블릭 인스턴스 메서드
+
+  클래스를 통해 생성된 인스턴스(객체)의 메서드를 다음과 같이 손쉽게 작성할 수 있습니다.
+
+  ```js
+  class ClassFieldDemo {
+    getX() {
+      return this.x
+    }
+  }
+  ```
+</details>
+
 <br/>
+
+---
+
 <br/>
 
 ## Q10. 질문
 
-이디야 실습 중에 `'React' must be in scope when using JSX ` 오류가 생겨서, 저는 컴포넌트마다 리액트를 호출했는데 이거 안 하려면 어떻게 해야 하나요?
+이디야 실습 중에 `'React' must be in scope when using JSX` 오류가 생겨서, 저는 컴포넌트마다 리액트를 호출했는데 이거 안 하려면 어떻게 해야 하나요?
 
-오류내용 : 'React' must be in scope when using JSX<br />
-우선 해결 : import React from 'react';
+오류내용 : `'React' must be in scope when using JSX`<br />
+우선 해결 : `import React from 'react'`;
+
+<details open>
+  <summary>A10. 답변</summary>
+  <!-- <br/> -->
+
+  ### 클래식 JSX 트랜스폼
+
+  해당 오류는 React 컴포넌트에서 JSX를 사용할 때 발생합니다. JSX는 ECMAScript 표준이 아니고, Babel을 통해 `React.createElement()` 코드로 변환됩니다.
+  그러므로 반드시 `React`를 호출해야만 사용 가능합니다. 
+
+  ```jsx
+  const App = () => <div>JSX를 사용할 때 React를 호출하지 않으면 오류가 발생합니다!</div>
+  ```
+
+  ### 새로운 JSX 트랜스폼
+  
+  React 팀은 이러한 근본적인 문제를 해결하기 위해 [새로운 JSX 트랜스폼 방식을 도입](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#how-to-upgrade-to-the-new-jsx-transform)했습니다.
+  새로운 JSX 트랜스폼을 사용하면 JSX를 React 컴포넌트에서 사용할 때 `import React from 'react'` 구문을 꼭 호출할 필요가 없게 됩니다.
+  새로운 JSX 트랜스폼은 최신 버전(`4.0.0`+)의 CRA에서 사용 가능합니다. 자세한 사용법은 [React 17: New Features!! - JSX Transform is Amazing!!](https://youtu.be/8D-rWP3c088?t=180)을 참고해보세요. :-)
+
+  ```jsx
+  const App = () => <div>JSX를 사용할 때 React를 호출하지 않아도 오류가 발생하지 않아요.</div>
+  ```
+</details>
 
 <br/>
+
+---
+
 <br/>
 
 ## Q9. 질문
@@ -80,7 +305,7 @@ class Navigation extends Component {
 
 ![](https://iili.io/FFQMu9.jpg)
 
-<details open>
+<details>
   <summary>A9. 답변</summary>
   <br/>
 
@@ -102,6 +327,8 @@ $ kill 73006
 </details>
 
 <br/>
+
+---
 
 <br/>
 
@@ -253,6 +480,10 @@ export default Navigation
 ```
 
 </details>
+
+<br/>
+
+---
 
 <br/>
 
