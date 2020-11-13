@@ -14,220 +14,541 @@
 1. [파일 확장자 `js`와 `jsx`는 특별한 차이점이 있나요?](#q6-질문)
 1. [`normalize.css`를 불러오는 부분이 에러가 발생하는데 문제 원인이 뭔가요?](#q7-질문)
 1. [`useEffect()` 훅을 사용해 데이터를 패치(fetch) 하는데 무한 루프가 발생하는 이유가 뭘까요?](#q8-질문)
+1. [이미 사용 중인 `port`가 있다는 메시지가 출력되는데, 사용 중인 `port` 정보를 확인한 후 사용 중지 설정할 수 있을까요?](#q9-질문)
+1. [이디야 실습 중에 `'React' must be in scope when using JSX ` 오류 질문 드립니다.](#q10-질문)
+1. [클래스 필드 문법에 대해 질문드립니다.](#q11-질문)
+1. [데이터 로딩은 언제 이루어지는지 궁금합니다.](#q12-질문)
 
 <br />
 
+## Q12. 질문
+
+이디야 수업 중에 데이터가 로딩이 안 되어서 `isLoading`을 사용했었는데 최종 파일에는 그 부분이 모두 빠져있어서요.
+수업시간에도 궁금하긴 했는데 데이터 로딩은 언제 이루어지나요? `componentDidMount` 시점인 거 같은데,
+혹시 렌더링 시점에 불러오게끔 할 수도 있나요? 그리고 `isLoading`을 체크할 필요는 없는 건가요?
+
+<details open>
+  <summary>A12. 답변</summary>
+  <!-- <br/> -->
+
+  ### 데이터 로딩 시점
+
+  알고 계신대로 학습 예제에서 사용된 `fetchData()` 유틸리티 함수를 통해 데이터를 로딩하는 시점은 `componentDidMount` 라이프 사이클 훅 안에서 입니다.
+  즉, 컴포넌트가 실제 DOM에 마운트 된 이후 네트워크 요청을 비동기로 처리합니다.
+
+  ```js
+  componentDidMount() {
+    // 네트워크 데이터 요청/응답
+    fetchData(
+      this.props.api,
+      ({ data }) => this.setState({ data }),
+      ({ message }) => this.setState({ hasError: { message } })
+    )
+  }
+  ```
+
+  ### 렌더링 이전 시점에서 데이터 로딩
+
+  렌더링 이전 시점에 데이터를 로딩하려면? 동기(Synchronous) 방식으로 데이터를 로드 하거나,
+
+  ```js
+  import syncData from './api/data.json';
+
+  class Comp extends Component {
+    // 동기 데이터 → 컴포넌트 상태 설정
+    state = {
+      data: syncData
+    };
+  }
+  ```
+
+  부모 컴포넌트에서 `props`를 통해 데이터를 전달 받아야 합니다.
+
+  ```jsx
+  const Comp = (props) => {
+    const [data, setData] = useState(props.data);
+    // ...
+  }
+  ```
+
+  ### 비동기 방식의 데이터 로딩
+
+  비동기 네트워크 방식으로 데이터를 요청/응답 받아 사용할 경우,
+  응답 받은 후 컴포넌트의 상태로 설정해야 데이터를 읽거나 쓸 수 있습니다.
+  그 시점이 렌더링 이후 시점이라 클래스 컴포넌트는 `componentDidMount` 라이프 사이클 훅을,
+
+  ```js
+  componentDidMount() {
+    fetchData(
+      // 클래스 컴포넌트의 this에 접근하려면? 
+      // render 또는 componentDidMount 시점에서 해야 함
+      this.props.api,
+      ({ data }) => this.setState({ data }),
+      ({ message }) => this.setState({ hasError: { message } })
+    )
+  }
+  ```
+
+  함수 컴포넌트는 `useEffect()` 훅을 사용해야 합니다.
+
+  ```js
+  useEffect(() => {
+    fetchData(
+      // 함수 컴포넌트의 상태에 접근하려면? 
+      // useEffect() 훅을 사용해야 함
+      props.api,
+      ({ data }) => setData(data),
+      ({ message }) => setError(message)
+    )
+  }, []);
+  ```
+
+  ### `render` 시점에 비동기 데이터 요청하려면?
+
+  `render` 라이프 사이클 훅 시점에서도 비동기 데이터 요청이 가능하지만, 아래 예시 코드와 같이 
+  조건을 설정해 요청/응답 받도록 해야합니다. 데이터 패치(fetch)는 1회만 이뤄져야 하기 때문입니다.
+
+  ```js
+  state = {
+    data: null,
+    hasError: null
+  }
+
+  render() {
+    // data 상태 값이 비어 있을 경우, 1회 비동기 네트워크 요청
+    if (!this.state.data) {
+      // 비동기 응답 후, 컴포넌트 상태 업데이트
+      fetchData(
+        this.props.api,
+        ({ data }) => this.setState({ data }),
+        ({ message }) => this.setState({ hasError: { message } })
+      )
+    }
+    // ...
+  }
+  ```
+
+
+  ### `isLoading` 상태 변수가 필요한 경우와 그렇지 않은 경우
+
+  실습 파일에 `isLoading` 상태 값이 설정되지 않은 이유는 
+  `data` 상태의 초기 설정 값을 빈 배열(`[]`)로 설정해
+  렌더링 과정에서 오류를 발생시키지 않기 때문입니다.
+
+  ```js
+  state = {
+    data: [],
+    // ...
+  }
+  ```
+
+  하지만 `data` 상태 초기 값을 `null`로 설정한 경우, 
+  렌더링 과정에서 오류를 발생시킬 수 있어 `isLoading`과 같은 상태 값 설정이 필요합니다.
+
+  ```js
+  state = {
+    data: null,
+    isLoading: false,
+    // ...
+  }
+
+  render() {
+    // 데이터 로딩 중인 상태의 렌더링
+    if (this.state.isLoading) {
+      return <div role="alert">데이터 로딩 중...</div>
+    }
+  }
+  ```
+
+</details>
+
+<br/>
+
+---
+
+<br/>
+
+## Q11. 질문
+
+클래스 필드 문법이 아래의 2가지 경우라고 이해하면 될까요?
+
+**case 1.** `constructor`에서 `this`로 정의한 메소드를 `constructor`를 생략할 경우, `this` 없이 바로 선언해서 사용할 수 있다.
+
+```jsx
+constructor(props) {
+  super(props);
+
+  this.state = {
+    contactInfo: null,
+  };
+}
+
+// -------------------------------
+
+state = {
+  contactInfo: null,
+}
+
+```
+
+**case 2.** `Navigation.propTypoes`를 클래스 내부에서 `static propTypes`로 사용할 수 있다.
+
+```jsx
+class Navigation extends Component {
+  static propTypes = {
+    headline: string.isRequired,
+  };
+}
+```
+
+<details open>
+  <summary>A11. 답변</summary>
+  <!-- <br/> -->
+
+  ### 클래스 필드
+
+  [Class fields, MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes/Class_fields) 문서를 참고해 문법 사용법을 살펴보죠.
+  먼저 이 기능은 JavaScript 표준 위원회인 TC39에 제안된 실험적인 기능입니다. 다만, Babel 컴파일러가 이 문법을 사용 가능하도록 코드를 변환시켜주므로 React 프로그래밍에서 자주 사용됩니다.
+  클래스 필드 문법을 사용하는 4가지 방법은 다음과 같습니다.
+
+  #### 방법 1. 클래스 멤버 필드
+
+  인스턴스(객체) 생성 없이, 클래스를 통해 접근 사용 가능한 속성을 다음과 같이 손쉽게 작성할 수 있습니다.
+
+  ```js
+  class ClassFieldDemo {
+    static x = 100; // ClassFieldDemo.x
+  }
+  ```
+
+  #### 방법 2. 인스턴스 멤버 필드
+
+  클래스를 통해 생성된 인스턴스(객체)의 속성을 다음과 같이 손쉽게 작성할 수 있습니다.
+
+  ```js
+  class ClassFieldDemo {
+    x = 10; // this.x
+  }
+  ```
+
+  #### 방법 3. 퍼블릭 클래스 메서드
+
+  인스턴스(객체) 생성 없이, 클래스를 통해 접근 사용 가능한 메서드를 다음과 같이 손쉽게 작성할 수 있습니다.
+
+  ```js
+  class ClassFieldDemo {
+    static getX() {
+      return ClassFieldDemo.x
+    }
+  }
+  ```
+  
+  #### 방법 4. 퍼블릭 인스턴스 메서드
+
+  클래스를 통해 생성된 인스턴스(객체)의 메서드를 다음과 같이 손쉽게 작성할 수 있습니다.
+
+  ```js
+  class ClassFieldDemo {
+    getX() {
+      return this.x
+    }
+  }
+  ```
+</details>
+
+<br/>
+
+---
+
+<br/>
+
+## Q10. 질문
+
+이디야 실습 중에 `'React' must be in scope when using JSX` 오류가 생겨서, 저는 컴포넌트마다 리액트를 호출했는데 이거 안 하려면 어떻게 해야 하나요?
+
+오류내용 : `'React' must be in scope when using JSX`<br />
+우선 해결 : `import React from 'react'`;
+
+<details open>
+  <summary>A10. 답변</summary>
+  <!-- <br/> -->
+
+  ### 클래식 JSX 트랜스폼
+
+  해당 오류는 React 컴포넌트에서 JSX를 사용할 때 발생합니다. JSX는 ECMAScript 표준이 아니고, Babel을 통해 `React.createElement()` 코드로 변환됩니다.
+  그러므로 반드시 `React`를 호출해야만 사용 가능합니다. 
+
+  ```jsx
+  const App = () => <div>JSX를 사용할 때 React를 호출하지 않으면 오류가 발생합니다!</div>
+  ```
+
+  ### 새로운 JSX 트랜스폼
+  
+  React 팀은 이러한 근본적인 문제를 해결하기 위해 [새로운 JSX 트랜스폼 방식을 도입](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#how-to-upgrade-to-the-new-jsx-transform)했습니다.
+  새로운 JSX 트랜스폼을 사용하면 JSX를 React 컴포넌트에서 사용할 때 `import React from 'react'` 구문을 꼭 호출할 필요가 없게 됩니다.
+  새로운 JSX 트랜스폼은 최신 버전(`4.0.0`+)의 CRA에서 사용 가능합니다. 자세한 사용법은 [React 17: New Features!! - JSX Transform is Amazing!!](https://youtu.be/8D-rWP3c088?t=180)을 참고해보세요. :-)
+
+  ```jsx
+  const App = () => <div>JSX를 사용할 때 React를 호출하지 않아도 오류가 발생하지 않아요.</div>
+  ```
+</details>
+
+<br/>
+
+---
+
+<br/>
+
+## Q9. 질문
+
+이미 사용 중인 `port`가 있다는 메시지가 출력되는데, 사용 중인 `port` 정보를 확인한 후 사용 중지 설정할 수 있을까요?
+
+![](https://iili.io/FFQMu9.jpg)
+
+<details>
+  <summary>A9. 답변</summary>
+  <br/>
+
+[lsof](https://www.lesstif.com/system-admin/lsof-20776078.html) 명령은 시스템에 열린 파일 목록을 알려주고 사용 중인 프로세스, 디바이스 정보, 파일의 종류 등 상세한 정보를 출력해줍니다.
+
+```sh
+$ lsof -i :3000
+
+COMMAND   PID   USER   FD   TYPE                         DEVICE SIZE/OFF   NODE NAME
+node    73006 yamoo9   26u  IPv4 0xbd39391c7a727877      0t0               TCP *:http-alt (LISTEN)
+```
+
+[kill](https://www.lesstif.com/system-admin/unix-linux-kill-12943674.html) 명령을 사용해 사용 중인 포트를 중지 설정할 수 있습니다. (`PID` 값 설정)
+
+```sh
+$ kill 73006
+```
+
+</details>
+
+<br/>
+
+---
+
+<br/>
+
 ## Q8. 질문
 
-이디아 예제의 Navigation 컴포넌트를 훅으로 변환시키는 연습을 하는 도중에 `useEffect()` 훅에 의존배열 `items`를 넣을 경우 무한 렌더링이 일어납니다. 
-처음 컴포넌트가 마운트 되었을 시점에 데이터 패치(fetch)를 하여 처음 한번만 메뉴 `items` 배열을 받아오고 이 `items` 배열이 기존 값과 달라질때만 
+이디아 예제의 Navigation 컴포넌트를 훅으로 변환시키는 연습을 하는 도중에 `useEffect()` 훅에 의존배열 `items`를 넣을 경우 무한 렌더링이 일어납니다.
+처음 컴포넌트가 마운트 되었을 시점에 데이터 패치(fetch)를 하여 처음 한번만 메뉴 `items` 배열을 받아오고 이 `items` 배열이 기존 값과 달라질때만
 리렌더링을 시키고자 하는게 의도였는데 의존배열에 `items`를 넣을 경우 무한으로 fetch 하는 현상이 일어나는거 같습니다. 왜 이런 현상이 일어나는 것일까요? 😂
 
 <details>
   <summary>Navigation 컴포넌트 코드</summary>
   <br/>
 
-  ```jsx
-  import React, { useEffect, useRef, useState } from 'react';
-  import { string } from 'prop-types';
-  import classNames from 'classnames';
-  import Button from 'components/common/Button';
-  import { fetchData, delay } from 'utils';
-  import { API, CLASSES } from 'constants/index';
+```jsx
+import React, { useEffect, useRef, useState } from 'react'
+import { string } from 'prop-types'
+import classNames from 'classnames'
+import Button from 'components/common/Button'
+import { fetchData, delay } from 'utils'
+import { API, CLASSES } from 'constants/index'
 
-  const Navigation = ({ headline }) => {
-    const [items, setItems] = useState([]);
-    const [isOpened, setIsOpened] = useState(false);
-    const [hasError, setHasError] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [activeClass, setActiveClassss] = useState('');
+const Navigation = ({ headline }) => {
+  const [items, setItems] = useState([])
+  const [isOpened, setIsOpened] = useState(false)
+  const [hasError, setHasError] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [activeClass, setActiveClassss] = useState('')
 
-    const openMenuButtonRef = useRef();
-    const closeMenuButtonRef = useRef();
-    const firstLinkRef = useRef();
+  const openMenuButtonRef = useRef()
+  const closeMenuButtonRef = useRef()
+  const firstLinkRef = useRef()
 
-    const _checkCurrentPage = (linkPath) => {
-      const { href } = window.location;
-      const isCurrentPage = href.includes(linkPath);
-      return isCurrentPage ? CLASSES.currentPage : null;
-    };
+  const _checkCurrentPage = (linkPath) => {
+    const { href } = window.location
+    const isCurrentPage = href.includes(linkPath)
+    return isCurrentPage ? CLASSES.currentPage : null
+  }
 
-    const _handleKeydown = (e) => {
-      const { current: firstLinkNode } = firstLinkRef;
-      const { current: closeMenuButtonNode } = closeMenuButtonRef;
+  const _handleKeydown = (e) => {
+    const { current: firstLinkNode } = firstLinkRef
+    const { current: closeMenuButtonNode } = closeMenuButtonRef
 
-      const { target, key, shiftKey } = e;
+    const { target, key, shiftKey } = e
 
-      if (shiftKey && key === 'Tab' && target.isEqualNode(firstLinkNode)) {
-        e.preventDefault();
-        closeMenuButtonNode.focus();
-      }
-
-      if (!shiftKey && key === 'Tab' && target.isEqualNode(closeMenuButtonNode)) {
-        e.preventDefault();
-        firstLinkNode.focus();
-      }
-    };
-
-    const handleOpenMenu = () => {
-      setIsOpened(true);
-      delay(100).then(() => {
-        setActiveClassss(CLASSES.activeClass);
-        document.addEventListener('keydown', _handleKeydown);
-      });
-    };
-
-    const handleCloseMenu = () => {
-      setActiveClassss('');
-      delay(400).then(() => {
-        setIsOpened(false);
-      });
-      document.removeEventListener('keydown', _handleKeydown);
-    };
-
-    useEffect(() => {
-      setIsLoading(true);
-      fetchData(
-        API.navigation,
-        ({ data: items }) => {
-          setIsLoading(false);
-          setItems(items);
-        },
-        ({ message }) => {
-          setIsLoading(false);
-          setHasError({ message });
-        }
-      );
-      console.log(items)
-    }, [items]);
-
-    // 데이터를 로딩 중인 상태 렌더링
-    if (isLoading) {
-      return <div role="alert">데이터 로딩 중입니다...</div>;
+    if (shiftKey && key === 'Tab' && target.isEqualNode(firstLinkNode)) {
+      e.preventDefault()
+      closeMenuButtonNode.focus()
     }
 
-    // 오류가 발생했을 때 상태 렌더링
-    if (hasError) {
-      return <div role="alert">{hasError.message} 오류가 발생했습니다.</div>;
+    if (!shiftKey && key === 'Tab' && target.isEqualNode(closeMenuButtonNode)) {
+      e.preventDefault()
+      firstLinkNode.focus()
     }
-    // 로딩 끝, 오류 없음 상태 렌더링
-    return (
-      <>
+  }
+
+  const handleOpenMenu = () => {
+    setIsOpened(true)
+    delay(100).then(() => {
+      setActiveClassss(CLASSES.activeClass)
+      document.addEventListener('keydown', _handleKeydown)
+    })
+  }
+
+  const handleCloseMenu = () => {
+    setActiveClassss('')
+    delay(400).then(() => {
+      setIsOpened(false)
+    })
+    document.removeEventListener('keydown', _handleKeydown)
+  }
+
+  useEffect(() => {
+    setIsLoading(true)
+    fetchData(
+      API.navigation,
+      ({ data: items }) => {
+        setIsLoading(false)
+        setItems(items)
+      },
+      ({ message }) => {
+        setIsLoading(false)
+        setHasError({ message })
+      }
+    )
+    console.log(items)
+  }, [items])
+
+  // 데이터를 로딩 중인 상태 렌더링
+  if (isLoading) {
+    return <div role="alert">데이터 로딩 중입니다...</div>
+  }
+
+  // 오류가 발생했을 때 상태 렌더링
+  if (hasError) {
+    return <div role="alert">{hasError.message} 오류가 발생했습니다.</div>
+  }
+  // 로딩 끝, 오류 없음 상태 렌더링
+  return (
+    <>
+      <Button
+        ref={openMenuButtonRef}
+        className="is-open-menu"
+        label="메뉴 열기"
+        onClick={handleOpenMenu}
+      >
+        <span className="ir" />
+      </Button>
+
+      <nav
+        hidden={!isOpened}
+        aria-labelledby="globalNav"
+        className={classNames('app-navigation', activeClass)}
+        // {...navWrapperProps}
+      >
+        <h2 id="globalNav" className="a11y-hidden">
+          {headline}
+        </h2>
+
+        <ul className="reset-list">
+          {/* 비동기 데이터 바인딩 → 내비게이션 리스트 렌더링 (아래 템플릿 코드 활용) */}
+          {items.map((item, index) => (
+            <li key={item.id} className={_checkCurrentPage(item.link)}>
+              <a ref={index === 0 ? firstLinkRef : null} href={item.link}>
+                {item.text}
+              </a>
+            </li>
+          ))}
+        </ul>
         <Button
-          ref={openMenuButtonRef}
-          className="is-open-menu"
-          label="메뉴 열기"
-          onClick={handleOpenMenu}
+          ref={closeMenuButtonRef}
+          className="is-close-menu"
+          label="메뉴 닫기"
+          onClick={handleCloseMenu}
         >
-          <span className="ir" />
+          <span className="close" aria-hidden="true">
+            ×
+          </span>
         </Button>
+      </nav>
+    </>
+  )
+}
 
-        <nav
-          hidden={!isOpened}
-          aria-labelledby="globalNav"
-          className={classNames('app-navigation', activeClass)}
-          // {...navWrapperProps}
-        >
-          <h2 id="globalNav" className="a11y-hidden">
-            {headline}
-          </h2>
+Navigation.propTypes = {
+  headline: string.isRequired,
+}
 
-          <ul className="reset-list">
-            {/* 비동기 데이터 바인딩 → 내비게이션 리스트 렌더링 (아래 템플릿 코드 활용) */}
-            {items.map((item, index) => (
-              <li key={item.id} className={_checkCurrentPage(item.link)}>
-                <a ref={index === 0 ? firstLinkRef : null} href={item.link}>
-                  {item.text}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <Button
-            ref={closeMenuButtonRef}
-            className="is-close-menu"
-            label="메뉴 닫기"
-            onClick={handleCloseMenu}
-          >
-            <span className="close" aria-hidden="true">
-              ×
-            </span>
-          </Button>
-        </nav>
-      </>
-    );
-  };
+export default Navigation
+```
 
-  Navigation.propTypes = {
-    headline: string.isRequired,
-  };
-
-  export default Navigation;
-  ```
 </details>
 
 <br/>
 
-<details open>
+---
+
+<br/>
+
+<details>
   <summary>A8. 답변</summary>
 
-  ### 무한 루프 현상이 발생한 이유
+### 무한 루프 현상이 발생한 이유
 
-  비동기 네트워크 통신 요청은 내비게이션 함수 컴포넌트 생성 시점에 **1회** 진행되어 데이터를 패치(fetch)한 후, `items` 상태를 **1회** 업데이트 하여야 합니다.
-  즉, **데이터 패치는 컴포넌트 생성 시점에 1회만 시도 되어야 합니다.** 하지만 질문 코드의 `useEffect()` 훅 코드를 살펴보면 콜백 함수 (재)실행 여부를 결정하는 
-  2번째 인자 배열에 `items` 상태 값이 설정되어 있습니다. `items` 상태 값이 변경될 때만 `useEffect()` 훅의 콜백 함수가 실행되도록 구성하기 위함이겠죠.
+비동기 네트워크 통신 요청은 내비게이션 함수 컴포넌트 생성 시점에 **1회** 진행되어 데이터를 패치(fetch)한 후, `items` 상태를 **1회** 업데이트 하여야 합니다.
+즉, **데이터 패치는 컴포넌트 생성 시점에 1회만 시도 되어야 합니다.** 하지만 질문 코드의 `useEffect()` 훅 코드를 살펴보면 콜백 함수 (재)실행 여부를 결정하는
+2번째 인자 배열에 `items` 상태 값이 설정되어 있습니다. `items` 상태 값이 변경될 때만 `useEffect()` 훅의 콜백 함수가 실행되도록 구성하기 위함이겠죠.
 
-  ```js
-  useEffect(() => {
-    setIsLoading(true);
-    fetchData(
-      API.navigation,
-      ({ data: items }) => {
-        setIsLoading(false);
-        setItems(items);
-      },
-      ({ message }) => {
-        setIsLoading(false);
-        setHasError({ message });
-      }
-    );
-  }, [items]); // items 상태가 업데이트 될 때 마다 콜백 함수 (재)실행
-  ```
+```js
+useEffect(() => {
+  setIsLoading(true)
+  fetchData(
+    API.navigation,
+    ({ data: items }) => {
+      setIsLoading(false)
+      setItems(items)
+    },
+    ({ message }) => {
+      setIsLoading(false)
+      setHasError({ message })
+    }
+  )
+}, [items]) // items 상태가 업데이트 될 때 마다 콜백 함수 (재)실행
+```
 
-  **바로 이 설정이 무한 루프 문제가 발생한 원인입니다.** 왜 그러한 지 코드 흐름을 간단하게 정리해봅시다.
+**바로 이 설정이 무한 루프 문제가 발생한 원인입니다.** 왜 그러한 지 코드 흐름을 간단하게 정리해봅시다.
 
-  1. **`items` 상태 초기 값 `[]`**
-  1. **`items` 상태에 의존하므로,** `useEffect()` 콜백 함수 실행 → 비동기 통신 → 데이터 패치 → **`items` 상태 업데이트**
-  1. **`items` 상태 업데이트 됨에 따라,** 다시 `useEffect()` 콜백 함수 실행 → 비동기 통신 → 데이터 패치 → **`items` 상태 업데이트**
-  1. **`items` 상태 업데이트 됨에 따라,** 다시 `useEffect()` 콜백 함수 실행 → 비동기 통신 → 데이터 패치 → **`items` 상태 업데이트**
-  1. ...
-  1. ...
-  1. ...
-  1. (⚠️ 무한 루프 발생)
+1. **`items` 상태 초기 값 `[]`**
+1. **`items` 상태에 의존하므로,** `useEffect()` 콜백 함수 실행 → 비동기 통신 → 데이터 패치 → **`items` 상태 업데이트**
+1. **`items` 상태 업데이트 됨에 따라,** 다시 `useEffect()` 콜백 함수 실행 → 비동기 통신 → 데이터 패치 → **`items` 상태 업데이트**
+1. **`items` 상태 업데이트 됨에 따라,** 다시 `useEffect()` 콜백 함수 실행 → 비동기 통신 → 데이터 패치 → **`items` 상태 업데이트**
+1. ...
+1. ...
+1. ...
+1. (⚠️ 무한 루프 발생)
 
   <br/>
 
-  ### 문제 해결 방법: 데이터 패치는 1회만 실행
+### 문제 해결 방법: 데이터 패치는 1회만 실행
 
-  데이터 패치를 통해 `items` 상태가 업데이트 되고, 다시 데이터 패치, `items` 상태 업데이트... **무한 연쇄 고리를 끊으려면 
-  `useEffect()` 훅에 설정된 의존 상태 값 `items`를 제거하고 빈 배열을 설정해야 합니다.** 빈 배열을 설정하면 의존하는 상태 속성 값이 없으므로
-  컴포넌트 생성 시점에 1회만 콜백함수를 실행하게 됩니다. (클래스 컴포넌트의 `componentDidMount` 라이프 사이클 훅과 유사)
+데이터 패치를 통해 `items` 상태가 업데이트 되고, 다시 데이터 패치, `items` 상태 업데이트... **무한 연쇄 고리를 끊으려면
+`useEffect()` 훅에 설정된 의존 상태 값 `items`를 제거하고 빈 배열을 설정해야 합니다.** 빈 배열을 설정하면 의존하는 상태 속성 값이 없으므로
+컴포넌트 생성 시점에 1회만 콜백함수를 실행하게 됩니다. (클래스 컴포넌트의 `componentDidMount` 라이프 사이클 훅과 유사)
 
-  ```js
-    useEffect(() => {
-      setIsLoading(true);
-      fetchData(
-        API.navigation,
-        ({ data: items }) => {
-          setIsLoading(false);
-          setItems(items);
-        },
-        ({ message }) => {
-          setIsLoading(false);
-          setHasError({ message });
-        }
-      );
-    }, []);
-  ```
+```js
+useEffect(() => {
+  setIsLoading(true)
+  fetchData(
+    API.navigation,
+    ({ data: items }) => {
+      setIsLoading(false)
+      setItems(items)
+    },
+    ({ message }) => {
+      setIsLoading(false)
+      setHasError({ message })
+    }
+  )
+}, [])
+```
+
 </details>
 
 <br/>
@@ -244,23 +565,22 @@
   <summary>A7. 답변</summary>
   <!-- <br/> -->
 
-  ### 문제 원인
+### 문제 원인
 
-  믹스인을 호출하는 `@include` 문법은 Sass의 기능이라서 CSS 파일에서 사용될 경우 경고를 표시합니다.
+믹스인을 호출하는 `@include` 문법은 Sass의 기능이라서 CSS 파일에서 사용될 경우 경고를 표시합니다.
 
-  ![](./_/at-rule-error-01.png)
+![](./_/at-rule-error-01.png)
 
-  ### 해결 방법 1
+### 해결 방법 1
 
-  CSS 파일 대신 SCSS 파일을 사용하면 유효한 문법이므로 오류가 발생하지 않습니다.
+CSS 파일 대신 SCSS 파일을 사용하면 유효한 문법이므로 오류가 발생하지 않습니다.
 
-  ### 해결 방법 2
+### 해결 방법 2
 
-  VS Code 설정 → 설정 검색 `css.lint.unknownAtRules` → 무시(`ignore`) 값으로 설정을 변경하면 더 이상 오류를 표시하지 않습니다.
+VS Code 설정 → 설정 검색 `css.lint.unknownAtRules` → 무시(`ignore`) 값으로 설정을 변경하면 더 이상 오류를 표시하지 않습니다.
 
-  ![](./_/at-rule-error-02.png)
-  ![](./_/at-rule-error-03.png)
-
+![](./_/at-rule-error-02.png)
+![](./_/at-rule-error-03.png)
 
 </details>
 
@@ -279,30 +599,31 @@ Mini Project {E1}실습에서는 컴포넌트 파일 확장자가 `js`파일이 
   <summary>A6. 답변</summary>
   <!-- <br/> -->
 
-  ### ES 표준 확장이 아닌 JSX
+### ES 표준 확장이 아닌 JSX
 
-  JSX는 ECMAScript 표준 확장이 아니라서 `js` 확장자가 아닌, `jsx` 확장자를 통해 별도 관리되어야 하고
-  React 앱의 컴포넌트 파일 임을 명확화 할 수 있습니다. 뿐만 아니라 JSX 코드 안에서 Emmet을 사용할 수 있어
-  구분해 사용하였습니다.
-  하지만 `jsx` 확장자를 사용하는 것이 React 앱 개발에 필수로 요구되지 않을 뿐더러, `js` 확장자를 사용한다고 해서
-  특별한 문제가 발생하지는 않습니다. React 컴포넌트 파일, 일반 JS 파일을 구분하지 않고 `js` 확장자를 통일해 사용해도 무방합니다.
+JSX는 ECMAScript 표준 확장이 아니라서 `js` 확장자가 아닌, `jsx` 확장자를 통해 별도 관리되어야 하고
+React 앱의 컴포넌트 파일 임을 명확화 할 수 있습니다. 뿐만 아니라 JSX 코드 안에서 Emmet을 사용할 수 있어
+구분해 사용하였습니다.
+하지만 `jsx` 확장자를 사용하는 것이 React 앱 개발에 필수로 요구되지 않을 뿐더러, `js` 확장자를 사용한다고 해서
+특별한 문제가 발생하지는 않습니다. React 컴포넌트 파일, 일반 JS 파일을 구분하지 않고 `js` 확장자를 통일해 사용해도 무방합니다.
 
-  ### VS Code 설정
+### VS Code 설정
 
-  `js` 확장자에서 Emmet 사용을 할 수 없는 불편함이 있을 수 있습니다. 이 문제는 VS Code 설정을 통해 해결할 수 있습니다.
+`js` 확장자에서 Emmet 사용을 할 수 없는 불편함이 있을 수 있습니다. 이 문제는 VS Code 설정을 통해 해결할 수 있습니다.
 
-  *settings.json*
+_settings.json_
 
-  ```json
-  {
-    "emmet.includeLanguages": { "javascript": "javascriptreact" },
-    "files.associations": { "*.js": "javascriptreact" },
-  }
-  ```
+```json
+{
+  "emmet.includeLanguages": { "javascript": "javascriptreact" },
+  "files.associations": { "*.js": "javascriptreact" }
+}
+```
 
-  ### 결론
+### 결론
 
-  React 컴포넌트 파일을 별도로 `jsx` 확장자로 구분해 사용하지 않고, `js` 확장자로 통일해 사용해 앱을 개발해도 무방합니다. :-)
+React 컴포넌트 파일을 별도로 `jsx` 확장자로 구분해 사용하지 않고, `js` 확장자로 통일해 사용해 앱을 개발해도 무방합니다. :-)
+
 </details>
 
 <br/>
@@ -318,8 +639,8 @@ Mini Project {E1}실습에서는 컴포넌트 파일 확장자가 `js`파일이 
 해결 방법으로 아래 2개를 설치하면 된다는데 전 안 되는 거 같아요.
 
 ```js
-import 'react-app-polyfill/ie11';
-import 'react-app-polyfill/stable';
+import 'react-app-polyfill/ie11'
+import 'react-app-polyfill/stable'
 ```
 
 <details>
@@ -359,14 +680,14 @@ _IE 9-11_
 
 ```js
 // 반드시 src/index.js의 1번째 라인에 작성해야 함.
-import 'react-app-polyfill/ie9';
+import 'react-app-polyfill/ie9'
 ```
 
 _IE 11_
 
 ```js
 // 반드시 src/index.js의 1번째 라인에 작성해야 함.
-import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/ie11'
 ```
 
 #### 기타 언어 기능 폴리필 (Polyfilling other language features)
@@ -379,16 +700,16 @@ _IE 9-11_
 
 ```js
 // 반드시 src/index.js의 1번째 라인에 작성해야 함.
-import 'react-app-polyfill/ie9';
-import 'react-app-polyfill/stable';
+import 'react-app-polyfill/ie9'
+import 'react-app-polyfill/stable'
 ```
 
 _IE 11_
 
 ```js
 // 반드시 src/index.js의 1번째 라인에 작성해야 함.
-import 'react-app-polyfill/ie11';
-import 'react-app-polyfill/stable';
+import 'react-app-polyfill/ie11'
+import 'react-app-polyfill/stable'
 ```
 
 ### CRA 개발 서버 실행 결과, 빈 화면이 나온다면
@@ -623,14 +944,14 @@ function lastIndexOf(list, index) {
 ```js
 // TEST CASE
 test('Front-End 프레임워크 배열 원소 중, 마지막에서 3번째 인덱스에 해당하는 값은 "React"이다.', () => {
-  const FE_FRAMEWORKS = ['react', 'vue', 'angular'];
-  const lastIndex = 3;
+  const FE_FRAMEWORKS = ['react', 'vue', 'angular']
+  const lastIndex = 3
 
   // Jest API
   // expect() : https://jestjs.io/docs/en/expect#expectvalue
   // toBe()   : https://jestjs.io/docs/en/expect#tobevalue
-  expect(lastIndexOf(FE_FRAMEWORKS, lastIndex)).toBe('react');
-});
+  expect(lastIndexOf(FE_FRAMEWORKS, lastIndex)).toBe('react')
+})
 ```
 
 작성한 테스트를 실행하면 기대한 값이 나오지 않으므로 오류가 발생합니다.
@@ -645,8 +966,8 @@ Tests:       1 failed
 ```js
 function lastIndexOf(list, index) {
   // 함수 로직 (작성)
-  index = index - 1;
-  return list[list.length - index];
+  index = index - 1
+  return list[list.length - index]
 }
 ```
 

@@ -16,18 +16,160 @@
 1. [`node`와 `element`의 차이가 무엇인지 알고 싶습니다.](#q8-질문)
 1. [`while`문 동작 오류 원인을 알고 싶습니다.](#q9-질문)
 1. [`while`문 아래에 `레이블`의 역할에 대해 알고 싶습니다.](#q10-질문)
-1. [독립적인 클로저 공간이란 것을 알겠는데 foo와 more 클로저는 다른세상인건지 궁금합니다](#q11-질문)
-1. [bind()로 클로저 묶는 부분이 이해가 잘 안됩니다](#q12-질문)
+1. [독립적인 클로저 공간이란 것을 알겠는데 `moar`와 `toar` 클로저는 왜 다른 세상인 건지 궁금합니다.](#q11-질문)
+1. [`bind()`로 클로저 묶는 부분이 이해가 잘 안됩니다.](#q12-질문)
 
 <br/>
 
 ## Q12. 질문
 
-bind() 능력이 이해가 안가네요. 물론 bind(),call(),aplly()에 대해 다시 공부해볼 예정이지만 간략하게 세 함수의 차이를 알고 싶습니다:)
+함수의 `bind()` 메서드 능력이 이해가 안가네요. 물론 `bind()`, `call()`, `aplly()`에 대해 다시 공부해 볼 예정이지만, 간략하게 세 함수의 차이를 알고 싶습니다. :)
+
+<details open>
+  <summary>A12. 답변</summary>
+  <br/>
+
+  ### 함수 메서드 비교
+
+  함수 메서드 | 설명 | 차이점
+  --- | --- | ---
+  [call(thisArg, arg1, arg2, ...)](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Function/call) | `call()` 메소드는 설정된 첫번째 인자의 객체 또는 `null` 등을 `this` 참조로 설정한 함수를 실행합니다. 그리고 전달받은 개별 인자의 순서와 매칭되는 함수의 매개변수를 받습니다. | 전달인자를 **콤마(`,`)로 구분하여 전달** 
+  [apply(thisArg, [argsArray])](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Function/apply) | `apply()` 메소드는 `call()` 메서드와 유사합니다. `this` 참조 변경 및 인자를 배열로 묶어 전달 받습니다.  | 전달인자를 **배열 데이터로 전달**
+
+  <br/>
+
+  함수 메서드 | 설명 | 차이점
+  --- | --- | ---
+  `call()`, `apply()` | `this` 참조 변경 및 인자를 개별 또는 배열로 전달 받아 **함수를 실행**합니다. | **바로 함수 호출**
+  [bind(thisArg, arg1, arg2, ...)](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) | `bind()` 메소드는 설정된 첫번째 인자의 객체 또는 `null` 등을 `this` 참조로 설정한 **함수 참조를 반환**합니다. 그리고 전달받은 개별 인자의 순서와 매칭되는 함수의 매개변수를 받습니다. | **함수 참조 반환**
+</details>
+
+### 사용 예시
+
+`clickMe()` 함수는 `this` 참조와 `message`, `isDocumentBody` 매개변수를 Console 패널에 출력합니다.
+
+```js
+function clickMe(message, isDocumentBody) {
+  console.log(this);
+  console.log(message);
+  console.log(isDocumentBody);
+}
+```
+
+**.call()**
+
+`call()` 함수 메서드는 `this` 참조를 교체할 수 있고, 인자를 전달하여 바로 실행합니다. 그러므로 이벤트 리스너를 연결하는 구문에 사용할 경우
+아래와 같이 `function() {}` 값으로 감싸야 합니다. 그래야 `document`를 사용자가 `click` 했을 때 내부의 `call()` 메서드가 실행되어
+함수가 실행되고 결과를 출력할 수 있습니다.
+
+```js
+document.addEventListener('click', function() {
+  clickMe.call(document.body, 'this 참조는 <body> 요소입니다.', true);
+  /* 출력 결과
+   * this           = document.body 요소
+   * message        = 'this 참조는 <body> 요소입니다.'
+   * isDocumentBody = true
+   */
+});
+```
+
+**.apply()**
+
+`apply()` 함수 메서드는 `call()`과 거의 유사하지만, 인자를 배열로 묶어 전달하는 점이 다릅니다.
+
+```js
+document.addEventListener('click', function() {
+  clickMe.apply(document.querySelector('#me'), ['this 참조는 id 속성 값이 "me"와 일치하는 DOM 요소입니다.', false]);
+  /* 출력 결과
+   * this           = `#me` DOM 요소
+   * message        = 'this 참조는 id 속성 값이 "me"와 일치하는 DOM 요소입니다.'
+   * isDocumentBody = false
+   */
+});
+```
+
+**.bind()**
+
+`bind()` 함수 메서드의 진가는 이벤트 리스너를 연결할 때 빛을 발합니다. `call()`, `apply()` 메서드와 달리 `function(){}` 값으로
+둘러쌀 필요가 없습니다. `bind()` 메서드는 함수를 실행하는 것이 아니라, 함수 참조를 반환하기 때문입니다. 함수를 가리킬 뿐 실행하지는 않기에
+이벤트가 발생될 때 함수 참조를 실행시킵니다.
+
+```js
+document.addEventListener('click', 
+  clickMe.bind(document.querySelector('.bindMe'), 'this 참조는 class 속성 값이 "bindMe"와 일치하는 DOM 요소입니다.', false)
+  /* 출력 결과
+   * this           = `.bindMe` DOM 요소
+   * message        = 'this 참조는 class 속성 값이 "bindMe"와 일치하는 DOM 요소입니다.'
+   * isDocumentBody = false
+   */
+);
+```
+
+<br />
+
+---
+
+<br />
 
 ## Q11. 질문
 
-11분 30초에 나오는 foo함수 클로저와 more함수 클로저는 왜 다른세상인것인지 구체적인 설명 필요
+Lecture 02. 실행 컨텍스트(Execution Context)와 렉시컬 스코핑(Lexical Scoping) **11분 30초**에 나오는 `moar` 함수 클로저와 `toar` 함수 클로저는 왜 다른 세상인 것인지 구체적인 설명 부탁드립니다.
+
+<details open>
+  <summary>A11. 답변</summary>
+  <br/>
+
+  함수 실행 컨텍스트는 함수가 실행될 때 "생성"된 후, 결과를 반환할 때 "소멸"합니다.
+
+  `foo(5)` 함수가 실행되고 결과를 반환할 때까지 존재하는 실행 컨텍스트가 "A 세상" 이라면,
+
+  ```js
+  // foo(5) 함수가 실행되면서 새로운 실행 컨텍스트가 생성되고
+  // foo(5) 함수가 결과를 반환하면 실행 켄텍스트가 소멸 됨
+  var moar = foo(5);
+  ```
+  `foo(100)` 함수가 실행되고 결과를 반환할 때까지 존재하는 실행 컨텍스트가 "B 세상" 인 것이죠.
+
+  ```js
+  // foo(100) 함수가 실행되면서 새로운 실행 컨텍스트가 생성되고
+  // foo(100) 함수가 결과를 반환하면 실행 켄텍스트가 소멸 됨
+  var toar = foo(100);
+  ```
+
+  그러므로 `foo()` 함수가 실행, 결과를 반환하는 동안 생성/소멸된 실행 컨텍스트에 기억된 변수와 함수는 그 안에서만 존재하는 것입니다. 즉, **`foo()` 함수가 실행, 결과를 반환할 때 마다 다른 세상이 열리고 닫히는 것으로 비유할 수 있는 것이죠.** :-) 
+
+  ```js
+  function foo(a) {
+    // foo() 함수의 실행 컨텍스트
+    // - 변수 b
+    // - 함수 bar, boop
+    var b = 20; 
+    
+    function bar(c) {
+      // ...
+    } 
+    
+    function boop(e) {
+      // ...
+    } 
+    return bar;
+  }
+  ```
+
+  ```js
+  foo(5); // 새로운 실행 컨텍스트 생성 → 소멸
+  ```
+  
+  ```js
+  foo(100); // 새로운 실행 컨텍스트 생성 → 소멸
+  ```
+</details>
+
+<br />
+
+---
+
+<br />
 
 ## Q10. 질문
 
