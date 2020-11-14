@@ -1,0 +1,200 @@
+::selection {
+  background: #000;
+  color: #fff;
+}
+
+img::selection {
+  background: transparent;
+}
+
+:root {
+  --color-primary: #079992;
+  --color-secondary: #fa983a;
+  --color-accent: #113285;
+  --color-primary-hover: #05706b;
+  --color-secondary-hover: #db8535;
+  --color-accent-hover: #03091a;
+  --color-black: #121212;
+  --color-white: #fefefe;
+  --color-focus-visible: rgba(46, 57, 214, 0.9);
+  --size-focus-visible: 0.5rem;
+  --size-tab: 2.4rem;
+
+  font-size: 10px;
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  font: 1.6rem/1.5 SpoqaHanSans, Verdana, Arial, Sans-Serif;
+}
+
+body::before,
+body::after,
+body *,
+body *::before,
+body *::after {
+  box-sizing: inherit;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 var(--size-focus-visible) var(--color-focus-visible);
+}
+
+button:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--size-focus-visible) var(--color-focus-visible);
+}
+
+/* -------------------------------------------------------------------------- */
+
+/** 🎯 BEM 설계
+
+  [Block] 스크롤 뷰
+    - scrollView
+  
+  [Element] 스크롤 뷰 씬, 스크롤 뷰 헤드라인
+  - scrollView__control
+  - scrollView__controlTab
+  - scrollView__scene
+  
+  [Modifier] 수평 모드(상태), 탭 모양, 탭/뷰 선택(상태)
+    - scrollView--horizontal
+    - scrollView__controlTab--selected
+    - scrollView__controlTab--rounded
+    - scrolView__scene--selected
+
+*/
+
+.scrollView {
+  display: flex;
+  flex-flow: column nowrap;
+  background: var(--color-white);
+}
+
+.scrollView--horizontal {
+  flex-direction: row;
+}
+
+.scrollView__control {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  top: 50%;
+  right: 2rem;
+  height: 10rem;
+  border-radius: 2.5rem;
+  padding: 0.55rem;
+  background: var(--color-white);
+  transform: translateY(-50%);
+  box-shadow: 0 0 1rem 0.1rem rgba(22, 21, 22, 0.2);
+}
+
+.scrollView__controlTab {
+  cursor: pointer;
+  width: var(--size-tab, 1.6rem);
+  height: var(--size-tab, 1.6rem);
+  border: 0;
+  padding: 0;
+  background: var(--color-black);
+  color: var(--color-white);
+  font-family: inherit;
+}
+
+.scrollView__controlTab--rounded {
+  border-radius: 50%;
+}
+
+.scrollView__controlTab[aria-controls='scene--seoul'] {
+  background: var(--color-primary);
+}
+.scrollView__controlTab[aria-controls='scene--christtheRedeemer'] {
+  background: var(--color-secondary);
+}
+.scrollView__controlTab[aria-controls='scene--eiffelTower'] {
+  background: var(--color-accent);
+}
+
+.scrollView__controlTab[aria-controls='scene--seoul']:hover {
+  background: var(--color-primary-hover);
+}
+.scrollView__controlTab[aria-controls='scene--christtheRedeemer']:hover {
+  background: var(--color-secondary-hover);
+}
+.scrollView__controlTab[aria-controls='scene--eiffelTower']:hover {
+  background: var(--color-accent-hover);
+}
+
+.scrollView__controlTab.scrollView__controlTab--selected::before {
+  content: '★';
+}
+/* .scrollView__controlTab.scrollView__controlTab--selected::after {
+  content: '★';
+} */
+
+.scrollView__scene {
+  display: flex;
+  min-width: calc(100vw - 1.7rem);
+  min-height: 100vh;
+}
+
+.scrollView--horizontal .scrollView__scene {
+  min-width: 100vw;
+}
+
+#scene--seoul.scrollView__scene {
+  background: var(--color-primary);
+}
+
+#scene--christtheRedeemer.scrollView__scene {
+  background: var(--color-secondary);
+}
+
+#scene--eiffelTower.scrollView__scene {
+  background: var(--color-accent);
+}
+
+.scrollView__scene .container {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem;
+}
+
+.scrollView__scene figure {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+}
+
+.scrollView__scene figcaption {
+  margin-top: 1rem;
+  font-size: 3rem;
+  color: var(--color-white);
+}
+
+/* -------------------------------------------------------------------------- */
+
+/** 접근성(A11Y) 감춤 클래스 
+ *  화면에서는 감춰지지만, 스크린 리더는 읽을 수 있어 시각 장애인에게 정보를 제공할 수 있음 */
+.a11yHidden {
+  overflow: hidden;
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+}
