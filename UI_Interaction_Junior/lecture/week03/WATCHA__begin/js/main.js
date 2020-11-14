@@ -48,3 +48,30 @@ var wallpapers = [
 wallpapers = wallpapers.map(function (path) {
   return 'https://dhgywazgeek0d.cloudfront.net/watcha/image/upload/' + path
 })
+
+// 41장을 섞어서 결과를 반환
+var wallpaperList = shuffle(wallpapers)
+  // 5장만 골라내서 새로운 배열 반환
+  .filter(function(wallpaper, index) {
+    return index < 5
+  })
+
+// 현재 홈페이지에 사용할 월페이퍼 리스트(집합)
+// console.log(wallpaperList)
+
+/* -------------------------------------------------------------------------- */
+// .featureSection 노드 리스트 수집
+var featureSections = document.querySelectorAll('.featureSection')
+
+// 노드 리스트 → 배열 화
+featureSectionArray = makeArray(featureSections)
+
+featureSectionArray.forEach(function (section, index) {
+  var selector = '.featureSection:nth-of-type(' + (index + 1) + ')::before'
+  insertStyleRules(selector, { 'background-image': 'url(' + wallpaperList[index] + ')', })
+
+  window.setTimeout(function() {
+    insertStyleRules(selector, { 'opacity': 1, })
+  }, 1000)
+})
+
