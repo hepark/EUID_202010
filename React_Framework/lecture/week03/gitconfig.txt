@@ -1,0 +1,17 @@
+[user]
+  name  = <이름>
+  email = <이메일>
+
+[core]
+  precomposeunicode = true
+  quotepath         = false
+  editor            = code --wait
+
+[filter "lfs"]
+  clean    = git-lfs clean -- %f
+  smudge   = git-lfs smudge -- %f
+  process  = git-lfs filter-process
+  required = true
+
+[alias]
+  l = log --all --graph --oneline --decorate
