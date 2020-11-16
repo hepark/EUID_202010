@@ -10,13 +10,109 @@
 
 <img src="../../assets/cover--calendar.png" alt />
 
-## 4주차
+## 5주차
 
 <details open>
   <summary>🎯 학습 세부 항목 (펼쳐보세요)</summary>
   <br/>
 
-  4주차 학습은 온라인 + 오프라인 강의가 진행됩니다. 학습 내용은 '' 입니다.
+  5주차 학습은 온라인 + 오프라인 강의가 진행됩니다. 학습 내용은 'Styled Components & React Router' 입니다.
+
+  - ☑︎ Styled Components 라이브러리
+  - ☑︎ React Router 라이브러리
+
+  <br/>
+
+  ### ␥ 월요일
+
+  <details>
+    <summary>Styled Components 라이브러리에 대한 개념 정리 및 기본 활용법을 다져봅니다.</summary>
+    <br />
+
+  - ☑︎ 스타일 라이브러리 (5분 14초)
+  - ☑︎ Styled Components 기본 사용법 (4분 31초)
+  - ☑︎ Styled Components의 작동 원리 (ES6 태그 템플릿) (8분 38초)
+  - ☑︎ props 적용 (4분 20초)
+  - ☑︎ 스타일 확장 (3분 37초)
+  - ☑︎ 컴포넌트 스타일 확장 (6분 22초)
+  </details>
+
+  <br />
+
+  ### ␥ 화요일
+
+  <details>
+    <summary>Styled Components 라이브러리에 대한 개념 정리 및 응용 활용법을 다져봅니다.</summary>
+    <br />
+
+  - ☑︎ 컴포넌트 스타일 래퍼 (55초)
+  - ☑︎ 가상 클래스/요소, 중첩 규칙 (5분 45초)
+  - ☑︎ 정적/동적 props 할당 (3분 44초)
+  - ☑︎ 믹스인 (Mixin) (4분 2초)
+  - ☑︎ 애니메이션 (5분 25초)
+  - ☑︎ 글로벌 스타일 (4분 49초)
+  - ☑︎ 테마 (Theme) (10분 19초)
+  </details>
+
+  <br />
+
+  ### ␥ 수요일
+
+  <details>
+    <summary>React Router 라이브러리에 대한 개념 정리 및 기본 활용법을 다져봅니다.</summary>
+    <br />
+
+  - ☑︎ SPA 라이브러리 (4분 0초)
+  - ☑︎ 라우터? 라우트? 라우팅? (4분 28초)
+  - ☑︎ BrowserRouter & HashRouter 컴포넌트 (7분 19초)
+  - ☑︎ Route 컴포넌트 Part 1 (9분 55초)
+  - ☑︎ Route 컴포넌트 Part 2 (5분 39초)
+  </details>
+
+  <br />
+
+### ␥ 목요일
+
+  <details>
+    <summary>React Router 라이브러리에 대한 개념 정리 및 기본 활용법을 다져봅니다.</summary>
+    <br />
+
+  - ☑︎ Switch 컴포넌트 (4분 29초)
+  - ☑︎ Link 컴포넌트 (9분 18초)
+  - ☑︎ NavLink 컴포넌트 (9분 8초)
+  - ☑︎ Redirect 컴포넌트 (4분 46초)
+  </details>
+
+  <br />
+
+### ␥ 금요일
+
+  <details>
+    <summary>React Router 라이브러리에 대한 개념 정리 및 기본 활용법을 다져봅니다.</summary>
+    <br />
+
+  - ☑︎ Route 컴포넌트 props 전달 (2분 15초)
+  - ☑︎ Route 컴포넌트 매개변수(옵션 포함), 쿼리 스트링 (11분 28초)
+  - ☑︎ 중첩된 라우팅 (5분 17초)
+  - ☑︎ 보호된 라우팅 (9분 26초)
+  - ☑︎ Redux 통합
+  </details>
+
+</details>
+
+<br/>
+
+---
+
+<br/>
+
+## 4주차
+
+<details>
+  <summary>🎯 학습 세부 항목 (펼쳐보세요)</summary>
+  <br/>
+
+  4주차 학습은 온라인 + 오프라인 강의가 진행됩니다. 학습 내용은 'React 훅, TIP, Redux, React Redux' 입니다.
 
   - ☑︎ React 훅(Hook)
   - ☑︎ React & CRA 팁(Tip)
