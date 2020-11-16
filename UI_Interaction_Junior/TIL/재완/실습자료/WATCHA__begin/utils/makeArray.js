@@ -3,7 +3,7 @@
  * HTMLCollection, NodeList, arguments
  * makeArray(documnet.querySelectorAll('a'))
  */
-var makeArray = function (arrayLikeObject) {
+var makeArray = function(arrayLikeObject) {
   // 로직?
   // 배열.slice()
   // 슬라이스는 배열의 능력????
@@ -12,4 +12,4 @@ var makeArray = function (arrayLikeObject) {
   // 메서드 빌려쓰기 패턴 활용
   // return 새로운 배열
   return [].slice.call(arrayLikeObject)
-}
+};

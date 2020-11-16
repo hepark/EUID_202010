@@ -863,7 +863,11 @@ React 훅(Hooks) 과 마찬가지로 React Redux 또한 훅을 제공합니다. 
 
 ### 실습
 
+<<<<<<< HEAD
 [Todo App with React Redux Hooks (실습 완성)](https://codesandbox.io/s/todo-app-with-react-redux-hooks-silseub-sijag-74mgh)  프로젝트 링크를 
+=======
+[Todo App with React Redux Hooks (실습 시작)](https://codesandbox.io/s/todo-app-with-react-redux-hooks-silseub-sijag-74mgh)  프로젝트 링크를 
+>>>>>>> d46ad282cfc61beaab6ff64a953ccd3dc68a3630
 클릭한 후, 프로젝트를 Fork하여 실습을 진행합니다.
 
 ### useSelector 훅
