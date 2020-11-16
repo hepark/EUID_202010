@@ -10,9 +10,101 @@
 
 <img src="../../assets/cover--calendar.png" alt />
 
-## 4주차
+## 5주차
 
 <details open>
+  <summary>🎯 학습 세부 항목 (펼쳐보세요)</summary>
+  <br />
+
+  JavaScript 객체 지향 프로그래밍, 모던 JavaScript(ES6)에 대해 학습합니다.
+
+  - 함수(Function) 객체 메서드 활용
+  - 배열(Array) 객체 메서드 활용
+  - 객체(Object) 메서드 활용
+  - 객체지향 JavaScript(OOJS, Object Oriented JS)
+  - 생성자(Constructor) / 프로토타입(Prototype)
+  - 상속(Inheritance) / 합성(Mixin)
+  - [ES6] 문자
+  - [ES6] 함수
+  - [ES6] 배열
+  
+  <br />
+
+  ### ␥ 월요일
+
+  <details>
+    <summary>JavaScript의 숫자, 수학, 문자, 배열 객체를 정리합니다.</summary>
+    <br />
+
+  -  ☑︎ 숫자 / 수학 객체 (15분 31초, 8분 9초)
+  -  ☑︎ 문자 객체 (7분 26초, 16분 8초)
+  -  ☑︎ 배열 객체 (20분 57초)
+
+  </details>
+
+  <br />
+
+  ### ␥ 화요일
+
+  <details>
+    <summary>JavaScript 객체 상속 그리고 생성자와 프로토타입에 대해 학습합니다.</summary>
+    <br />
+
+  -  ☑︎ 객체 / 상속 (6분 48초, 8분 28초, 16분 54초)
+  -  ☑︎ 생성자 / 프로토타입 (9분 47초, 10분 54초, 16분 41초)
+  </details>
+
+  <br/>
+
+  ### ␥ 수요일
+
+  <details>
+    <summary>JavaScript 객체 지향 프로그래밍에 대해 학습합니다.</summary>
+    <br />
+
+  -  ☑︎ 객체지향 프로그래밍 (21분 12초)
+  </details>
+
+  <br/>
+
+  ### ␥ 목요일
+
+  <details>
+    <summary>ES6의 문자, 함수에 대해 정리합니다.</summary>
+    <br />
+
+  -  ☑︎ [ES6] 문자 ⎼ Template Literal (5분 44초)
+  -  ☑︎ [ES6] 문자 ⎼ String Addtions (8분 47초)
+  -  ☑︎ [ES6] 함수 ⎼ Arrow Function (20분 21초)
+  -  ☑︎ [ES6] 함수 ⎼ Default Parameter (10분 05초)
+  </details>
+
+  <br/>
+
+  ### ␥ 금요일
+
+  <details>
+    <summary>ES6의 함수와 배열에 대해 정리합니다.</summary>
+    <br />
+
+  -  ☑︎ [ES6] 함수 ⎼ Rest Parameter (18분 38초)
+  -  ☑︎ [ES6] 함수 ⎼ Spread Operator
+  -  ☑︎ [ES6] 배열 ⎼ Array Additions (15분 43초, 10분 06초)
+  </details>
+
+</details>
+
+<br/>
+
+<!-- -------------------------------------------------------------------------------------------  -->
+
+---
+
+<br/>
+
+## 4주차
+
+<details>
   <summary>🎯 학습 세부 항목 (펼쳐보세요)</summary>
   <br />
 
