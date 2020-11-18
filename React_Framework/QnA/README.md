@@ -18,8 +18,100 @@
 1. [이디야 실습 중에 `'React' must be in scope when using JSX ` 오류 질문 드립니다.](#q10-질문)
 1. [클래스 필드 문법에 대해 질문드립니다.](#q11-질문)
 1. [데이터 로딩은 언제 이루어지는지 궁금합니다.](#q12-질문)
+1. [왓챠 실습중인데 컴포넌트 구조에서 막힙니다.](#q13-질문)
 
 <br />
+
+## Q13. 질문
+
+왓챠 실습 중인데 컴포넌트 구조 잡는데 벌써부터 막힙니다. ([React_Framework/TIL/혜은/practice/watcha/](../TIL/혜은/practice/watcha/)) 여기에 업데이트했습니다.
+Container안에 main과 sub가 나올 거라 children으로 처리하고 싶어서 아래처럼 하면 오류가 나요.
+
+```jsx
+//Layout.js 
+// 아래처럼 Layout에서 main과 sub를 불러오지 않게 하고
+const Layout = () => (
+  <>
+    <Header />
+    <Navigation />
+    <Container />
+    <Footer />
+  </>
+);
+
+```
+
+```jsx
+//Container.js 
+
+// 공통 Container 안에 main과 sub를 불러오고 싶어요. 그런데 이렇게 하면 오류가 나요.
+const Container = ({ children }) => (
+  <div className="container ">{children}</div>
+);
+
+// Main을 지정해줘야만 정상으로 출력이 됩니다.
+const Container = () => (
+  <div className="container ">
+    <Main />
+  </div>
+);
+```
+
+<details open>
+  <summary>A13. 답변</summary>
+  <br/>
+
+  다음과 같이 작성한 후, Layout.js 컴포넌트에서 Main, Sub를 호출해 화면에 구현했습니다. 확인해보세요.
+
+  [**Container.js**](../TIL/혜은/practice/watcha/src/components/layout/Container.js)
+
+  ```jsx
+  import React from 'react'
+
+  // Q. Container안에 main과 서브가 나올 거라 children으로 처리하고 싶은데 생각했던 대로 안 되는 거 같습니다. ㅠㅠ
+  // A. 다음과 같이 작성한 후, Layout.js 컴포넌트에서 Main, Sub를 호출해 화면에 구현했습니다. 확인해보세요. ^ㅡ^
+
+  const Container = ({ children }) => <div className="container ">{children}</div>
+
+  export default Container
+  ```
+
+  [**Layout.js**](../TIL/혜은/practice/watcha/src/components/layout/Layout.js)
+
+  ```jsx
+  import React from 'react'
+  import Header from './Header'
+  import Navigation from './Navigation'
+  import Container from './Container'
+  import Footer from './Footer'
+  import Main from 'pages/Main'
+  import Sub from 'pages/Sub'
+
+  const Layout = () => (
+    <>
+      <Header />
+      <Navigation />
+      <Container>
+        <Main />
+        <Sub />
+      </Container>
+      <Footer />
+    </>
+  )
+
+  export default Layout
+  ```
+
+  결과는 오류가 발생하지 않습니다.
+
+  ![](./_/no-error.png)
+</details>
+
+<br/>
+
+---
+
+<br/>
 
 ## Q12. 질문
 
@@ -27,7 +119,7 @@
 수업시간에도 궁금하긴 했는데 데이터 로딩은 언제 이루어지나요? `componentDidMount` 시점인 거 같은데,
 혹시 렌더링 시점에 불러오게끔 할 수도 있나요? 그리고 `isLoading`을 체크할 필요는 없는 건가요?
 
-<details open>
+<details>
   <summary>A12. 답변</summary>
   <!-- <br/> -->
 
@@ -201,7 +293,7 @@ class Navigation extends Component {
 }
 ```
 
-<details open>
+<details>
   <summary>A11. 답변</summary>
   <!-- <br/> -->
 
@@ -269,7 +361,7 @@ class Navigation extends Component {
 오류내용 : `'React' must be in scope when using JSX`<br />
 우선 해결 : `import React from 'react'`;
 
-<details open>
+<details>
   <summary>A10. 답변</summary>
   <!-- <br/> -->
 
