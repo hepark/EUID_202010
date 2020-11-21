@@ -54,6 +54,9 @@ wallpapers = wallpapers.map(
   (path) => `https://dhgywazgeek0d.cloudfront.net/watcha/image/upload/${path}`
 )
 
+const wallpapers = [].map(
+  (path) => `https://dhgywazgeek0d.cloudfront.net/watcha/image/upload/${path}`
+)
 /*
 wallpapers = wallpapers.map((path) => {
   return 'https://dhgywazgeek0d.cloudfront.net/watcha/image/upload/' + path
