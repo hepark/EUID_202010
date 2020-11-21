@@ -1,13 +1,6 @@
 // 배열 → 복사(원본 보호) → 정렬 → 새로운 배열 반환
-function sortArray(compareFn, array) {
-  return array.slice().sort(compareFn)
-}
-
-function currySortArray(compareFn) {
-  return function (array) {
-    return array.slice().sort(compareFn)
-  }
-}
+const sortArray = (compareFn, array) => array.slice().sort(compareFn)
+const currySortArray = (compareFn) => (array) => array.slice().sort(compareFn)
 
 const orgArray = [3, 2, 7, 10, -11]
 
