@@ -113,13 +113,9 @@ featureSectionArray.forEach((section, index) => {
   window.setTimeout(() => insertStyleRules(selector, { opacity: 1 }), 1000)
 })
 
-const handleGoToSection = (index) => {
-  return () => {
-    let nextIndex = index + 1
-    nextIndex = nextIndex === featureSectionArray.length ? 0 : nextIndex
-    const nextSection = featureSectionArray[nextIndex]
-    nextSection.scrollIntoView({ behavior: 'smooth' })
-  }
+const handleGoToSection = (index) => () => {
+  const nextIndex = index === featureSectionArray.length - 1 ? 0 : index + 1
+  featureSectionArray[nextIndex].scrollIntoView({ behavior: 'smooth' })
 }
 
 featureSectionArray.forEach((section, index) => {
@@ -127,6 +123,5 @@ featureSectionArray.forEach((section, index) => {
   const button = section.querySelector('.button--goToSection')
   // 찾은 버튼 집합을 순환해서 click 이벤트를 연결하라!
   // click 이벤트가 감지되면 해당 섹션으로 스르륵~ 이동 시켜라!
-  console.log(button, index)
   button.addEventListener('click', handleGoToSection(index))
 })
