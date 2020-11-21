@@ -136,3 +136,17 @@ featureSectionArray.forEach((section, index) => {
     handleGoToSection.bind(featureSectionArray, index)
   )
 })
+
+// 루프를 쓰지 않고, 이벤트를 전파하여 효과적으로 핸들링하기
+// 이벤트 위임(Event Delegation)
+// 상위 요소에 이벤트를 연결하면
+// 하위에 종속된 모든 요소에 이벤트가 전파된다 (흐른다)
+const parentNode = document.querySelector('.appNavigation')
+
+parentNode.addEventListener('click', (e) => {
+  // 1. 이벤트가 현재 전파된 요소 노드
+  // 2. 이벤트가 연결된 요소 노드
+
+  console.log(e.target) // 1? 2?
+  console.log(e.currertTarget) // 1? 2?
+})
