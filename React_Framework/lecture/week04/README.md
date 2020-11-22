@@ -109,7 +109,7 @@ React 프로그래밍 실습을 진행하며, 학습을 마무리합니다.
   ```js
   copySort(originalArray, function(x, y) {
     return x - y
-  }
+  })
   ```
 
   #### 커리 함수 활용
