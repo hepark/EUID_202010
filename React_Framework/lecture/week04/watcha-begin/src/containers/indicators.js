@@ -11,8 +11,8 @@ export default function IndicatorsContainer({ list = [] }) {
         list={list}
         render={(item) => (
           <Indicators.Item key={item.id} item={item}>
-            <Button>
-              <A11yHidden>{item.headline.abbr}</A11yHidden>
+            <Button className="indicatorButton">
+              <A11yHidden className="tooltip">{item.headline.abbr}</A11yHidden>
             </Button>
           </Indicators.Item>
         )}

@@ -41,3 +41,10 @@ export const resetList = css`
 export const resetAddress = css`
   font-style: normal;
 `
+
+export const resetA11yHidden = css`
+  overflow: initial;
+  clip: initial;
+  clip-path: initial;
+  white-space: initial;
+`
