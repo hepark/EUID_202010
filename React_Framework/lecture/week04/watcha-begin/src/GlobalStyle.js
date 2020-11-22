@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components'
 
 /* -------------------------------------------------------------------------- */
 
-// 컬러 스킴
+// 컬러 스킴(scheme, 계획)
 export const colorScheme = {
   black: '#141517',
   white: '#fcfcff',
@@ -10,7 +10,7 @@ export const colorScheme = {
   accentHover: '#c7254d',
 }
 
-// 레이아웃 구성
+// 레이아웃 구성(configure)
 export const layoutConfig = {
   container: {
     maxWidth: '120rem',
@@ -20,7 +20,7 @@ export const layoutConfig = {
 
 /* -------------------------------------------------------------------------- */
 
-const { black, white } = colorScheme
+const { black, white, accent } = colorScheme
 const { container } = layoutConfig
 
 export default createGlobalStyle`
@@ -60,14 +60,89 @@ export default createGlobalStyle`
   template{display:none}
   [hidden]{display:none}
 
+  /* selection */
+  ::selection {
+    background: ${accent};
+    color: ${white};
+    img&,
+    button& {
+      background: transparent;
+    }
+  }
+
+  /* focus visible */
+  :focus {
+    outline: none;
+    box-shadow: 0 0 0 4px ${accent};
+  }
+  :focus:not(:focus-visible) {
+    box-shadow: none;
+  }
+  :focus-visible {
+    box-shadow: 0 0 0 4px ${accent};
+  }
+
+  /* base */
+  .resetA {
+    user-select: none;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .resetButton {
+    user-select: none;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+
+  .resetImg {
+    vertical-align: middle;
+  }
+
+  .responsive {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .resetDl {
+    margin: 0;
+    dt, dd {
+      margin: inherit;
+    }
+  }
+
+  .resetList {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+
+  .resetAddress {
+    font-style: normal;
+  }
+
   /* theme */
   body {
     background: ${black};
     color: ${white};
-  
     * {
       color: inherit;
     }
+  }
+
+  /* typography */
+  html {
+    font-size: 10px;
+  }
+
+  body {
+    font: 1.6rem/1.5 SpoqaHanSans, "Helvetica Neue", Verdana, Sans-Serif;
+  }
+
+  h1, h2, h3, h4, h5, h6, p {
+    margin-bottom: 0;
   }
 
   /* layout */
