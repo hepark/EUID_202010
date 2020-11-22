@@ -7,6 +7,8 @@ export const colorScheme = {
   black: '#141517',
   white: '#fcfcff',
   accent: '#F82F62',
+  // hover
+  whiteHover: '#dfdfdf',
   accentHover: '#c7254d',
 }
 
