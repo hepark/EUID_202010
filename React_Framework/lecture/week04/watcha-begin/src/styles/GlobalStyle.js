@@ -1,24 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
+import { colorScheme, layoutConfig } from './config'
 
 /* -------------------------------------------------------------------------- */
-
-// 컬러 스킴(scheme, 계획)
-export const colorScheme = {
-  black: '#141517',
-  white: '#fcfcff',
-  accent: '#F82F62',
-  // hover
-  whiteHover: '#dfdfdf',
-  accentHover: '#c7254d',
-}
-
-// 레이아웃 구성(configure)
-export const layoutConfig = {
-  container: {
-    maxWidth: '120rem',
-    padding: '2rem 1.5rem',
-  },
-}
 
 /* -------------------------------------------------------------------------- */
 
@@ -82,42 +65,6 @@ export default createGlobalStyle`
   }
   :focus-visible {
     box-shadow: 0 0 0 4px ${accent};
-  }
-
-  /* base */
-
-  .resetButton {
-    user-select: none;
-    cursor: pointer;
-    background: transparent;
-    border: 0;
-    padding: 0;
-  }
-
-  .resetImg {
-    vertical-align: middle;
-  }
-
-  .responsive {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .resetDl {
-    margin: 0;
-    dt, dd {
-      margin: inherit;
-    }
-  }
-
-  .resetList {
-    list-style: none;
-    margin: 0;
-    padding-left: 0;
-  }
-
-  .resetAddress {
-    font-style: normal;
   }
 
   /* theme */

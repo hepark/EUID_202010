@@ -1,5 +1,11 @@
+import { HeaderContainer } from 'containers'
+
 const SignUp = () => {
-  return <div>SignUp</div>
+  return (
+    <>
+      <HeaderContainer />
+    </>
+  )
 }
 
 export default SignUp

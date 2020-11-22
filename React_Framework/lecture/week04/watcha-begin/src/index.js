@@ -7,7 +7,7 @@ import { render } from 'react-dom'
 import reportWebVitals from 'reportWebVitals'
 import { StoreProvider } from 'store'
 
-import GlobalStyle from 'GlobalStyle'
+import { GlobalStyle } from 'styles'
 import App from 'App'
 
 render(

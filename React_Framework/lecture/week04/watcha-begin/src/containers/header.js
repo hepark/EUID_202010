@@ -1,7 +1,9 @@
+import { bool } from 'prop-types'
+
 import { Header } from 'components'
 import Logo from 'assets/Logo.svg'
 
-export default function HeaderContainer() {
+export default function HeaderContainer({ signIn = false }) {
   return (
     <Header>
       {/* 컴파운드 컴포넌트 */}
@@ -16,7 +18,13 @@ export default function HeaderContainer() {
           />
         </Header.HomeLink>
       </Header.Brand>
-      <Header.SignInLink to="/signin">로그인</Header.SignInLink>
+      <Header.SignInLink to={{ pathname: signIn ? '/signup' : '/signin' }}>
+        {signIn ? '회원가입' : '로그인'}
+      </Header.SignInLink>
     </Header>
   )
+}
+
+HeaderContainer.propTypes = {
+  signIn: bool,
 }

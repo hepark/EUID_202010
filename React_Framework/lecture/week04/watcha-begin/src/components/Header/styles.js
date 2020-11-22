@@ -1,14 +1,6 @@
-import styled, { css } from 'styled-components/macro'
+import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
-import { colorScheme } from '../../GlobalStyle'
-
-/* -------------------------------------------------------------------------- */
-// 믹스인
-const resetA = css`
-  user-select: none;
-  text-decoration: none;
-  color: inherit;
-`
+import { resetA, colorScheme } from 'styles'
 
 /* -------------------------------------------------------------------------- */
 
