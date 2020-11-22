@@ -4,8 +4,10 @@ import 'react-app-polyfill/ie11'
 // 자세히 알아보기 : https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
 import { StrictMode } from 'react'
 import { render } from 'react-dom'
-import reportWebVitals from './reportWebVitals'
-import { StoreProvider } from './store'
+import reportWebVitals from 'reportWebVitals'
+import { StoreProvider } from 'store'
+
+import GlobalStyle from 'GlobalStyle'
 import App from 'App'
 
 render(
@@ -15,6 +17,7 @@ render(
   // 자세히 알아보기 : https://ko.reactjs.org/docs/strict-mode.html
   <StrictMode>
     <StoreProvider>
+      <GlobalStyle />
       <App />
     </StoreProvider>
   </StrictMode>,

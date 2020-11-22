@@ -2,7 +2,7 @@
 
 const initState = {}
 
-const homeReducer = (state = initState, { type, payload }) => {
+const homeReducer = (state = initState, { type }) => {
   switch (type) {
     default:
       return state
