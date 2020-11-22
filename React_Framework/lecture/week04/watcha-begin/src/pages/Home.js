@@ -18,6 +18,7 @@ const Home = () => {
       .catch((error) => console.error(error.message))
   }, [])
 
+  // 렌더
   return (
     <>
       <HeaderContainer />
