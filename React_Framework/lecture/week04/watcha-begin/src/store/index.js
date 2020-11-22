@@ -1,4 +1,4 @@
-import { element } from 'prop-types'
+import { element, arrayOf } from 'prop-types'
 import { Provider } from 'react-redux'
 import { applyMiddleware, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -20,6 +20,7 @@ export const StoreProvider = ({ children }) => (
   <Provider store={store}>{children}</Provider>
 )
 
+// 속성 검사
 StoreProvider.propTypes = {
-  children: element,
+  children: arrayOf(element),
 }
