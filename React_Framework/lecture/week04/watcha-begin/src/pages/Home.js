@@ -1,4 +1,4 @@
-import { HeaderContainer } from 'containers'
+import { HeaderContainer, IndicatorsContainer } from 'containers'
 
 /* -------------------------------------------------------------------------- */
 
@@ -6,6 +6,7 @@ const Home = () => {
   return (
     <>
       <HeaderContainer />
+      <IndicatorsContainer />
     </>
   )
 }
