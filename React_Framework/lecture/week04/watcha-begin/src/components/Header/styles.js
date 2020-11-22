@@ -39,7 +39,12 @@ export const SignInLink = styled(Link)`
   font-size: 1.4rem;
   font-weight: bold;
   background: ${white};
-  color: ${black};
+
+  // 글로벌 스타일 덮어쓰기
+  && {
+    color: ${black};
+  }
+
   &:hover {
     background: ${whiteHover};
   }
