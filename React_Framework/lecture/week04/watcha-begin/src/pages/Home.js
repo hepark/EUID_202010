@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
-import { HeaderContainer, IndicatorsContainer } from 'containers'
+import {
+  HeaderContainer,
+  IndicatorsContainer,
+  HomeMainContainer,
+} from 'containers'
 
 const { PUBLIC_URL } = process.env
 
@@ -27,6 +31,7 @@ const Home = () => {
         activeIndex={activeIndex}
         onChangeActiveIndex={setActiveIndex}
       />
+      <HomeMainContainer />
     </>
   )
 }
