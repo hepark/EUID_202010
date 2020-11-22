@@ -1,9 +1,16 @@
 import styled from 'styled-components/macro'
-import { layoutConfig, resetList, resetButton, resetA11yHidden } from 'styles'
+import {
+  colorScheme,
+  layoutConfig,
+  resetList,
+  resetButton,
+  resetA11yHidden,
+} from 'styles'
 
 /* -------------------------------------------------------------------------- */
 
 const { tablet } = layoutConfig.breakpoints
+const { white, gray } = colorScheme
 
 /* -------------------------------------------------------------------------- */
 
@@ -41,7 +48,7 @@ export const Item = styled.li`
     height: 2rem;
     margin: 1rem;
     border-radius: 50%;
-    background: rgba(240, 240, 240, 0.45);
+    background: ${({ active }) => (active ? white : gray)};
     transition: all 0.4s ease;
 
     &:hover .tooltip {

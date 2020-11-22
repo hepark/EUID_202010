@@ -8,6 +8,7 @@ const { PUBLIC_URL } = process.env
 const Home = () => {
   // 상태
   const [indicators, setIndicators] = useState([])
+  const [activeIndex, setActiveIndex] = useState(0)
 
   // 사이드 이펙트
   useEffect(() => {
@@ -20,7 +21,11 @@ const Home = () => {
   return (
     <>
       <HeaderContainer />
-      <IndicatorsContainer list={indicators} />
+      <IndicatorsContainer
+        list={indicators}
+        activeIndex={activeIndex}
+        onChangeActiveIndex={setActiveIndex}
+      />
     </>
   )
 }
