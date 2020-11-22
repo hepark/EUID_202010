@@ -85,11 +85,6 @@ export default createGlobalStyle`
   }
 
   /* base */
-  .resetA {
-    user-select: none;
-    text-decoration: none;
-    color: inherit;
-  }
 
   .resetButton {
     user-select: none;

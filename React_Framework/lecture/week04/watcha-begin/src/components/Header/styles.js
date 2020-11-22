@@ -1,6 +1,14 @@
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
 import { Link } from 'react-router-dom'
 import { colorScheme } from '../../GlobalStyle'
+
+/* -------------------------------------------------------------------------- */
+// 믹스인
+const resetA = css`
+  user-select: none;
+  text-decoration: none;
+  color: inherit;
+`
 
 /* -------------------------------------------------------------------------- */
 
@@ -25,6 +33,8 @@ export const Brand = styled.h1`
 
 // React Router의 Link 컴포넌트 확장
 export const HomeLink = styled(Link)`
+  /* 믹스인(합성) */
+  ${resetA}
   display: block;
   padding: 0 0.4rem 0.4rem;
 `
@@ -33,17 +43,15 @@ export const HomeLink = styled(Link)`
 const { white, whiteHover, black } = colorScheme
 
 export const SignInLink = styled(Link)`
+  /* 믹스인(합성) */
+  ${resetA}
   border-radius: 2rem;
   padding: 0.5rem 1.7rem;
   letter-spacing: -0.03em;
   font-size: 1.4rem;
   font-weight: bold;
   background: ${white};
-
-  // 글로벌 스타일 덮어쓰기
-  && {
-    color: ${black};
-  }
+  color: ${black};
 
   &:hover {
     background: ${whiteHover};
