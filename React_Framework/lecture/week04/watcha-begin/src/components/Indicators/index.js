@@ -1,6 +1,5 @@
-import React from 'react'
-import { arrayOf, element } from 'prop-types'
-import { Container } from './styles'
+import { array, func, arrayOf, element } from 'prop-types'
+import { Container, List, Item } from './styles'
 
 /* -------------------------------------------------------------------------- */
 
@@ -13,7 +12,24 @@ Indicators.propTypes = {
 }
 
 /* -------------------------------------------------------------------------- */
-// Indicators.List
+
+Indicators.List = function IndicatorsList({ list, render, ...restProps }) {
+  return (
+    <List {...restProps}>{list.map((item, index) => render(item, index))}</List>
+  )
+}
+
+Indicators.List.propTypes = {
+  list: array,
+  render: func,
+}
 
 /* -------------------------------------------------------------------------- */
-// Indicators.Item
+
+Indicators.Item = function IndicatorsItem({ children, ...restProps }) {
+  return <Item {...restProps}>{children}</Item>
+}
+
+Indicators.Item.propTypes = {
+  children: element,
+}

@@ -16,4 +16,7 @@ export const layoutConfig = {
     maxWidth: '120rem',
     padding: '2rem 1.5rem',
   },
+  breakpoints: {
+    tablet: '48.75em' /* 780px */,
+  },
 }
