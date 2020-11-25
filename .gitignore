@@ -4,8 +4,7 @@
 .parcel-cache
 temp/
 *--begin.zip
-# *.pdf
-# WATCHA__finish
+# watcha-ing
 
 # General
 .DS_Store
